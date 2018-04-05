@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.mesawer.chaty.seqayamvpclean.BuildConfig;
 import com.mesawer.chaty.seqayamvpclean.R;
+import com.mesawer.chaty.seqayamvpclean.base.BaseActivity;
+import com.mesawer.chaty.seqayamvpclean.base.BasePresenter;
 import com.mesawer.chaty.seqayamvpclean.presentation.registration.RegistrationActivity;
 
 
@@ -33,7 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @BindView(R.id.login_email_edit_text)
     EditText loginEmailEditText;
@@ -141,7 +143,12 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 //    }
 
-//    private void showErrorMessage(String jsonString) {
+    @Override
+    public void navigateToMainActivity() {
+
+    }
+
+    //    private void showErrorMessage(String jsonString) {
 //        Gson gson = new Gson();
 //        APIError apiError = gson.fromJson(jsonString, APIError.class);
 //        Snackbar.make(loginLayout, apiError.getMessage(), Snackbar.LENGTH_LONG).show();
@@ -153,11 +160,18 @@ public class LoginActivity extends AppCompatActivity {
 //        finish();
 //    }
 //
-    private void navigateToRegistrationActivity() {
+    @Override
+    public void navigateToRegistrationActivity() {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
         finish();
     }
+
+    @Override
+    public void setPresenter(LoginContract.Presenter presenter) {
+
+    }
+
 
 //    public Credential getCredential() {
 //        String email = loginEmailEditText.getText().toString();

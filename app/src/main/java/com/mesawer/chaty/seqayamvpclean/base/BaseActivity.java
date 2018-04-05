@@ -12,9 +12,8 @@ import com.mesawer.chaty.seqayamvpclean.R;
  * Created by ilias on 06/03/2018.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseView<BasePresenter> {
+public class BaseActivity extends AppCompatActivity {
 
-    @Override
     public void showErrorMessage(View layout, String errMsg) {
         if (layout != null) {
             Snackbar snackbar = Snackbar.make(layout, errMsg, Snackbar.LENGTH_LONG);

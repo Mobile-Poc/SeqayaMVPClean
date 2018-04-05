@@ -12,10 +12,8 @@ import com.mesawer.chaty.seqayamvpclean.R;
  * Created by ilias on 08/03/2018.
  */
 
-public abstract class BaseFragment extends Fragment implements BaseView<BaseFragment> {
+public class BaseFragment extends Fragment {
 
-
-    @Override
     public void showErrorMessage(View layout, String errMsg) {
         if (layout != null) {
             Snackbar snackbar = Snackbar.make(layout, errMsg, Snackbar.LENGTH_LONG);
