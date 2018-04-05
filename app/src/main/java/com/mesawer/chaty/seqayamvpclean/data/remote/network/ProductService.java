@@ -9,6 +9,7 @@ import com.mesawer.chaty.seqayamvpclean.data.remote.entity.UserAPI;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -24,35 +25,35 @@ import retrofit2.http.Query;
 public interface ProductService {
 
     @GET("product")
-    Call<List<Product>> getProducts();
+    Observable<List<Product>> getProducts();
 
     @GET("search")
-    Call<List<Product>> getSearchResult(@Query("q") String searchKeyword);
+    Observable<List<Product>> getSearchResult(@Query("q") String searchKeyword);
 
     @POST("user")
-    Call<UserAPI> addNewUser(@Body UserAPI user);
+    Observable<UserAPI> addNewUser(@Body UserAPI user);
 
     @POST("login")
-    Call<UserAPI> login(@Body Credential credential);
+    Observable<UserAPI> login(@Body Credential credential);
 
     @POST("order")
-    Call<Order> addNewOrder(@Body Order order);
+    Observable<Order> addNewOrder(@Body Order order);
 
     @GET("order/{userId}")
-    Call<List<Order>> getOrderHistory(@Path("userId") String userId);
+    Observable<List<Order>> getOrderHistory(@Path("userId") String userId);
 
     @POST("location")
-    Call<Location> addNewLocation(@Body Location location);
+    Observable<Location> addNewLocation(@Body Location location);
 
     @GET("location/{userId}")
-    Call<List<Location>> getSavedLocations(@Path("userId") String userId);
+    Observable<List<Location>> getSavedLocations(@Path("userId") String userId);
 
     @POST("fav")
-    Call<Fav> addFav(@Body Fav fav);
+    Observable<Fav> addFav(@Body Fav fav);
 
     @GET("fav/{userId}")
-    Call<List<Product>> getFavs(@Path("userId") String userId);
+    Observable<List<Product>> getFavs(@Path("userId") String userId);
 
     @DELETE("fav/{id}")
-    Call<Fav> deleteFav(@Path("id") String productId);
+    Observable<Fav> deleteFav(@Path("id") String productId);
 }

@@ -1,8 +1,7 @@
 package com.mesawer.chaty.seqayamvpclean.data.remote;
 
-import android.support.annotation.NonNull;
-
 import com.mesawer.chaty.seqayamvpclean.data.ProductsDataSource;
+import com.mesawer.chaty.seqayamvpclean.data.remote.entity.Credential;
 import com.mesawer.chaty.seqayamvpclean.data.remote.network.ApiClient;
 import com.mesawer.chaty.seqayamvpclean.data.remote.network.ProductService;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Fav;
@@ -13,10 +12,10 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ProductsRemoteDataSource implements ProductsDataSource {
 
@@ -32,24 +31,7 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
 
     @Override
     public Observable<List<Product>> getProducts() {
-        return Observable.create(emitter -> {
-            ApiClient.getClient().create(ProductService.class)
-                    .getProducts()
-                    .enqueue(new Callback<List<Product>>() {
-                        @Override
-                        public void onResponse(@NonNull Call<List<Product>> call,
-                                               @NonNull Response<List<Product>> response) {
-                            List<Product> products = response.body();
-                            emitter.onNext(products);
-                        }
-
-                        @Override
-                        public void onFailure(@NonNull Call<List<Product>> call,
-                                              @NonNull Throwable t) {
-
-                        }
-                    });
-        });
+        return null;
     }
 
     @Override
@@ -58,13 +40,25 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     }
 
     @Override
-    public Observable<User> addNewUser(User user) {
+    public Completable addNewUser(User user) {
         return null;
     }
 
     @Override
-    public Observable<User> emailPasswordLogin(String email, String password) {
-        return null;
+    public Completable emailPasswordLogin(String email, String password) {
+        return Completable.create(emitter ->{
+            Credential credential = new Credential(email, password);
+            ApiClient.getClient().create(ProductService.class)
+                    .login(credential)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(userAPI -> {
+                        User.setEmail(userAPI.getEmail());
+                        User.setName(userAPI.getName());
+                        User.setPassword(userAPI.getPassword());
+                        emitter.onComplete();
+                    }, emitter::onError);
+        });
     }
 
     @Override

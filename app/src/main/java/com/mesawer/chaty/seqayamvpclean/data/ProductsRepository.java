@@ -9,6 +9,7 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 
 public class ProductsRepository implements IProductsRepository {
@@ -36,13 +37,13 @@ public class ProductsRepository implements IProductsRepository {
     }
 
     @Override
-    public Observable<User> addNewUser(User user) {
+    public Completable addNewUser(User user) {
         return null;
     }
 
     @Override
-    public Observable<User> emailPasswordLogin(String email, String password) {
-        return null;
+    public Completable emailPasswordLogin(String email, String password) {
+        return productsDataSource.emailPasswordLogin(email, password);
     }
 
     @Override

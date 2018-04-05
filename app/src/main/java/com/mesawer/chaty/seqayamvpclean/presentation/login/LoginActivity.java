@@ -58,6 +58,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @BindView(R.id.language_letter_indicator)
     TextView languageLetterIndicator;
     private Retrofit retrofit;
+    private LoginContract.Presenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,10 +170,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void setPresenter(LoginContract.Presenter presenter) {
-
+        loginPresenter = presenter;
     }
-
-
 //    public Credential getCredential() {
 //        String email = loginEmailEditText.getText().toString();
 //        String password = loginPasswordEditText.getText().toString();

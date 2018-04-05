@@ -8,6 +8,7 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 
 public interface ProductsDataSource {
@@ -15,9 +16,9 @@ public interface ProductsDataSource {
 
     Observable<List<Product>> getSearchResult(String searchKeyword);
 
-    Observable<User> addNewUser(User user);
+    Completable addNewUser(User user);
 
-    Observable<User> emailPasswordLogin(String email, String password);
+    Completable emailPasswordLogin(String email, String password);
 
     Observable<Order> addNewOrder(Order order);
 
