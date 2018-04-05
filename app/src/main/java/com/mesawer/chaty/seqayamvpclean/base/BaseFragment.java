@@ -14,7 +14,9 @@ import com.mesawer.chaty.seqayamvpclean.R;
 
 public class BaseFragment extends Fragment {
 
-    public void showErrorMessage(View layout, String errMsg) {
+    public View layout;
+
+    public void showErrorMessage(String errMsg) {
         if (layout != null) {
             Snackbar snackbar = Snackbar.make(layout, errMsg, Snackbar.LENGTH_LONG);
             View sbView = snackbar.getView();
