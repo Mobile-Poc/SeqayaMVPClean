@@ -5,14 +5,11 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.Product;
 
 import java.util.List;
 
-import io.reactivex.Observable;
-
 public class GetProducts implements UseCase<GetProducts.RequestValues, GetProducts.ResponseValues> {
 
 
     @Override
-    public Observable<ResponseValues> execute(RequestValues requestValue) {
-        return null;
+    public void execute(RequestValues requestValue, UseCaseCallback<ResponseValues> useCaseCallback) {
     }
 
     class RequestValues implements UseCase.RequestValues{

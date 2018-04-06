@@ -1,9 +1,8 @@
 package com.mesawer.chaty.seqayamvpclean.data.remote;
 
 import com.mesawer.chaty.seqayamvpclean.data.ProductsDataSource;
-import com.mesawer.chaty.seqayamvpclean.data.remote.entity.Credential;
-import com.mesawer.chaty.seqayamvpclean.data.remote.network.ApiClient;
-import com.mesawer.chaty.seqayamvpclean.data.remote.network.ProductService;
+import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository.ErrorCallback;
+import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository.SuccessCallback;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Fav;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Location;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
@@ -11,11 +10,6 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.Product;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 
 import java.util.List;
-
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class ProductsRemoteDataSource implements ProductsDataSource {
 
@@ -30,69 +24,79 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     }
 
     @Override
-    public Observable<List<Product>> getProducts() {
-        return null;
+    public void getProducts(
+            SuccessCallback<List<Product>> successCallback,
+            ErrorCallback errorCallback) {
     }
 
     @Override
-    public Observable<List<Product>> getSearchResult(String searchKeyword) {
-        return null;
+    public void getSearchResult(String searchKeyword,
+                                SuccessCallback<List<Product>> successCallback,
+                                ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Completable addNewUser(User user) {
-        return null;
+    public void addNewUser(User user,
+                           SuccessCallback<Void> successCallback,
+                           ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Completable emailPasswordLogin(String email, String password) {
-        return Completable.create(emitter ->{
-            Credential credential = new Credential(email, password);
-            ApiClient.getClient().create(ProductService.class)
-                    .login(credential)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(userAPI -> {
-                        User.setEmail(userAPI.getEmail());
-                        User.setName(userAPI.getName());
-                        User.setPassword(userAPI.getPassword());
-                        emitter.onComplete();
-                    }, emitter::onError);
-        });
+    public void emailPasswordLogin(String email, String password,
+                                   SuccessCallback<Void> successCallback,
+                                   ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<Order> addNewOrder(Order order) {
-        return null;
+    public void addNewOrder(Order order,
+                            SuccessCallback<Order> successCallback,
+                            ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<List<Order>> getOrderHistory(String userId) {
-        return null;
+    public void getOrderHistory(String userId,
+                                SuccessCallback<List<Order>> successCallback,
+                                ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<Location> addNewLocation(Location location) {
-        return null;
+    public void addNewLocation(Location location,
+                               SuccessCallback<Location> successCallback,
+                               ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<List<Location>> getSavedLocations(String userId) {
-        return null;
+    public void getSavedLocations(String userId,
+                                  SuccessCallback<List<Location>> successCallback,
+                                  ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<Fav> addFav(Fav fav) {
-        return null;
+    public void addFav(Fav fav,
+                       SuccessCallback<Fav> successCallback,
+                       ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<Fav> deleteFav(String productId) {
-        return null;
+    public void deleteFav(String productId,
+                          SuccessCallback<Fav> successCallback,
+                          ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<List<Product>> getFavs(String userId) {
-        return null;
+    public void getFavs(String userId,
+                        SuccessCallback<List<Product>> successCallback,
+                        ErrorCallback errorCallback) {
+
     }
+
 }

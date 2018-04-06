@@ -21,6 +21,7 @@ import com.mesawer.chaty.seqayamvpclean.R;
 import com.mesawer.chaty.seqayamvpclean.base.BaseActivity;
 import com.mesawer.chaty.seqayamvpclean.base.BasePresenter;
 import com.mesawer.chaty.seqayamvpclean.presentation.registration.RegistrationActivity;
+import com.mesawer.chaty.seqayamvpclean.utils.Injection;
 
 
 import java.io.IOException;
@@ -33,6 +34,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static com.mesawer.chaty.seqayamvpclean.utils.StringUtil.isNullOrEmpty;
+import static com.mesawer.chaty.seqayamvpclean.utils.StringUtil.isValidEmailAddress;
+import static com.mesawer.chaty.seqayamvpclean.utils.StringUtil.notNullOrEmpty;
 
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
@@ -65,16 +70,23 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        super.layout = loginLayout;
+        loginPresenter = new LoginPresenter(this, Injection.provideEmailPasswordLogin());
         if (BuildConfig.DEBUG) {
             loginEmailEditText.setText("seqaya@ntgclarity.com");
             loginPasswordEditText.setText("1234");
         }
+        changeLocalLanguageToArabic();
+    }
+
+    private void changeLocalLanguageToArabic() {
         String languageToLoad = "ar";
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
     }
 
     @OnClick({R.id.login_button, R.id.reg_nav_button, R.id.facebook_button, R.id.twitter_button,
@@ -82,7 +94,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_button:
-//                login();
+                login();
                 break;
             case R.id.reg_nav_button:
                 navigateToRegistrationActivity();
@@ -94,17 +106,26 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             case R.id.google_button:
                 break;
             case R.id.language_change:
-//                if (languageLetterIndicator.getText().toString()
-//                        .equals(getString(R.string.english))) {
-//                    languageLetterIndicator.setText(R.string.arabic);
-//                } else {
-//                    languageLetterIndicator.setText(R.string.english);
-//                }
-
+                if (languageLetterIndicator.getText().toString()
+                        .equals(getString(R.string.english))) {
+                    languageLetterIndicator.setText(R.string.arabic);
+                } else {
+                    languageLetterIndicator.setText(R.string.english);
+                }
                 break;
         }
     }
 
+    private void login() {
+        String email = loginEmailEditText.getText().toString();
+        String password = loginPasswordEditText.getText().toString();
+        if (isValidEmailAddress(email) && notNullOrEmpty(password))
+            loginPresenter.emailPasswordLogin(email, password);
+        if (!isValidEmailAddress(email))
+            loginEmailEditText.setError("Invalid email");
+        if (isNullOrEmpty(password))
+            loginPasswordEditText.setError("Password blank");
+    }
 //    private void login() {
 //        if (getCredential() != null) {
 //            retrofit = ApiClient.getClient();
@@ -154,13 +175,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 //        APIError apiError = gson.fromJson(jsonString, APIError.class);
 //        Snackbar.make(loginLayout, apiError.getMessage(), Snackbar.LENGTH_LONG).show();
 //    }
-//
+
 //    private void navigateToMainActivity() {
 //        Intent intent = new Intent(this, MainActivity.class);
 //        startActivity(intent);
 //        finish();
 //    }
-//
+
     @Override
     public void navigateToRegistrationActivity() {
         Intent intent = new Intent(this, RegistrationActivity.class);

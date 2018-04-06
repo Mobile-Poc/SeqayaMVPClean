@@ -5,5 +5,5 @@ import android.view.View;
 public interface BaseView<T> {
     void setPresenter(T presenter);
 
-    void showErrorMessage(View layout, String errMsg);
+    void showErrorMessage(String errMsg);
 }

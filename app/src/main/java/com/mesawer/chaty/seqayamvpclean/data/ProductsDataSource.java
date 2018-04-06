@@ -1,5 +1,7 @@
 package com.mesawer.chaty.seqayamvpclean.data;
 
+import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository.SuccessCallback;
+import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository.ErrorCallback;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Fav;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Location;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
@@ -8,29 +10,46 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 
 import java.util.List;
 
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-
 public interface ProductsDataSource {
-    Observable<List<Product>> getProducts();
+    void getProducts(SuccessCallback<List<Product>> successCallback, ErrorCallback errorCallback);
 
-    Observable<List<Product>> getSearchResult(String searchKeyword);
+    void getSearchResult(String searchKeyword,
+                         SuccessCallback<List<Product>> successCallback,
+                         ErrorCallback errorCallback);
 
-    Completable addNewUser(User user);
+    void addNewUser(User user,
+                    SuccessCallback<Void> successCallback,
+                    ErrorCallback errorCallback);
 
-    Completable emailPasswordLogin(String email, String password);
+    void emailPasswordLogin(String email, String password,
+                            SuccessCallback<Void> successCallback,
+                            ErrorCallback errorCallback);
 
-    Observable<Order> addNewOrder(Order order);
+    void addNewOrder(Order order,
+                     SuccessCallback<Order> successCallback,
+                     ErrorCallback errorCallback);
 
-    Observable<List<Order>> getOrderHistory(String userId);
+    void getOrderHistory(String userId,
+                         SuccessCallback<List<Order>> successCallback,
+                         ErrorCallback errorCallback);
 
-    Observable<Location> addNewLocation(Location location);
+    void addNewLocation(Location location,
+                        SuccessCallback<Location> successCallback,
+                        ErrorCallback errorCallback);
 
-    Observable<List<Location>> getSavedLocations(String userId);
+    void getSavedLocations(String userId,
+                           SuccessCallback<List<Location>> successCallback,
+                           ErrorCallback errorCallback);
 
-    Observable<Fav> addFav(Fav fav);
+    void addFav(Fav fav,
+                SuccessCallback<Fav> successCallback,
+                ErrorCallback errorCallback);
 
-    Observable<Fav> deleteFav(String productId);
+    void deleteFav(String productId,
+                   SuccessCallback<Fav> successCallback,
+                   ErrorCallback errorCallback);
 
-    Observable<List<Product>> getFavs(String userId);
+    void getFavs(String userId,
+                 SuccessCallback<List<Product>> successCallback,
+                 ErrorCallback errorCallback);
 }

@@ -2,14 +2,11 @@ package com.mesawer.chaty.seqayamvpclean.domain.usecase.products;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
 
-import io.reactivex.Observable;
-
 public class DeleteFavourite implements UseCase<DeleteFavourite.RequestValues, DeleteFavourite.ResponseValues> {
 
 
     @Override
-    public Observable<ResponseValues> execute(RequestValues requestValue) {
-        return null;
+    public void execute(RequestValues requestValue, UseCaseCallback<ResponseValues> useCaseCallback) {
     }
 
     class RequestValues implements UseCase.RequestValues{

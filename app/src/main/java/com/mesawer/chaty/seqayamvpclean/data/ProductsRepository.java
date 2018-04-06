@@ -27,57 +27,78 @@ public class ProductsRepository implements IProductsRepository {
     }
 
     @Override
-    public Observable<List<Product>> getProducts() {
-        return null;
+    public void getProducts(SuccessCallback<List<Product>> successCallback,
+                            ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<List<Product>> getSearchResult(String searchKeyword) {
-        return null;
+    public void getSearchResult(String searchKeyword,
+                                SuccessCallback<List<Product>> successCallback,
+                                ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Completable addNewUser(User user) {
-        return null;
+    public void addNewUser(User user,
+                           SuccessCallback<Void> successCallback,
+                           ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Completable emailPasswordLogin(String email, String password) {
-        return productsDataSource.emailPasswordLogin(email, password);
+    public void emailPasswordLogin(String email, String password,
+                                   SuccessCallback<Void> successCallback,
+                                   ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<Order> addNewOrder(Order order) {
-        return null;
+    public void addNewOrder(Order order,
+                            SuccessCallback<Order> successCallback,
+                            ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<List<Order>> getOrderHistory(String userId) {
-        return null;
+    public void getOrderHistory(String userId,
+                                SuccessCallback<List<Order>> successCallback,
+                                ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<Location> addNewLocation(Location location) {
-        return null;
+    public void addNewLocation(Location location,
+                               SuccessCallback<Location> successCallback,
+                               ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<List<Location>> getSavedLocations(String userId) {
-        return null;
+    public void getSavedLocations(String userId,
+                                  SuccessCallback<List<Location>> successCallback,
+                                  ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<Fav> addFav(Fav fav) {
-        return null;
+    public void addFav(Fav fav,
+                       SuccessCallback<Fav> successCallback,
+                       ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<Fav> deleteFav(String productId) {
-        return null;
+    public void deleteFav(String productId,
+                          SuccessCallback<Fav> successCallback,
+                          ErrorCallback errorCallback) {
+
     }
 
     @Override
-    public Observable<List<Product>> getFavs(String userId) {
-        return null;
+    public void getFavs(String userId,
+                        SuccessCallback<List<Product>> successCallback,
+                        ErrorCallback errorCallback) {
+
     }
 }
