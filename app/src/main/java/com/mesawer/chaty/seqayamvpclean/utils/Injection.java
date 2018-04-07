@@ -3,6 +3,7 @@ package com.mesawer.chaty.seqayamvpclean.utils;
 import com.mesawer.chaty.seqayamvpclean.data.ProductsRepository;
 import com.mesawer.chaty.seqayamvpclean.data.remote.ProductsRemoteDataSource;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.login.EmailPasswordLogin;
+import com.mesawer.chaty.seqayamvpclean.domain.usecase.registration.AddNewUser;
 
 public class Injection {
 
@@ -12,5 +13,9 @@ public class Injection {
 
     public static EmailPasswordLogin provideEmailPasswordLogin() {
         return new EmailPasswordLogin(provideProductsRepository());
+    }
+
+    public static AddNewUser provideAddNewUser() {
+        return new AddNewUser(provideProductsRepository());
     }
 }

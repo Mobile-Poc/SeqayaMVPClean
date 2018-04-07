@@ -13,7 +13,10 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.mesawer.chaty.seqayamvpclean.R;
+import com.mesawer.chaty.seqayamvpclean.base.BaseActivity;
+import com.mesawer.chaty.seqayamvpclean.data.remote.entity.UserAPI;
 import com.mesawer.chaty.seqayamvpclean.presentation.login.LoginActivity;
+import com.mesawer.chaty.seqayamvpclean.utils.Injection;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -26,7 +29,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class RegistrationActivity extends AppCompatActivity {
+import static com.mesawer.chaty.seqayamvpclean.utils.StringUtil.isNullOrEmpty;
+import static com.mesawer.chaty.seqayamvpclean.utils.StringUtil.isValidEmailAddress;
+import static com.mesawer.chaty.seqayamvpclean.utils.StringUtil.notNullOrEmpty;
+
+public class RegistrationActivity extends BaseActivity implements RegistrationContract.View {
 
     @BindView(R.id.reg_name_edit_text)
     EditText regNameEditText;
@@ -44,28 +51,34 @@ public class RegistrationActivity extends AppCompatActivity {
     Button loginNavButton;
     @BindView(R.id.registration_layout)
     ConstraintLayout registrationLayout;
-    private Retrofit retrofit;
+    private RegistrationContract.Presenter registrationPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
+        super.layout = registrationLayout;
+        registrationPresenter = new RegistrationPresenter(this,
+                Injection.provideAddNewUser());
+        changeLocalLanguageToArabic();
 
+    }
+
+    private void changeLocalLanguageToArabic() {
         String languageToLoad = "ar";
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
     }
 
     @OnClick({R.id.registration_button, R.id.login_nav_button})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.registration_button:
-//                addNewUser();
+                registrationPresenter.addNewUser(getUser());
                 break;
             case R.id.login_nav_button:
                 navigateToLoginActivity();
@@ -73,80 +86,45 @@ public class RegistrationActivity extends AppCompatActivity {
         }
     }
 
-//    private void addNewUser() {
-//        if (getUser() != null)
-//            ApiClient.getClient().create(ProductService.class)
-//                    .addNewUser(getUser())
-//                    .enqueue(new Callback<UserAPI>() {
-//                        @Override
-//                        public void onResponse(@NonNull Call<UserAPI> call,
-//                                               @NonNull Response<UserAPI> response) {
-//                            if (response.isSuccessful()) {
-//                                UserAPI user = response.body();
-//                                if (user != null) {
-//                                    User.setName(user.getName());
-//                                    User.setPassword(user.getPassword());
-//                                    User.setEmail(user.getEmail());
-//                                    navigateToLoginActivity();
-//                                }
-//                            } else {
-//                                try {
-//                                    String errorJson = response.errorBody().string();
-//                                    showErrorMessage(errorJson);
-//                                } catch (IOException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(@NonNull Call<UserAPI> call, @NonNull Throwable t) {
-//                            Snackbar.make(registrationLayout, "تأكد من اتصال الانترنت",
-//                                    Snackbar.LENGTH_LONG)
-//                                    .show();
-//                        }
-//                    });
-//    }
+    private UserAPI getUser() {
+        String name = regNameEditText.getText().toString();
+        String email = regEmailEditText.getText().toString();
+        String password = regPasswordEditText.getText().toString();
+        String rePassword = regRePasswordEditText.getText().toString();
+        String phone_number = regPhoneEditText.getText().toString();
 
-//    private UserAPI getUser() {
-//        String name = regNameEditText.getText().toString();
-//        String email = regEmailEditText.getText().toString();
-//        String password = regPasswordEditText.getText().toString();
-//        String rePassword = regRePasswordEditText.getText().toString();
-//        String phone_number = regPhoneEditText.getText().toString();
-//
-//        if (notNullOrEmpty(name) && isValidEmailAddress(email) && notNullOrEmpty(password) &&
-//                password.equals(rePassword) && notNullOrEmpty(phone_number)) {
-//            UserAPI userAPI = new UserAPI();
-//            userAPI.setEmail(email);
-//            userAPI.setPassword(password);
-//            userAPI.setName(name);
-//            return userAPI;
-//        }
-//
-//        // return new User(name, email, password, phone_number);
-//        if (isNullOrEmpty(name))
-//            regNameEditText.setError("This field shouldn't be blank");
-//        if (!isValidEmailAddress(email))
-//            regEmailEditText.setError("Invalid email address");
-//        if (isNullOrEmpty(password))
-//            regPasswordEditText.setError("This field shouldn't be blank");
-//        if (!password.equals(rePassword))
-//            regRePasswordEditText.setError("password mismatching");
-//        if (isNullOrEmpty(phone_number))
-//            regPhoneEditText.setError("This field shouldn't be blank");
-//        return null;
-//    }
+        if (notNullOrEmpty(name) && isValidEmailAddress(email) && notNullOrEmpty(password) &&
+                password.equals(rePassword) && notNullOrEmpty(phone_number)) {
+            UserAPI userAPI = new UserAPI();
+            userAPI.setEmail(email);
+            userAPI.setPassword(password);
+            userAPI.setName(name);
+            return userAPI;
+        }
 
-    private void navigateToLoginActivity() {
+        // return new User(name, email, password, phone_number);
+        if (isNullOrEmpty(name))
+            regNameEditText.setError("This field shouldn't be blank");
+        if (!isValidEmailAddress(email))
+            regEmailEditText.setError("Invalid email address");
+        if (isNullOrEmpty(password))
+            regPasswordEditText.setError("This field shouldn't be blank");
+        if (!password.equals(rePassword))
+            regRePasswordEditText.setError("password mismatching");
+        if (isNullOrEmpty(phone_number))
+            regPhoneEditText.setError("This field shouldn't be blank");
+        return null;
+    }
+
+    @Override
+    public void navigateToLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
 
-//    private void showErrorMessage(String jsonString) {
-//        Gson gson = new Gson();
-//        APIError apiError = gson.fromJson(jsonString, APIError.class);
-//        Snackbar.make(registrationLayout, apiError.getMessage(), Snackbar.LENGTH_LONG).show();
-//    }
+    @Override
+    public void setPresenter(RegistrationContract.Presenter presenter) {
+        registrationPresenter = presenter;
+    }
 }

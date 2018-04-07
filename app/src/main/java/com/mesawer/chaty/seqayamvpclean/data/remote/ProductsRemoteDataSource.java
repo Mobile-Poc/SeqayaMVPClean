@@ -1,7 +1,6 @@
 package com.mesawer.chaty.seqayamvpclean.data.remote;
 
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 
 import com.google.gson.Gson;
 import com.mesawer.chaty.seqayamvpclean.data.ProductsDataSource;
@@ -51,10 +50,33 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     }
 
     @Override
-    public void addNewUser(User user,
+    public void addNewUser(UserAPI user,
                            SuccessCallback<Void> successCallback,
                            ErrorCallback errorCallback) {
-        
+        ApiClient.getClient().create(ProductService.class)
+                .addNewUser(user)
+                .enqueue(new Callback<UserAPI>() {
+                    @Override
+                    public void onResponse(@NonNull Call<UserAPI> call,
+                                           @NonNull Response<UserAPI> response) {
+                        if (response.isSuccessful()){
+                            UserAPI userAPI = response.body();
+                            if (userAPI != null)
+                                successCallback.onSuccess(null);
+                        } else {
+                            try {
+                                errorCallback.onError(apiErrMsg(response.errorBody().string()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<UserAPI> call, @NonNull Throwable t) {
+                        errorCallback.onError("تأكد من اتصال الانترنت");
+                    }
+                });
     }
 
     @Override

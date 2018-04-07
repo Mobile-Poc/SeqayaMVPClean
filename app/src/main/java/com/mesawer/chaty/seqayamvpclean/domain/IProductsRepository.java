@@ -2,15 +2,11 @@ package com.mesawer.chaty.seqayamvpclean.domain;
 
 import java.util.List;
 
-import com.mesawer.chaty.seqayamvpclean.data.ProductsDataSource;
+import com.mesawer.chaty.seqayamvpclean.data.remote.entity.UserAPI;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Fav;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Location;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Product;
-import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
-
-import io.reactivex.Completable;
-import io.reactivex.Observable;
 
 public interface IProductsRepository {
     void getProducts(SuccessCallback<List<Product>> successCallback, ErrorCallback errorCallback);
@@ -19,7 +15,7 @@ public interface IProductsRepository {
                          SuccessCallback<List<Product>> successCallback,
                          ErrorCallback errorCallback);
 
-    void addNewUser(User user,
+    void addNewUser(UserAPI user,
                     SuccessCallback<Void> successCallback,
                     ErrorCallback errorCallback);
 

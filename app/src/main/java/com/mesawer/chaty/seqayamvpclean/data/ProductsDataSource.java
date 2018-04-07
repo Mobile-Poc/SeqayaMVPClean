@@ -1,12 +1,12 @@
 package com.mesawer.chaty.seqayamvpclean.data;
 
+import com.mesawer.chaty.seqayamvpclean.data.remote.entity.UserAPI;
 import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository.SuccessCallback;
 import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository.ErrorCallback;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Fav;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Location;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Product;
-import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface ProductsDataSource {
                          SuccessCallback<List<Product>> successCallback,
                          ErrorCallback errorCallback);
 
-    void addNewUser(User user,
+    void addNewUser(UserAPI user,
                     SuccessCallback<Void> successCallback,
                     ErrorCallback errorCallback);
 
