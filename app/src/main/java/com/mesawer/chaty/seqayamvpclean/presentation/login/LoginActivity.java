@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mesawer.chaty.seqayamvpclean.BuildConfig;
+import com.mesawer.chaty.seqayamvpclean.MainActivity;
 import com.mesawer.chaty.seqayamvpclean.R;
 import com.mesawer.chaty.seqayamvpclean.base.BaseActivity;
 import com.mesawer.chaty.seqayamvpclean.base.BasePresenter;
@@ -167,20 +168,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void navigateToMainActivity() {
-
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
-
-    //    private void showErrorMessage(String jsonString) {
-//        Gson gson = new Gson();
-//        APIError apiError = gson.fromJson(jsonString, APIError.class);
-//        Snackbar.make(loginLayout, apiError.getMessage(), Snackbar.LENGTH_LONG).show();
-//    }
-
-//    private void navigateToMainActivity() {
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
 
     @Override
     public void navigateToRegistrationActivity() {

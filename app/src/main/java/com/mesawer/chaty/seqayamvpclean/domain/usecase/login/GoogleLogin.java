@@ -6,7 +6,7 @@ public class GoogleLogin implements UseCase<GoogleLogin.RequestValues, GoogleLog
 
 
     @Override
-    public void execute(RequestValues requestValue, UseCaseCallback<ResponseValues> useCaseCallback) {
+    public void execute(RequestValues requestValue, UseCaseSuccessCallback<ResponseValues> successCallback, UseCaseErrorCallback errorCallback) {
     }
 
     class RequestValues implements UseCase.RequestValues{

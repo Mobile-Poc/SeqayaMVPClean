@@ -50,7 +50,7 @@ public class ProductsRepository implements IProductsRepository {
     public void emailPasswordLogin(String email, String password,
                                    SuccessCallback<Void> successCallback,
                                    ErrorCallback errorCallback) {
-
+        productsDataSource.emailPasswordLogin(email, password, successCallback, errorCallback);
     }
 
     @Override

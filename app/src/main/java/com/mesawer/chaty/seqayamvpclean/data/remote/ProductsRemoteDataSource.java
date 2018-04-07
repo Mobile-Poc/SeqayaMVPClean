@@ -1,6 +1,15 @@
 package com.mesawer.chaty.seqayamvpclean.data.remote;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+
+import com.google.gson.Gson;
 import com.mesawer.chaty.seqayamvpclean.data.ProductsDataSource;
+import com.mesawer.chaty.seqayamvpclean.data.remote.entity.APIError;
+import com.mesawer.chaty.seqayamvpclean.data.remote.entity.Credential;
+import com.mesawer.chaty.seqayamvpclean.data.remote.entity.UserAPI;
+import com.mesawer.chaty.seqayamvpclean.data.remote.network.ApiClient;
+import com.mesawer.chaty.seqayamvpclean.data.remote.network.ProductService;
 import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository.ErrorCallback;
 import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository.SuccessCallback;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Fav;
@@ -9,7 +18,12 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Product;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductsRemoteDataSource implements ProductsDataSource {
 
@@ -40,14 +54,42 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     public void addNewUser(User user,
                            SuccessCallback<Void> successCallback,
                            ErrorCallback errorCallback) {
-
+        
     }
 
     @Override
     public void emailPasswordLogin(String email, String password,
                                    SuccessCallback<Void> successCallback,
                                    ErrorCallback errorCallback) {
+        Credential credential = new Credential(email, password);
+        ApiClient.getClient().create(ProductService.class)
+                .login(credential)
+                .enqueue(new Callback<UserAPI>() {
+                    @Override
+                    public void onResponse(@NonNull Call<UserAPI> call,
+                                           @NonNull Response<UserAPI> response) {
+                        if (response.isSuccessful()) {
+                            UserAPI userAPI = response.body();
+                            if (userAPI != null){
+                                User.setEmail(userAPI.getEmail());
+                                User.setPassword(userAPI.getPassword());
+                                User.setName(userAPI.getName());
+                                successCallback.onSuccess(null);
+                            }
+                        } else {
+                            try {
+                                errorCallback.onError(apiErrMsg(response.errorBody().string()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(@NonNull Call<UserAPI> call, @NonNull Throwable t) {
+                        errorCallback.onError("تأكد من اتصال الانترنت");
+                    }
+                });
     }
 
     @Override
@@ -99,4 +141,9 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
 
     }
 
+    private String apiErrMsg(String jsonString) {
+        Gson gson = new Gson();
+        APIError apiError = gson.fromJson(jsonString, APIError.class);
+        return apiError.getMessage();
+    }
 }
