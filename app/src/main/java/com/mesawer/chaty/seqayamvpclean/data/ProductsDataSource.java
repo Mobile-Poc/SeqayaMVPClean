@@ -29,16 +29,14 @@ public interface ProductsDataSource {
                      SuccessCallback<Order> successCallback,
                      ErrorCallback errorCallback);
 
-    void getOrderHistory(String userId,
-                         SuccessCallback<List<Order>> successCallback,
+    void getOrderHistory(SuccessCallback<List<Order>> successCallback,
                          ErrorCallback errorCallback);
 
     void addNewLocation(Location location,
                         SuccessCallback<Location> successCallback,
                         ErrorCallback errorCallback);
 
-    void getSavedLocations(String userId,
-                           SuccessCallback<List<Location>> successCallback,
+    void getSavedLocations(SuccessCallback<List<Location>> successCallback,
                            ErrorCallback errorCallback);
 
     void addFav(Fav fav,
@@ -49,7 +47,6 @@ public interface ProductsDataSource {
                    SuccessCallback<Fav> successCallback,
                    ErrorCallback errorCallback);
 
-    void getFavs(String userId,
-                 SuccessCallback<List<Product>> successCallback,
+    void getFavs(SuccessCallback<List<Product>> successCallback,
                  ErrorCallback errorCallback);
 }

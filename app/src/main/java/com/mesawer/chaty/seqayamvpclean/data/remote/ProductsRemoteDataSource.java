@@ -59,7 +59,7 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
                     @Override
                     public void onResponse(@NonNull Call<UserAPI> call,
                                            @NonNull Response<UserAPI> response) {
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             UserAPI userAPI = response.body();
                             if (userAPI != null)
                                 successCallback.onSuccess(null);
@@ -92,7 +92,7 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
                                            @NonNull Response<UserAPI> response) {
                         if (response.isSuccessful()) {
                             UserAPI userAPI = response.body();
-                            if (userAPI != null){
+                            if (userAPI != null) {
                                 User.setEmail(userAPI.getEmail());
                                 User.setPassword(userAPI.getPassword());
                                 User.setName(userAPI.getName());
@@ -122,10 +122,31 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     }
 
     @Override
-    public void getOrderHistory(String userId,
-                                SuccessCallback<List<Order>> successCallback,
+    public void getOrderHistory(SuccessCallback<List<Order>> successCallback,
                                 ErrorCallback errorCallback) {
+        ApiClient.getClient().create(ProductService.class)
+                .getOrderHistory(User.getEmail())
+                .enqueue(new Callback<List<Order>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Order>> call,
+                                           @NonNull Response<List<Order>> response) {
+                        if (response.isSuccessful()){
+                            List<Order> orders = response.body();
+                            successCallback.onSuccess(orders);
+                        } else {
+                            try {
+                                errorCallback.onError(apiErrMsg(response.errorBody().string()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(@NonNull Call<List<Order>> call, @NonNull Throwable t) {
+                        errorCallback.onError("تأكد من اتصال الانترنت");
+                    }
+                });
     }
 
     @Override
@@ -136,8 +157,7 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     }
 
     @Override
-    public void getSavedLocations(String userId,
-                                  SuccessCallback<List<Location>> successCallback,
+    public void getSavedLocations(SuccessCallback<List<Location>> successCallback,
                                   ErrorCallback errorCallback) {
 
     }
@@ -157,8 +177,7 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     }
 
     @Override
-    public void getFavs(String userId,
-                        SuccessCallback<List<Product>> successCallback,
+    public void getFavs(SuccessCallback<List<Product>> successCallback,
                         ErrorCallback errorCallback) {
 
     }
