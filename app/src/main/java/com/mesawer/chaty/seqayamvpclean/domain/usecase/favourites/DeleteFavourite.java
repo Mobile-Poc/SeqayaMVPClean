@@ -2,18 +2,21 @@ package com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
 
-public class DeleteFavourite implements UseCase<DeleteFavourite.RequestValues, DeleteFavourite.ResponseValues> {
+public class DeleteFavourite implements
+        UseCase<DeleteFavourite.RequestValues, DeleteFavourite.ResponseValues> {
 
 
     @Override
-    public void execute(RequestValues requestValue, UseCaseSuccessCallback<ResponseValues> successCallback, UseCaseErrorCallback errorCallback) {
+    public void execute(RequestValues requestValue,
+                        UseCaseSuccessCallback<ResponseValues> successCallback,
+                        UseCaseErrorCallback errorCallback) {
     }
 
-    class RequestValues implements UseCase.RequestValues{
+    public static final class RequestValues implements UseCase.RequestValues{
 
     }
 
-    class ResponseValues implements UseCase.ResponseValues{
+    public static final class ResponseValues implements UseCase.ResponseValues{
 
     }
 }

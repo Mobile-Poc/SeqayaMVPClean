@@ -58,8 +58,7 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     }
 
     @Override
-    public void getOrderHistory(String userId,
-                                SuccessCallback<List<Order>> successCallback,
+    public void getOrderHistory(SuccessCallback<List<Order>> successCallback,
                                 ErrorCallback errorCallback) {
 
     }
@@ -72,8 +71,7 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     }
 
     @Override
-    public void getSavedLocations(String userId,
-                                  SuccessCallback<List<Location>> successCallback,
+    public void getSavedLocations(SuccessCallback<List<Location>> successCallback,
                                   ErrorCallback errorCallback) {
 
     }
@@ -93,8 +91,7 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     }
 
     @Override
-    public void getFavs(String userId,
-                        SuccessCallback<List<Product>> successCallback,
+    public void getFavs(SuccessCallback<List<Product>> successCallback,
                         ErrorCallback errorCallback) {
 
     }

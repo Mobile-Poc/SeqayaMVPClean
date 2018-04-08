@@ -9,9 +9,6 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 
 import java.util.List;
 
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-
 public class ProductsRepository implements IProductsRepository {
 
     private static ProductsRepository INSTANCE;
@@ -61,8 +58,7 @@ public class ProductsRepository implements IProductsRepository {
     }
 
     @Override
-    public void getOrderHistory(String userId,
-                                SuccessCallback<List<Order>> successCallback,
+    public void getOrderHistory(SuccessCallback<List<Order>> successCallback,
                                 ErrorCallback errorCallback) {
 
     }
@@ -75,8 +71,7 @@ public class ProductsRepository implements IProductsRepository {
     }
 
     @Override
-    public void getSavedLocations(String userId,
-                                  SuccessCallback<List<Location>> successCallback,
+    public void getSavedLocations(SuccessCallback<List<Location>> successCallback,
                                   ErrorCallback errorCallback) {
 
     }
@@ -96,8 +91,7 @@ public class ProductsRepository implements IProductsRepository {
     }
 
     @Override
-    public void getFavs(String userId,
-                        SuccessCallback<List<Product>> successCallback,
+    public void getFavs(SuccessCallback<List<Product>> successCallback,
                         ErrorCallback errorCallback) {
 
     }

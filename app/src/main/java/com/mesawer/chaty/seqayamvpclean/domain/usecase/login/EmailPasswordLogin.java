@@ -3,7 +3,8 @@ package com.mesawer.chaty.seqayamvpclean.domain.usecase.login;
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
 import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository;
 
-public class EmailPasswordLogin implements UseCase<EmailPasswordLogin.RequestValues, EmailPasswordLogin.ResponseValues> {
+public class EmailPasswordLogin implements
+        UseCase<EmailPasswordLogin.RequestValues, EmailPasswordLogin.ResponseValues> {
 
     private IProductsRepository productsRepository;
 
@@ -13,7 +14,8 @@ public class EmailPasswordLogin implements UseCase<EmailPasswordLogin.RequestVal
 
     @Override
     public void execute(RequestValues requestValue,
-                        UseCaseSuccessCallback<ResponseValues> successCallback, UseCaseErrorCallback errorCallback) {
+                        UseCaseSuccessCallback<ResponseValues> successCallback,
+                        UseCaseErrorCallback errorCallback) {
 
     }
 

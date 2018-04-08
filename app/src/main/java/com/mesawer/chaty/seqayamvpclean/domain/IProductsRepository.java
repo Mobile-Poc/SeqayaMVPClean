@@ -2,15 +2,11 @@ package com.mesawer.chaty.seqayamvpclean.domain;
 
 import java.util.List;
 
-import com.mesawer.chaty.seqayamvpclean.data.ProductsDataSource;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Fav;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Location;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Product;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
-
-import io.reactivex.Completable;
-import io.reactivex.Observable;
 
 public interface IProductsRepository {
     void getProducts(SuccessCallback<List<Product>> successCallback, ErrorCallback errorCallback);
@@ -31,16 +27,14 @@ public interface IProductsRepository {
                      SuccessCallback<Order> successCallback,
                      ErrorCallback errorCallback);
 
-    void getOrderHistory(String userId,
-                         SuccessCallback<List<Order>> successCallback,
+    void getOrderHistory(SuccessCallback<List<Order>> successCallback,
                          ErrorCallback errorCallback);
 
     void addNewLocation(Location location,
                         SuccessCallback<Location> successCallback,
                         ErrorCallback errorCallback);
 
-    void getSavedLocations(String userId,
-                           SuccessCallback<List<Location>> successCallback,
+    void getSavedLocations(SuccessCallback<List<Location>> successCallback,
                            ErrorCallback errorCallback);
 
     void addFav(Fav fav,
@@ -51,8 +45,7 @@ public interface IProductsRepository {
                    SuccessCallback<Fav> successCallback,
                    ErrorCallback errorCallback);
 
-    void getFavs(String userId,
-                 SuccessCallback<List<Product>> successCallback,
+    void getFavs(SuccessCallback<List<Product>> successCallback,
                  ErrorCallback errorCallback);
 
     interface SuccessCallback<T> {

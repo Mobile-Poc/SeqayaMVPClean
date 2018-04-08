@@ -4,7 +4,7 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.Fav;
 
 public class FavouritesPresenter implements FavouritesContract.Presenter{
     @Override
-    public void getFavourites(String userId) {
+    public void getFavourites() {
 
     }
 

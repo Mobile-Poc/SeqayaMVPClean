@@ -18,9 +18,7 @@ public interface FavouritesContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getFavourites(String userId);
-
-        void addFavourite(Fav fav);
+        void getFavourites();
 
         void removeFavourite(String productId);
     }
