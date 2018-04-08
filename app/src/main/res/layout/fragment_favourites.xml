@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/favourites_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".favourites.FavouritesFragment">
+    tools:context="com.mesawer.chaty.seqayamvpclean.presentation.favourites.FavouritesFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_products"
@@ -22,6 +23,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_gravity="center"
         android:visibility="gone"
         android:orientation="vertical">
 

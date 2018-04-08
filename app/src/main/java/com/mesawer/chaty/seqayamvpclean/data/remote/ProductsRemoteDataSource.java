@@ -130,7 +130,7 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
                     @Override
                     public void onResponse(@NonNull Call<List<Order>> call,
                                            @NonNull Response<List<Order>> response) {
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             List<Order> orders = response.body();
                             successCallback.onSuccess(orders);
                         } else {
@@ -179,7 +179,29 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     @Override
     public void getFavs(SuccessCallback<List<Product>> successCallback,
                         ErrorCallback errorCallback) {
+        ApiClient.getClient().create(ProductService.class)
+                .getFavs(User.getEmail())
+                .enqueue(new Callback<List<Product>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Product>> call,
+                                           @NonNull Response<List<Product>> response) {
+                        if (response.isSuccessful()){
+                            List<Product> favs = response.body();
+                            successCallback.onSuccess(favs);
+                        } else {
+                            try {
+                                errorCallback.onError(apiErrMsg(response.errorBody().string()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable t) {
+
+                    }
+                });
     }
 
     private String apiErrMsg(String jsonString) {

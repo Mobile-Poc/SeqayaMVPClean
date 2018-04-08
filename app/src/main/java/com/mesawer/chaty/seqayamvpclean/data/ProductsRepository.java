@@ -93,6 +93,6 @@ public class ProductsRepository implements IProductsRepository {
     @Override
     public void getFavs(SuccessCallback<List<Product>> successCallback,
                         ErrorCallback errorCallback) {
-
+        productsDataSource.getFavs(successCallback, errorCallback);
     }
 }

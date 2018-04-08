@@ -17,6 +17,7 @@ import com.mesawer.chaty.seqayamvpclean.R;
 import com.mesawer.chaty.seqayamvpclean.base.BaseFragment;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
 import com.mesawer.chaty.seqayamvpclean.utils.Injection;
+import com.mesawer.chaty.seqayamvpclean.utils.ViewUtil;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryCo
         super.layout = orderHistoryLayout;
         orderHistoryPresenter = new OrderHistoryPresenter(this,
                 Injection.provideGetOrderHistory());
-        setupActionBar();
+        ViewUtil.setupActionBar(getActivity(), getString(R.string.history));
         layoutManager = new LinearLayoutManager(this.getActivity());
         orderHistoryRv.setLayoutManager(layoutManager);
 
@@ -63,15 +64,6 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryCo
     public void onResume() {
         super.onResume();
         orderHistoryPresenter.getOrderHistory();
-    }
-
-    private void setupActionBar() {
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(getString(R.string.history));
-        }
     }
 
     @Override
