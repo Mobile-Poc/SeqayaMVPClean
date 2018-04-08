@@ -126,61 +126,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         if (isNullOrEmpty(password))
             loginPasswordEditText.setError("Password blank");
     }
-//    private void login() {
-//        if (getCredential() != null) {
-//            retrofit = ApiClient.getClient();
-//            retrofit.create(ProductService.class)
-//                    .login(getCredential())
-//                    .enqueue(new Callback<UserAPI>() {
-//                        @Override
-//                        public void onResponse(@NonNull Call<UserAPI> call,
-//                                               @NonNull Response<UserAPI> response) {
-//                            if (response.isSuccessful()) {
-//                                UserAPI user = response.body();
-//                                if (user != null) {
-//                                    User.setEmail(user.getEmail());
-//                                    User.setName(user.getName());
-//                                    User.setPassword(user.getPassword());
-//                                    navigateToMainActivity();
-//                                }
-//                            } else {
-//                                try {
-//                                    String errorJson = response.errorBody().string();
-//                                    Log.d("login error", errorJson);
-//                                    showErrorMessage(errorJson);
-//                                } catch (IOException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(@NonNull Call<UserAPI> call, @NonNull Throwable t) {
-//                            Snackbar.make(loginLayout, "تأكد من اتصال الانترنت",
-//                                    Snackbar.LENGTH_LONG)
-//                                    .show();
-//                            Log.d("connection error", t.getMessage());
-//                        }
-//                    });
-//        }
-//    }
 
     @Override
     public void navigateToMainActivity() {
 
     }
-
-    //    private void showErrorMessage(String jsonString) {
-//        Gson gson = new Gson();
-//        APIError apiError = gson.fromJson(jsonString, APIError.class);
-//        Snackbar.make(loginLayout, apiError.getMessage(), Snackbar.LENGTH_LONG).show();
-//    }
-
-//    private void navigateToMainActivity() {
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
 
     @Override
     public void navigateToRegistrationActivity() {
@@ -193,15 +143,4 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     public void setPresenter(LoginContract.Presenter presenter) {
         loginPresenter = presenter;
     }
-//    public Credential getCredential() {
-//        String email = loginEmailEditText.getText().toString();
-//        String password = loginPasswordEditText.getText().toString();
-//        if (isValidEmailAddress(email) && notNullOrEmpty(password))
-//            return new Credential(email, password);
-//        if (!isValidEmailAddress(email))
-//            loginEmailEditText.setError("Invalid email");
-//        if (isNullOrEmpty(password))
-//            loginPasswordEditText.setError("Password blank");
-//        return null;
-//    }
 }
