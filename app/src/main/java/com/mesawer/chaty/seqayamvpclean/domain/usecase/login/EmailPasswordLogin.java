@@ -1,7 +1,7 @@
 package com.mesawer.chaty.seqayamvpclean.domain.usecase.login;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
-import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository;
+import com.mesawer.chaty.seqayamvpclean.domain.repository.IProductsRepository;
 
 public class EmailPasswordLogin implements
         UseCase<EmailPasswordLogin.RequestValues, EmailPasswordLogin.ResponseValues> {
