@@ -1,21 +1,21 @@
 package com.mesawer.chaty.seqayamvpclean.domain.usecase.login;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
-import com.mesawer.chaty.seqayamvpclean.domain.repository.IProductsRepository;
+import com.mesawer.chaty.seqayamvpclean.domain.repository.IUsersRepository;
 
 public class EmailPasswordLogin implements UseCase<EmailPasswordLogin.RequestValues, EmailPasswordLogin.ResponseValues> {
 
-    private IProductsRepository productsRepository;
+    private IUsersRepository usersRepository;
 
-    public EmailPasswordLogin(IProductsRepository productsRepository) {
-        this.productsRepository = productsRepository;
+    public EmailPasswordLogin(IUsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
     }
 
     @Override
     public void execute(RequestValues requestValue,
                         UseCaseSuccessCallback<ResponseValues> successCallback,
                         UseCaseErrorCallback errorCallback) {
-        productsRepository.emailPasswordLogin(requestValue.getEmail(), requestValue.getPassword(),
+        usersRepository.emailPasswordLogin(requestValue.getEmail(), requestValue.getPassword(),
                 v -> successCallback.onSuccess(null),
                 errorCallback::onError);
     }

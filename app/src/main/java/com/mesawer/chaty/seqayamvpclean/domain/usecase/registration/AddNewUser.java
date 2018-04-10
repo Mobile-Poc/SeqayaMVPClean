@@ -1,22 +1,22 @@
 package com.mesawer.chaty.seqayamvpclean.domain.usecase.registration;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
-import com.mesawer.chaty.seqayamvpclean.data.remote.entity.UserAPI;
-import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity.UserAPI;
+import com.mesawer.chaty.seqayamvpclean.domain.repository.IUsersRepository;
 
 public class AddNewUser implements UseCase<AddNewUser.RequestValues, AddNewUser.ResponseValues> {
 
-    private IProductsRepository productsRepository;
+    private IUsersRepository usersRepository;
 
-    public AddNewUser(IProductsRepository productsRepository) {
-        this.productsRepository = productsRepository;
+    public AddNewUser(IUsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
     }
 
     @Override
     public void execute(RequestValues requestValue,
                         UseCaseSuccessCallback<ResponseValues> successCallback,
                         UseCaseErrorCallback errorCallback) {
-        productsRepository.addNewUser(requestValue.getUser(),
+        usersRepository.addNewUser(requestValue.getUser(),
                 v -> successCallback.onSuccess(null),
                 errorCallback::onError);
     }

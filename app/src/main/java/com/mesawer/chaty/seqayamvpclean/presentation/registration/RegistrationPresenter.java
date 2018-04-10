@@ -1,6 +1,6 @@
 package com.mesawer.chaty.seqayamvpclean.presentation.registration;
 
-import com.mesawer.chaty.seqayamvpclean.data.remote.entity.UserAPI;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity.UserAPI;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.registration.AddNewUser;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.registration.AddNewUser.RequestValues;
 

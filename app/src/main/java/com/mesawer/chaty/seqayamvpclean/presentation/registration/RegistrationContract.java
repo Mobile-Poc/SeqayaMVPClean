@@ -2,7 +2,7 @@ package com.mesawer.chaty.seqayamvpclean.presentation.registration;
 
 import com.mesawer.chaty.seqayamvpclean.base.BasePresenter;
 import com.mesawer.chaty.seqayamvpclean.base.BaseView;
-import com.mesawer.chaty.seqayamvpclean.data.remote.entity.UserAPI;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity.UserAPI;
 
 public interface RegistrationContract {
 

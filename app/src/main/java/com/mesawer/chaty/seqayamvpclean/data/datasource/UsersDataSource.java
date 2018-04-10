@@ -1,12 +1,12 @@
 package com.mesawer.chaty.seqayamvpclean.data.datasource;
 
-import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity.UserAPI;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.ErrorCallback;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.SuccessCallback;
 
 public interface UsersDataSource {
 
-    void addNewUser(User user,
+    void addNewUser(UserAPI user,
                     SuccessCallback<Void> successCallback,
                     ErrorCallback errorCallback);
 

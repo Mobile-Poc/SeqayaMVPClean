@@ -1,24 +1,24 @@
 package com.mesawer.chaty.seqayamvpclean.domain.usecase.orderhistory;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
-import com.mesawer.chaty.seqayamvpclean.domain.IProductsRepository;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
+import com.mesawer.chaty.seqayamvpclean.domain.repository.IOrdersRepository;
 
 import java.util.List;
 
 public class GetOrderHistory implements UseCase<GetOrderHistory.RequestValues, GetOrderHistory.ResponseValues> {
 
-    private IProductsRepository productsRepository;
+    private IOrdersRepository ordersRepository;
 
-    public GetOrderHistory(IProductsRepository productsRepository) {
-        this.productsRepository = productsRepository;
+    public GetOrderHistory(IOrdersRepository ordersRepository) {
+        this.ordersRepository = ordersRepository;
     }
 
     @Override
     public void execute(RequestValues requestValue,
                         UseCaseSuccessCallback<ResponseValues> successCallback,
                         UseCaseErrorCallback errorCallback) {
-        productsRepository.getOrderHistory(orders -> {
+        ordersRepository.getOrderHistory(orders -> {
                     ResponseValues responseValues = new ResponseValues(orders);
                     successCallback.onSuccess(responseValues);
                 }, errorCallback::onError);

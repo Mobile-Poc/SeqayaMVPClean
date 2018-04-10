@@ -35,6 +35,6 @@ public class OrdersRepository implements IOrdersRepository {
     @Override
     public void getOrderHistory(SuccessCallback<List<Order>> successCallback,
                                 ErrorCallback errorCallback) {
-
+        ordersDataSource.getOrderHistory(successCallback, errorCallback);
     }
 }

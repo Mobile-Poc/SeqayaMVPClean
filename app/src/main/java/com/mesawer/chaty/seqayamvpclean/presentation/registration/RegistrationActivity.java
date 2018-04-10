@@ -3,31 +3,22 @@ package com.mesawer.chaty.seqayamvpclean.presentation.registration;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
 import com.mesawer.chaty.seqayamvpclean.R;
 import com.mesawer.chaty.seqayamvpclean.base.BaseActivity;
-import com.mesawer.chaty.seqayamvpclean.data.remote.entity.UserAPI;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity.UserAPI;
 import com.mesawer.chaty.seqayamvpclean.presentation.login.LoginActivity;
 import com.mesawer.chaty.seqayamvpclean.utils.Injection;
 
-import java.io.IOException;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 import static com.mesawer.chaty.seqayamvpclean.utils.StringUtil.isNullOrEmpty;
 import static com.mesawer.chaty.seqayamvpclean.utils.StringUtil.isValidEmailAddress;
