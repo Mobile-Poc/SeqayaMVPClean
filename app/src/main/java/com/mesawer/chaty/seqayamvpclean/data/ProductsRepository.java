@@ -73,7 +73,7 @@ public class ProductsRepository implements IProductsRepository {
     @Override
     public void getSavedLocations(SuccessCallback<List<Location>> successCallback,
                                   ErrorCallback errorCallback) {
-
+        productsDataSource.getSavedLocations(successCallback, errorCallback);
     }
 
     @Override

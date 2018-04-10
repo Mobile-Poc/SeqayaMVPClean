@@ -159,7 +159,29 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     @Override
     public void getSavedLocations(SuccessCallback<List<Location>> successCallback,
                                   ErrorCallback errorCallback) {
+        ApiClient.getClient().create(ProductService.class)
+                .getSavedLocations(User.getEmail())
+                .enqueue(new Callback<List<Location>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Location>> call,
+                                           @NonNull Response<List<Location>> response) {
+                        if (response.isSuccessful()){
+                            List<Location> locations = response.body();
+                            successCallback.onSuccess(locations);
+                        } else {
+                            try {
+                                errorCallback.onError(apiErrMsg(response.errorBody().string()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(@NonNull Call<List<Location>> call, @NonNull Throwable t) {
+
+                    }
+                });
     }
 
     @Override
