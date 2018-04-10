@@ -1,4 +1,4 @@
-package com.mesawer.chaty.seqayamvpclean.data.remote.entity;
+package com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity;
 
 import java.io.Serializable;
 
