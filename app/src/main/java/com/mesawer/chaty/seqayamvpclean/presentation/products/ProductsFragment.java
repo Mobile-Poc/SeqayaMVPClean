@@ -75,10 +75,10 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
 
             @Override
             public void onNext(Product product) {
-                if (product.isLiked()){
+                if (product.isLiked()) {
                     productsPresenter.deleteFavourite(String.valueOf(product.getId()));
-                }else {
-                    Fav fav = new Fav(User.getEmail() , String.valueOf(product.getId()));
+                } else {
+                    Fav fav = new Fav(User.getEmail(), String.valueOf(product.getId()));
                     productsPresenter.addToFavourite(fav);
                 }
 
@@ -119,11 +119,12 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
                 return null;
             }
         });
-        products = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         products_rv.setLayoutManager(linearLayoutManager);
+        productAdapter = new ProductAdapter(products, getActivity(),
+                productPublishSubject, cartItemsCountListener);
         productsPresenter = new ProductsPresenter(Injection.getProducts()
-                ,Injection.search()
+                , Injection.search()
                 , Injection.addFavourite()
                 , Injection.provideGetFavourites()
                 , Injection.deleteFavourite(), this);
@@ -140,15 +141,15 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     @Override
     public void showProducts(List<Product> productList) {
         this.products = productList;
-        productAdapter = new ProductAdapter(productList, getActivity(), productPublishSubject, cartItemsCountListener);
+        productAdapter.setProductList(productList);
         products_rv.setAdapter(productAdapter);
     }
 
     @Override
     public void showSearchResult(List<Product> productList) {
 
-        if (productList != null){
-            productAdapter = new ProductAdapter(productList , getActivity(), productPublishSubject, cartItemsCountListener);
+        if (productList != null) {
+            productAdapter = new ProductAdapter(productList, getActivity(), productPublishSubject, cartItemsCountListener);
             products_rv.setAdapter(productAdapter);
             productAdapter.notifyDataSetChanged();
         }
@@ -207,7 +208,7 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     @Override
     public void sentFavouriteList(List<Product> favList) {
         if (favList != null)
-        productAdapter.setFavouriteProducts(favList);
+            productAdapter.setFavouriteProducts(favList);
     }
 
 

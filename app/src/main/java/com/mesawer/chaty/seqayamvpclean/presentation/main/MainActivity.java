@@ -68,12 +68,12 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
                 (position, wasSelected) -> {
                     switch (position) {
                         case 0:
-//                            getFragmentManager()
-//                                    .beginTransaction()
-//                                    .replace(R.id.container,
-//                                            ProductsFragment.newInstance())
-//                                    .commit();
-//                            return true;
+                            getFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.container,
+                                            ProductsFragment.newInstance())
+                                    .commit();
+                            return true;
 
                         case 1:
 //                            getFragmentManager()

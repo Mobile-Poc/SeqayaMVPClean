@@ -77,7 +77,8 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryCo
         if (loadingIndicator != null)
             loadingIndicator.setVisibility(View.GONE);
         if (orders.isEmpty()) {
-            noItemsLayout.setVisibility(View.VISIBLE);
+            if (noItemsLayout != null)
+                noItemsLayout.setVisibility(View.VISIBLE);
         } else {
             adapter = new OrderHistoryAdapter(orders, getActivity());
             orderHistoryRv.setAdapter(adapter);

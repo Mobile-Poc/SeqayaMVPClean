@@ -25,6 +25,22 @@ public class Injection {
         return ProductsRepository.getInstance(ProductsRemoteDataSource.getInstance());
     }
 
+    public static UsersRepository provideUsersRepository() {
+        return UsersRepository.getInstance(UsersRemoteDataSource.getInstance());
+    }
+
+    public static LocationsRepository provideLocationsRepository() {
+        return LocationsRepository.getInstance(LocationsRemoteDataSource.getInstance());
+    }
+
+    public static OrdersRepository provideOrdersRepository() {
+        return OrdersRepository.getInstance(OrdersRemoteDataSource.getInstance());
+    }
+
+    public static FavouritesRepository provideFavouritesRepository() {
+        return FavouritesRepository.getInstance(FavouritesRemoteDataSource.getInstance());
+    }
+
     public static GetProducts getProducts(){
         return new GetProducts(provideProductsRepository());
     }
@@ -41,23 +57,8 @@ public class Injection {
         return new DeleteFavourite(provideFavouritesRepository());
     }
 
-    public static UsersRepository provideUsersRepository() {
-        return UsersRepository.getInstance(UsersRemoteDataSource.getInstance());
-    }
-
     public GetFavourites getFavourites(){
         return new GetFavourites(provideFavouritesRepository());
-    }
-    public static LocationsRepository provideLocationsRepository() {
-        return LocationsRepository.getInstance(LocationsRemoteDataSource.getInstance());
-    }
-
-    public static OrdersRepository provideOrdersRepository() {
-        return OrdersRepository.getInstance(OrdersRemoteDataSource.getInstance());
-    }
-
-    public static FavouritesRepository provideFavouritesRepository() {
-        return FavouritesRepository.getInstance(FavouritesRemoteDataSource.getInstance());
     }
 
     public static EmailPasswordLogin provideEmailPasswordLogin() {

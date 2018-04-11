@@ -128,7 +128,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Log.d("adapterFav" , favouriteProducts.size()+"");
     }
 
-    public void setNewList(List<Product> newList){
+    public void setProductList(List<Product> newList){
         this.productList = newList;
         notifyDataSetChanged();
     }
