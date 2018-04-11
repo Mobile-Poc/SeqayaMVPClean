@@ -11,6 +11,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 import com.mesawer.chaty.seqayamvpclean.R;
+import com.mesawer.chaty.seqayamvpclean.presentation.cart.CartFragment;
 import com.mesawer.chaty.seqayamvpclean.presentation.favourites.FavouritesFragment;
 import com.mesawer.chaty.seqayamvpclean.presentation.orderhistory.OrderHistoryFragment;
 import com.mesawer.chaty.seqayamvpclean.presentation.products.ProductsFragment;
@@ -76,11 +77,11 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
                             return true;
 
                         case 1:
-//                            getFragmentManager()
-//                                    .beginTransaction().addToBackStack(null)
-//                                    .replace(R.id.container, CartFragment.newInstance(),
-//                                            "CartFragment").commit();
-//                            return true;
+                            getFragmentManager()
+                                    .beginTransaction().addToBackStack(null)
+                                    .replace(R.id.container, CartFragment.newInstance(),
+                                            "CartFragment").commit();
+                            return true;
 
                         case 2:
                             getFragmentManager().beginTransaction().addToBackStack(null)
