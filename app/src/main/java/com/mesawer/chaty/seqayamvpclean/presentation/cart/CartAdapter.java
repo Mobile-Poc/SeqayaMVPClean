@@ -1,7 +1,6 @@
 package com.mesawer.chaty.seqayamvpclean.presentation.cart;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mesawer.chaty.seqayamvpclean.R;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.CartItem;
+import com.mesawer.chaty.seqayamvpclean.presentation.main.CartItemsCountListener;
 import com.mesawer.chaty.seqayamvpclean.utils.ViewUtil;
 
 import java.util.List;
@@ -19,26 +20,26 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
-
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHolder> {
+
     private int total = 0;
     private List<CartItem> cartItemList;
     private Context context;
     private TotalListener totalListener;
+    private CartItemsCountListener countListener;
 
-    public CartAdapter(List<CartItem> cartItemList, Context context, TotalListener totalListener) {
+    public CartAdapter(List<CartItem> cartItemList, Context context, TotalListener totalListener,
+                       CartItemsCountListener countListener) {
         this.cartItemList = cartItemList;
         this.context = context;
         this.totalListener = totalListener;
+        this.countListener = countListener;
     }
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item, parent, false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            view.setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
-        }
+        view.setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
         ViewUtil.addShadowToView(context, view);
 
         return new ProductViewHolder(view);
@@ -49,6 +50,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
         final CartItem cartItem = cartItemList.get(position);
         total += (cartItem.getQuantity() * cartItem.getProduct().getPrice());
         totalListener.onTotalChange(total);
+        Glide.with(context)
+                .load(context.getResources()
+                        .getIdentifier(cartItem.getProduct().getPhotoUrl(), "drawable",
+                                context.getPackageName()))
+                .into(holder.productImage);
         holder.name.setText(cartItem.getProduct().getName());
         holder.manufacturer.setText(cartItem.getProduct().getManufacturer());
         holder.bottleSize.setText(String.valueOf(cartItem.getProduct().getBottleSize()));
@@ -80,6 +86,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
             total = 0;
             cartItemList.remove(cartItem);
             notifyDataSetChanged();
+            countListener.onCartItemsCountChanged(cartItemList.size());
             if (cartItemList.isEmpty())
                 totalListener.onTotalChange(total);
         });
