@@ -15,11 +15,11 @@ public class EmailPasswordLogin implements UseCase<EmailPasswordLogin.RequestVal
 
     @Override
     public void execute(RequestValues requestValue,
-                                              UseCaseCallback<ResponseValues> useCaseCallback) {
+                        UseCaseCallback<ResponseValues> useCaseCallback) {
 
     }
 
-    public static final class RequestValues implements UseCase.RequestValues{
+    public static final class RequestValues implements UseCase.RequestValues {
         private String email;
         private String password;
 
@@ -37,6 +37,6 @@ public class EmailPasswordLogin implements UseCase<EmailPasswordLogin.RequestVal
         }
     }
 
-    public static final class ResponseValues implements UseCase.ResponseValues{
+    public static final class ResponseValues implements UseCase.ResponseValues {
     }
 }
