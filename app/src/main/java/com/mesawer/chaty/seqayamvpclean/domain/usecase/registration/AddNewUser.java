@@ -1,13 +1,14 @@
-package com.mesawer.chaty.seqayamvpclean.domain.usecase.login;
+package com.mesawer.chaty.seqayamvpclean.domain.usecase.registration;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity.UserAPI;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.IUsersRepository;
 
-public class EmailPasswordLogin implements UseCase<EmailPasswordLogin.RequestValues, EmailPasswordLogin.ResponseValues> {
+public class AddNewUser implements UseCase<AddNewUser.RequestValues, AddNewUser.ResponseValues> {
 
     private IUsersRepository usersRepository;
 
-    public EmailPasswordLogin(IUsersRepository usersRepository) {
+    public AddNewUser(IUsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
 
@@ -15,26 +16,20 @@ public class EmailPasswordLogin implements UseCase<EmailPasswordLogin.RequestVal
     public void execute(RequestValues requestValue,
                         UseCaseSuccessCallback<ResponseValues> successCallback,
                         UseCaseErrorCallback errorCallback) {
-        usersRepository.emailPasswordLogin(requestValue.getEmail(), requestValue.getPassword(),
+        usersRepository.addNewUser(requestValue.getUser(),
                 v -> successCallback.onSuccess(null),
                 errorCallback::onError);
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
-        private String email;
-        private String password;
+        private UserAPI user;
 
-        public RequestValues(String email, String password) {
-            this.email = email;
-            this.password = password;
+        public RequestValues(UserAPI user) {
+            this.user = user;
         }
 
-        public String getEmail() {
-            return email;
-        }
-
-        public String getPassword() {
-            return password;
+        public UserAPI getUser() {
+            return user;
         }
     }
 

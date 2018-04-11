@@ -9,7 +9,7 @@ import com.mesawer.chaty.seqayamvpclean.domain.repository.SuccessCallback;
 
 import java.util.List;
 
-public class LocationsRepository implements ILocationsRepository{
+public class LocationsRepository implements ILocationsRepository {
 
     private static LocationsRepository INSTANCE;
     private LocationsDataSource locationsDataSource;
@@ -32,6 +32,6 @@ public class LocationsRepository implements ILocationsRepository{
     @Override
     public void getSavedLocations(SuccessCallback<List<Location>> successCallback,
                                   ErrorCallback errorCallback) {
-
+        locationsDataSource.getSavedLocations(successCallback, errorCallback);
     }
 }
