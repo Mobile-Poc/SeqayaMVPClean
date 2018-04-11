@@ -8,10 +8,7 @@ public class FavouritesPresenter implements FavouritesContract.Presenter{
 
     }
 
-    @Override
-    public void addFavourite(Fav fav) {
 
-    }
 
     @Override
     public void removeFavourite(String productId) {
