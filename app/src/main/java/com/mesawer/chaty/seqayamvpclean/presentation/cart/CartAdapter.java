@@ -82,14 +82,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
             }
 
         });
-        holder.errorBtn.setOnClickListener(view -> {
-            total = 0;
-            cartItemList.remove(cartItem);
-            notifyDataSetChanged();
-            countListener.onCartItemsCountChanged(cartItemList.size());
-            if (cartItemList.isEmpty())
-                totalListener.onTotalChange(total);
-        });
+        holder.errorBtn.setOnClickListener(view -> removeItem(cartItem));
+    }
+
+    private void removeItem(CartItem cartItem) {
+        total = 0;
+        cartItemList.remove(cartItem);
+        notifyDataSetChanged();
+        countListener.onCartItemsCountChanged(cartItemList.size());
+        if (cartItemList.isEmpty())
+            totalListener.onTotalChange(total);
     }
 
 

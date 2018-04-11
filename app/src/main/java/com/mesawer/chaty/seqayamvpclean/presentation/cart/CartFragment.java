@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,8 +22,8 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.CartItem;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 import com.mesawer.chaty.seqayamvpclean.presentation.main.CartItemsCountListener;
+import com.mesawer.chaty.seqayamvpclean.utils.ViewUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -71,32 +69,35 @@ public class CartFragment extends BaseFragment implements CartAdapter.TotalListe
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         unbinder = ButterKnife.bind(this, view);
+        ViewUtil.setupActionBar(getActivity(), getString(R.string.shopping_cart));
+        setupRecyclerView();
+
+        confirmBtn.setOnClickListener(v -> navigateToMapActivity(newOrder()));
+
+        return view;
+    }
+
+    private void navigateToMapActivity(Order order) {
+//        Intent i = new Intent(CartFragment.this.getActivity(), OrderMapActivity.class);
+//        i.putExtra(MainActivity.ORDER, order);
+//        startActivityForResult(i, REQUEST_CODE);
+    }
+
+    private Order newOrder() {
+        Order order = new Order(User.getEmail());
+        order.setTotal(total);
+        order.setCartItems(cartItemList);
+        return order;
+    }
+
+    private void setupRecyclerView() {
         cartItemList = User.getShoppingCart().getCartItemList();
         linearLayoutManager = new LinearLayoutManager(getActivity());
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(getString(R.string.shopping_cart));
-        }
         products_rv.setLayoutManager(linearLayoutManager);
         if (cartItemList.isEmpty())
             showNoItems();
         cartAdapter = new CartAdapter(cartItemList, getActivity(), this, countListener);
         products_rv.setAdapter(cartAdapter);
-
-        confirmBtn.setOnClickListener(view1 -> {
-            Order order = new Order(User.getEmail());
-            order.setTotal(total);
-            List<CartItem> cartItems = new ArrayList<>();
-            cartItems.addAll(cartItemList);
-            order.setCartItems(cartItems);
-//            Intent i = new Intent(CartFragment.this.getActivity(), OrderMapActivity.class);
-//            i.putExtra(MainActivity.ORDER, order);
-//            startActivityForResult(i, REQUEST_CODE);
-        });
-
-        return view;
     }
 
     private void showNoItems() {
@@ -125,7 +126,7 @@ public class CartFragment extends BaseFragment implements CartAdapter.TotalListe
         super.onAttach(context);
         try {
             countListener = (CartItemsCountListener) context;
-        }catch (ClassCastException e){
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
                     + " must implement OnHeadlineSelectedListener");
         }
