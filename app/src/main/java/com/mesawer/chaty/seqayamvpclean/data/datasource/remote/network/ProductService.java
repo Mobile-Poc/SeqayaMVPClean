@@ -1,7 +1,7 @@
-package com.mesawer.chaty.seqayamvpclean.data.remote.network;
+package com.mesawer.chaty.seqayamvpclean.data.datasource.remote.network;
 
-import com.mesawer.chaty.seqayamvpclean.data.remote.entity.Credential;
-import com.mesawer.chaty.seqayamvpclean.data.remote.entity.UserAPI;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity.Credential;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity.UserAPI;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Fav;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Location;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;

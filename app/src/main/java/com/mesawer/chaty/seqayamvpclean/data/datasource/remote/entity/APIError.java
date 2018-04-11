@@ -1,4 +1,4 @@
-package com.mesawer.chaty.seqayamvpclean.data.remote.entity;
+package com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity;
 
 /**
  * Created by ilias on 05/02/2018.

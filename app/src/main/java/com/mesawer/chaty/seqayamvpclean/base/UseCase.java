@@ -2,14 +2,19 @@ package com.mesawer.chaty.seqayamvpclean.base;
 
 public interface UseCase<Q extends UseCase.RequestValues, R extends UseCase.ResponseValues> {
 
-    void execute(Q requestValue, UseCaseCallback<R> useCaseCallback);
+    void execute(Q requestValue,
+                 UseCaseSuccessCallback<R> successCallback,
+                 UseCaseErrorCallback errorCallback);
 
-    public interface RequestValues{}
+    interface RequestValues{}
 
-    public interface ResponseValues{}
+    interface ResponseValues{}
 
-    public interface UseCaseCallback<R> {
+    interface UseCaseSuccessCallback<R> {
         void onSuccess(R response);
-        void onError();
+    }
+
+    interface UseCaseErrorCallback {
+        void onError(String errMsg);
     }
 }
