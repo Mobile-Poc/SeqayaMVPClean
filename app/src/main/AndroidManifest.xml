@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mesawer.chaty.seqayamvpclean">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +23,10 @@
         </activity>
         <activity android:name=".presentation.registration.RegistrationActivity" />
         <activity android:name=".presentation.main.MainActivity" />
+        <activity android:name=".presentation.location.OrderMapActivity"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAart3Wid56cjycxc6zAGNLKOj-jGsSwFA" />
     </application>
 
 </manifest>

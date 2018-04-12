@@ -1,12 +1,9 @@
 package com.mesawer.chaty.seqayamvpclean.data.repository;
 
 import com.mesawer.chaty.seqayamvpclean.data.datasource.OrdersDataSource;
-import com.mesawer.chaty.seqayamvpclean.data.datasource.ProductsDataSource;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
-import com.mesawer.chaty.seqayamvpclean.domain.entity.Product;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.ErrorCallback;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.IOrdersRepository;
-import com.mesawer.chaty.seqayamvpclean.domain.repository.IProductsRepository;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.SuccessCallback;
 
 import java.util.List;
@@ -29,7 +26,7 @@ public class OrdersRepository implements IOrdersRepository {
     public void addNewOrder(Order order,
                             SuccessCallback<Order> successCallback,
                             ErrorCallback errorCallback) {
-
+        ordersDataSource.addNewOrder(order, successCallback, errorCallback);
     }
 
     @Override

@@ -21,6 +21,7 @@ import com.mesawer.chaty.seqayamvpclean.base.BaseFragment;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.CartItem;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
+import com.mesawer.chaty.seqayamvpclean.presentation.deliverytime.DeliveryTimeFragment;
 import com.mesawer.chaty.seqayamvpclean.presentation.location.OrderMapActivity;
 import com.mesawer.chaty.seqayamvpclean.presentation.main.CartItemsCountListener;
 import com.mesawer.chaty.seqayamvpclean.presentation.main.MainActivity;

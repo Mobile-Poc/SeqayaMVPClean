@@ -115,11 +115,15 @@ public class OrderMapActivity extends FragmentActivity implements
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra(MainActivity.ORDER, order);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
-
+                order.setLocation(location);
+                if (order.getLocation()==null) {
+                    Toast.makeText(OrderMapActivity.this, "فضلا قم بإختيار موقع", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra(MainActivity.ORDER, order);
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
             }
         });
     }

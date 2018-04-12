@@ -9,12 +9,14 @@ import com.mesawer.chaty.seqayamvpclean.data.repository.FavouritesRepository;
 import com.mesawer.chaty.seqayamvpclean.data.repository.LocationsRepository;
 import com.mesawer.chaty.seqayamvpclean.data.repository.OrdersRepository;
 import com.mesawer.chaty.seqayamvpclean.data.repository.ProductsRepository;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.ProductsRemoteDataSource;
 import com.mesawer.chaty.seqayamvpclean.data.repository.UsersRepository;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites.AddFavourite;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites.DeleteFavourite;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites.GetFavourites;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.login.EmailPasswordLogin;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.orderhistory.GetOrderHistory;
+import com.mesawer.chaty.seqayamvpclean.domain.usecase.paymentmethod.AddOrder;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.products.GetProducts;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.products.Search;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.registration.AddNewUser;
@@ -79,5 +81,9 @@ public class Injection {
 
     public static DeleteFavourite provideDeleteFavourite() {
         return new DeleteFavourite(provideFavouritesRepository());
+    }
+
+    public static AddOrder provideAddOrder() {
+        return new AddOrder(provideOrdersRepository());
     }
 }

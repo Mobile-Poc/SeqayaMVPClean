@@ -35,6 +35,23 @@ public class OrdersRemoteDataSource implements OrdersDataSource {
     public void addNewOrder(Order order,
                             SuccessCallback<Order> successCallback,
                             ErrorCallback errorCallback) {
+        ProductService productService = ApiClient.getClient().create(ProductService.class);
+        Call<Order> call = productService.addNewOrder(order);
+        call.enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(Call<Order> call, Response<Order> response) {
+                if (response.isSuccessful()) {
+                    Order responseOrder = response.body();
+                    successCallback.onSuccess(responseOrder);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Order> call, Throwable t) {
+                errorCallback.onError("تأكد من اتصال الانترنت");
+            }
+        });
 
     }
 
