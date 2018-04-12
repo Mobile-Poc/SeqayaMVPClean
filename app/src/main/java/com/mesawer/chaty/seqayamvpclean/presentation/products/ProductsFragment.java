@@ -1,6 +1,7 @@
 package com.mesawer.chaty.seqayamvpclean.presentation.products;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -45,6 +46,7 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     private List<Product> products;
     private PublishSubject<Product> productPublishSubject = PublishSubject.create();
     private CartItemsCountListener cartItemsCountListener;
+    private Disposable disposable;
 
     public static ProductsFragment newInstance() {
 
@@ -54,9 +56,9 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
-        if (args != null)
-            cartItemsCountListener = args.getParcelable("count");
+//        Bundle args = getArguments();
+//        if (args != null)
+//            cartItemsCountListener = args.getParcelable("count");
 
     }
 
@@ -67,56 +69,12 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
         ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
 
-        productPublishSubject.subscribe(new Subject<Product>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(Product product) {
-                if (product.isLiked()) {
-                    productsPresenter.deleteFavourite(String.valueOf(product.getId()));
-                } else {
-                    Fav fav = new Fav(User.getEmail(), String.valueOf(product.getId()));
-                    productsPresenter.addToFavourite(fav);
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-
-            @Override
-            protected void subscribeActual(Observer<? super Product> observer) {
-
-            }
-
-            @Override
-            public boolean hasObservers() {
-                return false;
-            }
-
-            @Override
-            public boolean hasThrowable() {
-                return false;
-            }
-
-            @Override
-            public boolean hasComplete() {
-                return false;
-            }
-
-            @Override
-            public Throwable getThrowable() {
-                return null;
+        disposable = productPublishSubject.subscribe(product -> {
+            if (product.isLiked()) {
+                productsPresenter.deleteFavourite(String.valueOf(product.getId()));
+            } else {
+                Fav fav = new Fav(User.getEmail(), String.valueOf(product.getId()));
+                productsPresenter.addToFavourite(fav);
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -251,7 +209,7 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Activity context) {
         super.onAttach(context);
 
         try {
@@ -260,5 +218,12 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
             throw new ClassCastException(context.toString()
                     + " must implement OnHeadlineSelectedListener");
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        disposable.dispose();
     }
 }

@@ -61,9 +61,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="2dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    app:srcCompat="@drawable/ic_add_circle"
-                    tools:targetApi="lollipop" />
+                    android:background="?android:attr/selectableItemBackground"
+                    app:srcCompat="@drawable/ic_add_circle" />
 
                 <EditText
                     android:id="@+id/number_of_item"
@@ -79,9 +78,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="2dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    app:srcCompat="@drawable/ic_remove_circle"
-                    tools:targetApi="lollipop" />
+                    android:background="?android:attr/selectableItemBackground"
+                    app:srcCompat="@drawable/ic_remove_circle" />
 
 
             </LinearLayout>

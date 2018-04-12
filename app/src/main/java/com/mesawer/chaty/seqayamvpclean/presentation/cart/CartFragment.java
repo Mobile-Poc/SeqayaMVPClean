@@ -122,7 +122,7 @@ public class CartFragment extends BaseFragment implements CartAdapter.TotalListe
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Activity context) {
         super.onAttach(context);
         try {
             countListener = (CartItemsCountListener) context;
