@@ -1,4 +1,4 @@
-package com.mesawer.chaty.seqayamvpclean.presentation.location;
+package com.mesawer.chaty.seqayamvpclean.presentation.location.savedlocations;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

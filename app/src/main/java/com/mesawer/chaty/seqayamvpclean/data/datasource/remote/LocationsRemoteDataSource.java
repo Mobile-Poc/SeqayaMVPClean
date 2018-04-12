@@ -8,7 +8,9 @@ import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.network.ProductSe
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Location;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.ErrorCallback;
+import com.mesawer.chaty.seqayamvpclean.domain.repository.ILocationsRepository;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.SuccessCallback;
+import com.mesawer.chaty.seqayamvpclean.domain.usecase.location.AddLocationUseCase;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,11 +33,15 @@ public class LocationsRemoteDataSource implements LocationsDataSource {
         return INSTANCE;
     }
 
-    @Override
-    public void addNewLocation(Location location,
-                               SuccessCallback<Location> successCallback,
-                               ErrorCallback errorCallback) {
 
+    @Override
+    public void addNewLocation(Location location, ILocationsRepository.AddLocationCallBack callBack) {
+        try {
+            Response<Location> response = ApiClient.getClient().create(ProductService.class).addNewLocation(location).execute();
+            callBack.onSuccess(response.body());
+        } catch (Exception e) {
+            callBack.onFail();
+        }
     }
 
     @Override
@@ -47,7 +53,7 @@ public class LocationsRemoteDataSource implements LocationsDataSource {
                     @Override
                     public void onResponse(@NonNull Call<List<Location>> call,
                                            @NonNull Response<List<Location>> response) {
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             List<Location> locations = response.body();
                             successCallback.onSuccess(locations);
                         } else {

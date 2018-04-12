@@ -24,9 +24,8 @@ public class LocationsRepository implements ILocationsRepository {
     }
 
     @Override
-    public void addNewLocation(Location location, SuccessCallback<Location> successCallback,
-                               ErrorCallback errorCallback) {
-        locationsDataSource.addNewLocation(location, successCallback, errorCallback);
+    public void addNewLocation(Location location, AddLocationCallBack callBack) {
+        locationsDataSource.addNewLocation(location,callBack);
     }
 
     @Override

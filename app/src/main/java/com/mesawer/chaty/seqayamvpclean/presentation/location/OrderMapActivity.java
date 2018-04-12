@@ -37,6 +37,7 @@ import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.network.ProductSe
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Location;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
+import com.mesawer.chaty.seqayamvpclean.presentation.location.savedlocations.SavedLocationsFragment;
 import com.mesawer.chaty.seqayamvpclean.presentation.main.MainActivity;
 
 

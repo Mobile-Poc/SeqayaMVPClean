@@ -1,5 +1,6 @@
 package com.mesawer.chaty.seqayamvpclean.utils;
 
+import com.mesawer.chaty.seqayamvpclean.base.UseCaseHandler;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.FavouritesRemoteDataSource;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.LocationsRemoteDataSource;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.OrdersRemoteDataSource;
@@ -22,6 +23,10 @@ import com.mesawer.chaty.seqayamvpclean.domain.usecase.products.Search;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.registration.AddNewUser;
 
 public class Injection {
+    public static UseCaseHandler provideUseCaseHandler() {
+
+        return UseCaseHandler.getInstance();
+    }
 
     public static ProductsRepository provideProductsRepository() {
         return ProductsRepository.getInstance(ProductsRemoteDataSource.getInstance());
