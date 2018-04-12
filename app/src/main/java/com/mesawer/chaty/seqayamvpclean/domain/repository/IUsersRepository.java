@@ -1,10 +1,10 @@
 package com.mesawer.chaty.seqayamvpclean.domain.repository;
 
-import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity.UserAPI;
 
 public interface IUsersRepository {
 
-    void addNewUser(User user,
+    void addNewUser(UserAPI user,
                     SuccessCallback<Void> successCallback,
                     ErrorCallback errorCallback);
 

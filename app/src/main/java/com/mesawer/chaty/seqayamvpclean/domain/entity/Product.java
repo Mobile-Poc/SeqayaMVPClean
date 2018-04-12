@@ -15,6 +15,15 @@ public class Product implements Serializable {
     private float bottleSize;
     private int no_bpp;
     private int price;
+    private boolean isLiked;
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
 
     public Product() {
         id = 1;

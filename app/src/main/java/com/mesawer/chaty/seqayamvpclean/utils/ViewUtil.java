@@ -1,8 +1,11 @@
 package com.mesawer.chaty.seqayamvpclean.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.mesawer.chaty.seqayamvpclean.R;
@@ -28,6 +31,15 @@ public class ViewUtil {
             int paddingTop = view.getPaddingTop();
             view.setBackground(ContextCompat.getDrawable(context, R.drawable.card_bg));
             view.setPadding(paddingStart, paddingTop, paddingEnd, paddingBottom);
+        }
+    }
+
+    public static void setupActionBar(Activity activity, String title) {
+        ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(title);
         }
     }
 }

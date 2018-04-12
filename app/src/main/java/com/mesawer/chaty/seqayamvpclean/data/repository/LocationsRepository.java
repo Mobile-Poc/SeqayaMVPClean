@@ -32,6 +32,6 @@ public class LocationsRepository implements ILocationsRepository {
     @Override
     public void getSavedLocations(SuccessCallback<List<Location>> successCallback,
                                   ErrorCallback errorCallback) {
-
+        locationsDataSource.getSavedLocations(successCallback, errorCallback);
     }
 }
