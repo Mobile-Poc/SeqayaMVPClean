@@ -11,6 +11,7 @@ import com.mesawer.chaty.seqayamvpclean.data.repository.ProductsRepository;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.ProductsRemoteDataSource;
 import com.mesawer.chaty.seqayamvpclean.data.repository.UsersRepository;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.login.EmailPasswordLogin;
+import com.mesawer.chaty.seqayamvpclean.domain.usecase.paymentmethod.AddOrder;
 
 public class Injection {
 
@@ -36,5 +37,9 @@ public class Injection {
 
     public static EmailPasswordLogin provideEmailPasswordLogin() {
         return new EmailPasswordLogin(provideProductsRepository());
+    }
+
+    public static AddOrder provideAddOrder() {
+        return new AddOrder(provideOrdersRepository());
     }
 }

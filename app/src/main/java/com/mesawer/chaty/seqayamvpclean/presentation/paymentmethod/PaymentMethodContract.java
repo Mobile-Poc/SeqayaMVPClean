@@ -7,7 +7,7 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
 public interface PaymentMethodContract {
 
     interface View extends BaseView<Presenter> {
-        void navigateToOrderSummeryFragment();
+        void navigateToOrderSummeryFragment(Order order);
     }
 
     interface Presenter extends BasePresenter {
