@@ -18,6 +18,7 @@ import com.mesawer.chaty.seqayamvpclean.base.BaseFragment;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Location;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
 import com.mesawer.chaty.seqayamvpclean.presentation.main.MainActivity;
+import com.mesawer.chaty.seqayamvpclean.utils.Injection;
 
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class SavedLocationsFragment extends BaseFragment implements SavedLocatio
     PublishSubject<Location> addressObservable = PublishSubject.create();
     private Order order;
     private Disposable disposable;
+    private SavedLocationsContract.Presenter savedLocationsPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,13 +54,22 @@ public class SavedLocationsFragment extends BaseFragment implements SavedLocatio
         View view = inflater.inflate(R.layout.fragment_saved_adresses, container, false);
         unbinder = ButterKnife.bind(this, view);
         super.layout = savedLocationsLayout;
+        savedLocationsPresenter = new SavedLocationsPresenter(Injection.provideUseCaseHandler(),
+                this, Injection.provideGetSavedLocations());
         order = (Order) getArguments().getSerializable(MainActivity.ORDER);
 
-        observeOnLocationClick();
         savedLocationsLayout.setOnClickListener(v -> getActivity().getFragmentManager().popBackStack());
         cancelButton.setOnClickListener(v -> getActivity().getFragmentManager().popBackStack());
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        savedLocationsPresenter.getSavedLocations();
+        observeOnLocationClick();
     }
 
     private void observeOnLocationClick() {

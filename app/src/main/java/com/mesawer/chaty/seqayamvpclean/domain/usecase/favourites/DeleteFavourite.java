@@ -1,10 +1,10 @@
 package com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
+import com.mesawer.chaty.seqayamvpclean.domain.entity.Fav;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.IFavouritesRepository;
 
-public class DeleteFavourite implements
-        UseCase<DeleteFavourite.RequestValues, DeleteFavourite.ResponseValues> {
+public class DeleteFavourite extends UseCase<DeleteFavourite.RequestValues, DeleteFavourite.ResponseValues> {
 
     private IFavouritesRepository favouritesRepository;
 
@@ -13,14 +13,16 @@ public class DeleteFavourite implements
     }
 
     @Override
-    public void execute(RequestValues requestValue,
-                        UseCaseSuccessCallback<ResponseValues> successCallback,
-                        UseCaseErrorCallback errorCallback) {
-        favouritesRepository.deleteFav(requestValue.getProductId()
-                , result -> successCallback.onSuccess(null), errMsg -> {});
+    protected void executeUseCase(RequestValues requestValues) {
+        favouritesRepository.deleteFav(requestValues.getProductId()
+                , fav -> {
+                    ResponseValues responseValues = new ResponseValues(fav);
+                    getUseCaseCallback().onSuccess(responseValues);
+                },
+                getUseCaseCallback()::onError);
     }
 
-    public static final class RequestValues implements UseCase.RequestValues{
+    public static final class RequestValues implements UseCase.RequestValues {
         String productId;
 
         public RequestValues(String productId) {
@@ -32,7 +34,15 @@ public class DeleteFavourite implements
         }
     }
 
-    public static final class ResponseValues implements UseCase.ResponseValues{
+    public static final class ResponseValues implements UseCase.ResponseValues {
+        private Fav fav;
 
+        public ResponseValues(Fav fav) {
+            this.fav = fav;
+        }
+
+        public Fav getFav() {
+            return fav;
+        }
     }
 }

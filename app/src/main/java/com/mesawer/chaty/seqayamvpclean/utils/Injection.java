@@ -1,5 +1,6 @@
 package com.mesawer.chaty.seqayamvpclean.utils;
 
+import com.mesawer.chaty.seqayamvpclean.base.UseCaseHandler;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.FavouritesRemoteDataSource;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.LocationsRemoteDataSource;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.OrdersRemoteDataSource;
@@ -18,6 +19,7 @@ import com.mesawer.chaty.seqayamvpclean.domain.usecase.orderhistory.GetOrderHist
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.products.GetProducts;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.products.Search;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.registration.AddNewUser;
+import com.mesawer.chaty.seqayamvpclean.domain.usecase.savedlocation.GetSavedLocations;
 
 public class Injection {
 
@@ -57,8 +59,8 @@ public class Injection {
         return new DeleteFavourite(provideFavouritesRepository());
     }
 
-    public GetFavourites getFavourites(){
-        return new GetFavourites(provideFavouritesRepository());
+    public static GetSavedLocations provideGetSavedLocations(){
+        return new GetSavedLocations(provideLocationsRepository());
     }
 
     public static EmailPasswordLogin provideEmailPasswordLogin() {
@@ -79,5 +81,9 @@ public class Injection {
 
     public static DeleteFavourite provideDeleteFavourite() {
         return new DeleteFavourite(provideFavouritesRepository());
+    }
+
+    public static UseCaseHandler provideUseCaseHandler() {
+        return UseCaseHandler.getInstance();
     }
 }

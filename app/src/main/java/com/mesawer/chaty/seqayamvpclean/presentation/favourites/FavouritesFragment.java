@@ -21,6 +21,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.PublishSubject;
 
 
 public class FavouritesFragment extends BaseFragment implements FavouritesContract.View {
@@ -37,6 +39,8 @@ public class FavouritesFragment extends BaseFragment implements FavouritesContra
     private FavouritesAdapter favouritesAdapter;
     private Unbinder unBinder;
     private FavouritesContract.Presenter favouritesPresenter;
+    private PublishSubject<Product> unLikedProduct = PublishSubject.create();
+    private Disposable disposable;
 
 
     public static FavouritesFragment newInstance() {
@@ -50,7 +54,8 @@ public class FavouritesFragment extends BaseFragment implements FavouritesContra
         View view = inflater.inflate(R.layout.fragment_favourites, container, false);
         unBinder = ButterKnife.bind(this, view);
         super.layout = favouritesLayout;
-        favouritesPresenter = new FavouritesPresenter(this,
+        favouritesPresenter = new FavouritesPresenter(Injection.provideUseCaseHandler(),
+                this,
                 Injection.provideGetFavourites(),
                 Injection.provideDeleteFavourite());
         ViewUtil.setupActionBar(getActivity(), getString(R.string.favourite));
@@ -62,12 +67,16 @@ public class FavouritesFragment extends BaseFragment implements FavouritesContra
     public void onResume() {
         super.onResume();
         favouritesPresenter.getFavourites();
+        disposable = unLikedProduct.subscribe(
+                product -> favouritesPresenter.removeFavourite(String.valueOf(product.getId())));
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         unBinder.unbind();
+        disposable.dispose();
     }
 
     @Override
@@ -81,7 +90,7 @@ public class FavouritesFragment extends BaseFragment implements FavouritesContra
     private void setupRecyclerView(List<Product> favourites) {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         favs_rv.setLayoutManager(linearLayoutManager);
-        favouritesAdapter = new FavouritesAdapter(favourites, getActivity());
+        favouritesAdapter = new FavouritesAdapter(favourites, getActivity(), unLikedProduct);
         favs_rv.setAdapter(favouritesAdapter);
     }
 
@@ -93,8 +102,8 @@ public class FavouritesFragment extends BaseFragment implements FavouritesContra
     }
 
     @Override
-    public void removeFavourite(Product Product) {
-
+    public void removeFavourite(int productId) {
+        favouritesAdapter.removeFavourite(productId);
     }
 
     @Override

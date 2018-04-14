@@ -2,9 +2,7 @@ package com.mesawer.chaty.seqayamvpclean.presentation.products;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mesawer.chaty.seqayamvpclean.R;
@@ -25,28 +24,29 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 import com.mesawer.chaty.seqayamvpclean.presentation.main.CartItemsCountListener;
 import com.mesawer.chaty.seqayamvpclean.utils.Injection;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observer;
+import butterknife.Unbinder;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.Subject;
 
 
 public class ProductsFragment extends BaseFragment implements ProductsContract.View {
 
     @BindView(R.id.products_rv)
     RecyclerView products_rv;
+    @BindView(R.id.products_layout)
+    FrameLayout productsLayout;
     private ProductAdapter productAdapter;
     private ProductsPresenter productsPresenter;
     private List<Product> products;
     private PublishSubject<Product> productPublishSubject = PublishSubject.create();
     private CartItemsCountListener cartItemsCountListener;
     private Disposable disposable;
+    private Unbinder unbinder;
 
     public static ProductsFragment newInstance() {
 
@@ -66,7 +66,8 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_products, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
+        super.layout = productsLayout;
         setHasOptionsMenu(true);
 
         disposable = productPublishSubject.subscribe(product -> {
@@ -81,7 +82,8 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
         products_rv.setLayoutManager(linearLayoutManager);
         productAdapter = new ProductAdapter(products, getActivity(),
                 productPublishSubject, cartItemsCountListener);
-        productsPresenter = new ProductsPresenter(Injection.getProducts()
+        productsPresenter = new ProductsPresenter(Injection.provideUseCaseHandler()
+                , Injection.getProducts()
                 , Injection.search()
                 , Injection.addFavourite()
                 , Injection.provideGetFavourites()
@@ -221,9 +223,10 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
 
+        unbinder.unbind();
         disposable.dispose();
     }
 }

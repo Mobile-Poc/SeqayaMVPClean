@@ -2,13 +2,11 @@ package com.mesawer.chaty.seqayamvpclean.domain.usecase.location;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
 
-public class AddLocation implements UseCase<AddLocation.RequestValues, AddLocation.ResponseValues> {
-
+public class AddLocation extends UseCase<AddLocation.RequestValues,AddLocation.ResponseValues> {
 
     @Override
-    public void execute(RequestValues requestValue,
-                        UseCaseSuccessCallback<ResponseValues> successCallback,
-                        UseCaseErrorCallback errorCallback) {
+    protected void executeUseCase(RequestValues requestValues) {
+
     }
 
     public static final class RequestValues implements UseCase.RequestValues{

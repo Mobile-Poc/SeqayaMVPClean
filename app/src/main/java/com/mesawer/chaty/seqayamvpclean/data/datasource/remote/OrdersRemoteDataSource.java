@@ -41,28 +41,21 @@ public class OrdersRemoteDataSource implements OrdersDataSource {
     @Override
     public void getOrderHistory(SuccessCallback<List<Order>> successCallback,
                                 ErrorCallback errorCallback) {
-        ApiClient.getClient().create(ProductService.class)
-                .getOrderHistory(User.getEmail())
-                .enqueue(new Callback<List<Order>>() {
-                    @Override
-                    public void onResponse(@NonNull Call<List<Order>> call,
-                                           @NonNull Response<List<Order>> response) {
-                        if (response.isSuccessful()) {
-                            List<Order> orders = response.body();
-                            successCallback.onSuccess(orders);
-                        } else {
-                            try {
-                                errorCallback.onError(apiErrMsg(response.errorBody().string()));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<List<Order>> call, @NonNull Throwable t) {
-                        errorCallback.onError("تأكد من اتصال الانترنت");
-                    }
-                });
+        try {
+            Response<List<Order>> response = ApiClient.getClient().create(ProductService.class)
+                    .getOrderHistory(User.getEmail()).execute();
+            if (response.isSuccessful()) {
+                List<Order> orders = response.body();
+                successCallback.onSuccess(orders);
+            } else {
+                try {
+                    errorCallback.onError(apiErrMsg(response.errorBody().string()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            errorCallback.onError("تأكد من اتصال الانترنت");
+        }
     }
 }

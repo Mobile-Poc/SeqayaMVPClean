@@ -6,7 +6,7 @@ import com.mesawer.chaty.seqayamvpclean.domain.repository.IFavouritesRepository;
 
 import java.util.List;
 
-public class GetFavourites implements
+public class GetFavourites extends
         UseCase<GetFavourites.RequestValues, GetFavourites.ResponseValues> {
 
     private IFavouritesRepository favouritesRepository;
@@ -16,13 +16,11 @@ public class GetFavourites implements
     }
 
     @Override
-    public void execute(RequestValues requestValue,
-                        UseCaseSuccessCallback<ResponseValues> successCallback,
-                        UseCaseErrorCallback errorCallback) {
+    protected void executeUseCase(RequestValues requestValues) {
         favouritesRepository.getFavs(favs -> {
             ResponseValues responseValues = new ResponseValues(favs);
-            successCallback.onSuccess(responseValues);
-        }, errorCallback::onError);
+            getUseCaseCallback().onSuccess(responseValues);
+        }, getUseCaseCallback()::onError);
     }
 
     public static final class RequestValues implements UseCase.RequestValues {

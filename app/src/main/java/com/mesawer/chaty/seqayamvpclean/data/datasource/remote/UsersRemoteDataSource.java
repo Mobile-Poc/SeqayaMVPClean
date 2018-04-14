@@ -1,7 +1,5 @@
 package com.mesawer.chaty.seqayamvpclean.data.datasource.remote;
 
-import android.support.annotation.NonNull;
-
 import com.mesawer.chaty.seqayamvpclean.data.datasource.UsersDataSource;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity.Credential;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.entity.UserAPI;
@@ -13,8 +11,6 @@ import com.mesawer.chaty.seqayamvpclean.domain.repository.SuccessCallback;
 
 import java.io.IOException;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.mesawer.chaty.seqayamvpclean.data.datasource.remote.network.Util.apiErrMsg;
@@ -35,30 +31,23 @@ public class UsersRemoteDataSource implements UsersDataSource {
     public void addNewUser(UserAPI user,
                            SuccessCallback<Void> successCallback,
                            ErrorCallback errorCallback) {
-        ApiClient.getClient().create(ProductService.class)
-                .addNewUser(user)
-                .enqueue(new Callback<UserAPI>() {
-                    @Override
-                    public void onResponse(@NonNull Call<UserAPI> call,
-                                           @NonNull Response<UserAPI> response) {
-                        if (response.isSuccessful()) {
-                            UserAPI userAPI = response.body();
-                            if (userAPI != null)
-                                successCallback.onSuccess(null);
-                        } else {
-                            try {
-                                errorCallback.onError(apiErrMsg(response.errorBody().string()));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<UserAPI> call, @NonNull Throwable t) {
-                        errorCallback.onError("تأكد من اتصال الانترنت");
-                    }
-                });
+        try {
+            Response<UserAPI> response = ApiClient.getClient().create(ProductService.class)
+                    .addNewUser(user).execute();
+            if (response.isSuccessful()) {
+                UserAPI userAPI = response.body();
+                if (userAPI != null)
+                    successCallback.onSuccess(null);
+            } else {
+                try {
+                    errorCallback.onError(apiErrMsg(response.errorBody().string()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            errorCallback.onError("تأكد من اتصال الانترنت");
+        }
     }
 
     @Override
@@ -66,33 +55,26 @@ public class UsersRemoteDataSource implements UsersDataSource {
                                    SuccessCallback<Void> successCallback,
                                    ErrorCallback errorCallback) {
         Credential credential = new Credential(email, password);
-        ApiClient.getClient().create(ProductService.class)
-                .login(credential)
-                .enqueue(new Callback<UserAPI>() {
-                    @Override
-                    public void onResponse(@NonNull Call<UserAPI> call,
-                                           @NonNull Response<UserAPI> response) {
-                        if (response.isSuccessful()) {
-                            UserAPI userAPI = response.body();
-                            if (userAPI != null) {
-                                User.setEmail(userAPI.getEmail());
-                                User.setPassword(userAPI.getPassword());
-                                User.setName(userAPI.getName());
-                                successCallback.onSuccess(null);
-                            }
-                        } else {
-                            try {
-                                errorCallback.onError(apiErrMsg(response.errorBody().string()));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
+        try {
+            Response<UserAPI> response = ApiClient.getClient().create(ProductService.class)
+                    .login(credential).execute();
+            if (response.isSuccessful()) {
+                UserAPI userAPI = response.body();
+                if (userAPI != null) {
+                    User.setEmail(userAPI.getEmail());
+                    User.setPassword(userAPI.getPassword());
+                    User.setName(userAPI.getName());
+                    successCallback.onSuccess(null);
+                }else {
+                    try {
+                        errorCallback.onError(apiErrMsg(response.errorBody().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-
-                    @Override
-                    public void onFailure(@NonNull Call<UserAPI> call, @NonNull Throwable t) {
-                        errorCallback.onError("تأكد من اتصال الانترنت");
-                    }
-                });
+                }
+            }
+        } catch (IOException e) {
+            errorCallback.onError("تأكد من اتصال الانترنت");
+        }
     }
 }

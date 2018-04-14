@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.like.LikeButton;
@@ -25,15 +24,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.subjects.PublishSubject;
 
 public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.ProductViewHolder> {
+
     private List<Product> productList;
     private Context context;
+    private PublishSubject<Product> unLikedProduct;
 
-    public FavouritesAdapter(List<Product> productList, Context context) {
+    public FavouritesAdapter(List<Product> productList,
+                             Context context, PublishSubject<Product> unLikedProduct) {
         this.productList = productList;
         this.context = context;
-
+        this.unLikedProduct = unLikedProduct;
     }
 
     @Override
@@ -50,7 +53,8 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Pr
         final Product product = productList.get(position);
         Glide.with(context)
                 .load(context.getResources()
-                        .getIdentifier(product.getPhotoUrl(), "drawable", context.getPackageName()))
+                        .getIdentifier(product.getPhotoUrl(), "drawable",
+                                context.getPackageName()))
                 .into(holder.productImage);
         holder.name.setText(product.getName());
         holder.manufacturer.setText(product.getManufacturer());
@@ -80,35 +84,32 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Pr
             }
             shoppingCart.getCartItemList().add(cartItem);
         });
-
+        holder.likeButton.setLiked(true);
         holder.likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                Toast.makeText(context, "liked", Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                Toast.makeText(context, "unLiked", Toast.LENGTH_SHORT).show();
-
+                unLikedProduct.onNext(product);
             }
         });
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList.clear();
-        this.productList = productList;
-    }
-
-    public void clear() {
-        this.productList.clear();
-        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
         return productList.size();
+    }
+
+    public void removeFavourite(int productId) {
+        for (Product product : productList) {
+            if (product.getId() == productId) {
+                productList.remove(product);
+                notifyDataSetChanged();
+            }
+        }
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {

@@ -2,14 +2,13 @@ package com.mesawer.chaty.seqayamvpclean.domain.usecase.login;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
 
-public class FacebookLogin implements
-        UseCase<FacebookLogin.RequestValues, FacebookLogin.ResponseValues> {
+public class FacebookLogin extends
+        UseCase<FacebookLogin.RequestValues,FacebookLogin.ResponseValues> {
 
 
     @Override
-    public void execute(RequestValues requestValue,
-                        UseCaseSuccessCallback<ResponseValues> successCallback,
-                        UseCaseErrorCallback errorCallback) {
+    protected void executeUseCase(RequestValues requestValues) {
+
     }
 
     public static final class RequestValues implements UseCase.RequestValues{

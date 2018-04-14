@@ -6,7 +6,7 @@ import com.mesawer.chaty.seqayamvpclean.domain.repository.IProductsRepository;
 
 import java.util.List;
 
-public class Search implements UseCase<Search.RequestValues, Search.ResponseValues> {
+public class Search extends UseCase<Search.RequestValues, Search.ResponseValues> {
 
     private IProductsRepository iProductsRepository;
 
@@ -15,16 +15,14 @@ public class Search implements UseCase<Search.RequestValues, Search.ResponseValu
     }
 
     @Override
-    public void execute(RequestValues requestValue,
-                        UseCaseSuccessCallback<ResponseValues> successCallback,
-                        UseCaseErrorCallback errorCallback) {
-        iProductsRepository.getSearchResult(requestValue.getKeyWord() , result -> {
+    protected void executeUseCase(RequestValues requestValues) {
+        iProductsRepository.getSearchResult(requestValues.getKeyWord(), result -> {
             ResponseValues responseValues = new ResponseValues(result);
-            successCallback.onSuccess(responseValues);
-        },errorCallback::onError);
+            getUseCaseCallback().onSuccess(responseValues);
+        }, getUseCaseCallback()::onError);
     }
 
-    public static final class RequestValues implements UseCase.RequestValues{
+    public static final class RequestValues implements UseCase.RequestValues {
         String keyWord;
 
         public RequestValues(String keyWord) {
@@ -36,7 +34,7 @@ public class Search implements UseCase<Search.RequestValues, Search.ResponseValu
         }
     }
 
-    public static final class ResponseValues implements UseCase.ResponseValues{
+    public static final class ResponseValues implements UseCase.ResponseValues {
         List<Product> products;
 
         public ResponseValues(List<Product> products) {

@@ -4,25 +4,24 @@ import com.mesawer.chaty.seqayamvpclean.base.UseCase;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Fav;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.IFavouritesRepository;
 
-public class AddFavourite implements UseCase<AddFavourite.RequestValues, AddFavourite.ResponseValues> {
+public class AddFavourite extends UseCase<AddFavourite.RequestValues, AddFavourite.ResponseValues> {
 
-    private IFavouritesRepository iFavouritesRepository;
+    private IFavouritesRepository favouritesRepository;
 
-    public AddFavourite(IFavouritesRepository iFavouritesRepository) {
-        this.iFavouritesRepository = iFavouritesRepository;
+    public AddFavourite(IFavouritesRepository favouritesRepository) {
+        this.favouritesRepository = favouritesRepository;
     }
 
     @Override
-    public void execute(RequestValues requestValue,
-                        UseCaseSuccessCallback<ResponseValues> successCallback,
-                        UseCaseErrorCallback errorCallback) {
-        iFavouritesRepository.addFav(requestValue.getFav() , result -> {
-            successCallback.onSuccess(null);
-        },errorCallback::onError);
+    protected void executeUseCase(RequestValues requestValues) {
+        favouritesRepository.addFav(requestValues.getFav(),
+                result -> getUseCaseCallback().onSuccess(null),
+                getUseCaseCallback()::onError);
     }
 
-    public static final class RequestValues implements UseCase.RequestValues{
+    public static final class RequestValues implements UseCase.RequestValues {
         Fav fav;
+
         public RequestValues(Fav fav) {
             this.fav = fav;
         }
@@ -32,7 +31,5 @@ public class AddFavourite implements UseCase<AddFavourite.RequestValues, AddFavo
         }
     }
 
-    public static final class ResponseValues implements UseCase.ResponseValues{
-
-    }
+    public static final class ResponseValues implements UseCase.ResponseValues {}
 }
