@@ -7,7 +7,7 @@ import com.mesawer.chaty.seqayamvpclean.domain.repository.ILocationsRepository;
 public class AddLocationUseCase extends UseCase<AddLocationUseCase.RequestValues, AddLocationUseCase.ResponseValue> {
     final ILocationsRepository locationsRepository;
 
-    AddLocationUseCase(ILocationsRepository locationsRepository) {
+    public AddLocationUseCase(ILocationsRepository locationsRepository) {
         this.locationsRepository = locationsRepository;
     }
 
@@ -16,7 +16,7 @@ public class AddLocationUseCase extends UseCase<AddLocationUseCase.RequestValues
     protected void executeUseCase(RequestValues requestValues) {
         locationsRepository.addNewLocation(requestValues.location, new ILocationsRepository.AddLocationCallBack() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(Location location) {
 
             }
 

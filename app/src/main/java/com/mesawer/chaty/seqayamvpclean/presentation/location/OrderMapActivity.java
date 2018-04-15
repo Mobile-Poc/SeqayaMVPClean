@@ -39,6 +39,8 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.Order;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
 import com.mesawer.chaty.seqayamvpclean.presentation.location.savedlocations.SavedLocationsFragment;
 import com.mesawer.chaty.seqayamvpclean.presentation.main.MainActivity;
+import com.mesawer.chaty.seqayamvpclean.utils.Injection;
+import com.mesawer.chaty.seqayamvpclean.utils.PresenterCache;
 
 
 import java.io.IOException;
@@ -50,8 +52,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OrderMapActivity extends FragmentActivity implements
-        OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, LocationListener {
-
+        OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, LocationListener, LocationContract.View {
+    final static String TAG = OrderMapActivity.class.getCanonicalName();
+    LocationContract.Presenter mPresenter;
     private final int REQUEST_PERMISSION_LOCATION = 101;
     ImageView backImage;
     GoogleMap mGoogleMap;
@@ -76,6 +79,7 @@ public class OrderMapActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         //checkLocationPermission();
 
         order = (Order) getIntent().getExtras().getSerializable(MainActivity.ORDER);
@@ -117,7 +121,7 @@ public class OrderMapActivity extends FragmentActivity implements
             @Override
             public void onClick(View v) {
                 order.setLocation(location);
-                if (order.getLocation()==null) {
+                if (order.getLocation() == null) {
                     Toast.makeText(OrderMapActivity.this, "فضلا قم بإختيار موقع", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent returnIntent = new Intent();
@@ -311,20 +315,9 @@ public class OrderMapActivity extends FragmentActivity implements
     public void onInfoWindowClick(Marker marker) {
         MarkerInfo markerInfo = (MarkerInfo) marker.getTag();
         finaladdress = markerInfo.getAddress();
+        setinject(location);
+        mPresenter.addLocation(true);
 
-        ApiClient.getClient().create(ProductService.class).addNewLocation(location)
-                .enqueue(new Callback<Location>() {
-                    @Override
-                    public void onResponse(Call<Location> call, Response<Location> response) {
-                        Location loc = response.body();
-                        order.setLocation(loc);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Location> call, Throwable t) {
-
-                    }
-                });
 
     }
 
@@ -360,6 +353,39 @@ public class OrderMapActivity extends FragmentActivity implements
 
             startActivity(i);
             flag = false;
+        }
+    }
+
+    @Override
+    public void setPresenter(LocationContract.Presenter presenter) {
+
+    }
+
+    @Override
+    public void showErrorMessage(String errMsg) {
+
+    }
+
+    @Override
+    public void addLocationSuccess() {
+
+    }
+
+    @Override
+    public void addLocationFail() {
+
+    }
+
+    void setinject(Location location) {
+        PresenterCache.getInstance().addPresenter(OrderMapActivity.TAG,
+                new LocationPresenter(Injection.provideUseCaseHandler(),
+                        this,
+                        Injection.injectAddLocationUseCase(),
+                        location
+
+                ));
+        if (PresenterCache.getInstance().getPresenter(TAG) != null) {
+            mPresenter = (LocationContract.Presenter) PresenterCache.getInstance().getPresenter(TAG);
         }
     }
 }

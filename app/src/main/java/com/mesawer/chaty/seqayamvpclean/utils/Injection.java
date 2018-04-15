@@ -15,6 +15,7 @@ import com.mesawer.chaty.seqayamvpclean.data.repository.UsersRepository;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites.AddFavourite;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites.DeleteFavourite;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites.GetFavourites;
+import com.mesawer.chaty.seqayamvpclean.domain.usecase.location.AddLocationUseCase;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.login.EmailPasswordLogin;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.orderhistory.GetOrderHistory;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.paymentmethod.AddOrder;
@@ -90,5 +91,10 @@ public class Injection {
 
     public static AddOrder provideAddOrder() {
         return new AddOrder(provideOrdersRepository());
+    }
+
+    public static AddLocationUseCase injectAddLocationUseCase() {
+
+        return new AddLocationUseCase(provideLocationsRepository());
     }
 }

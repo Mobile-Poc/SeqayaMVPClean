@@ -1,6 +1,6 @@
 package com.mesawer.chaty.seqayamvpclean.base;
 
-public interface UseCasee<Q extends UseCase.RequestValues, R extends UseCase.ResponseValues> {
+public interface UseCasee<Q extends UseCasee.RequestValues, R extends UseCasee.ResponseValues> {
 
     void execute(Q requestValue,
                  UseCaseSuccessCallback<R> successCallback,
