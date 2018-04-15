@@ -15,6 +15,7 @@ import com.mesawer.chaty.seqayamvpclean.presentation.cart.CartFragment;
 import com.mesawer.chaty.seqayamvpclean.presentation.favourites.FavouritesFragment;
 import com.mesawer.chaty.seqayamvpclean.presentation.orderhistory.OrderHistoryFragment;
 import com.mesawer.chaty.seqayamvpclean.presentation.products.ProductsFragment;
+import com.mesawer.chaty.seqayamvpclean.presentation.settings.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,11 +96,11 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
                             return true;
 
                         case 4:
-//                            getFragmentManager()
-//                                    .beginTransaction().addToBackStack(null)
-//                                    .replace(R.id.container, SettingsFragment.newInstance())
-//                                    .commit();
-//                            return true;
+                            getFragmentManager()
+                                    .beginTransaction().addToBackStack(null)
+                                    .replace(R.id.container, SettingsFragment.newInstance())
+                                    .commit();
+                            return true;
                         default:
                             return false;
                     }
