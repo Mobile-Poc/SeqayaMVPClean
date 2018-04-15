@@ -59,7 +59,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         super.layout = loginLayout;
-        loginPresenter = new LoginPresenter(this, Injection.provideEmailPasswordLogin());
+        loginPresenter = new LoginPresenter(Injection.provideUseCaseHandler(),
+                this, Injection.provideEmailPasswordLogin());
         if (BuildConfig.DEBUG) {
             loginEmailEditText.setText("seqaya@ntgclarity.com");
             loginPasswordEditText.setText("1234");

@@ -1,5 +1,6 @@
 package com.mesawer.chaty.seqayamvpclean.utils;
 
+import com.mesawer.chaty.seqayamvpclean.base.UseCaseHandler;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.FavouritesRemoteDataSource;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.LocationsRemoteDataSource;
 import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.OrdersRemoteDataSource;
@@ -10,11 +11,15 @@ import com.mesawer.chaty.seqayamvpclean.data.repository.LocationsRepository;
 import com.mesawer.chaty.seqayamvpclean.data.repository.OrdersRepository;
 import com.mesawer.chaty.seqayamvpclean.data.repository.ProductsRepository;
 import com.mesawer.chaty.seqayamvpclean.data.repository.UsersRepository;
+import com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites.AddFavourite;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites.DeleteFavourite;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites.GetFavourites;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.login.EmailPasswordLogin;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.orderhistory.GetOrderHistory;
+import com.mesawer.chaty.seqayamvpclean.domain.usecase.products.GetProducts;
+import com.mesawer.chaty.seqayamvpclean.domain.usecase.products.Search;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.registration.AddNewUser;
+import com.mesawer.chaty.seqayamvpclean.domain.usecase.savedlocation.GetSavedLocations;
 
 public class Injection {
 
@@ -38,6 +43,26 @@ public class Injection {
         return FavouritesRepository.getInstance(FavouritesRemoteDataSource.getInstance());
     }
 
+    public static GetProducts getProducts(){
+        return new GetProducts(provideProductsRepository());
+    }
+
+    public static Search search(){
+        return new Search(provideProductsRepository());
+    }
+
+    public static AddFavourite  addFavourite(){
+        return new AddFavourite(provideFavouritesRepository());
+    }
+
+    public static DeleteFavourite deleteFavourite(){
+        return new DeleteFavourite(provideFavouritesRepository());
+    }
+
+    public static GetSavedLocations provideGetSavedLocations(){
+        return new GetSavedLocations(provideLocationsRepository());
+    }
+
     public static EmailPasswordLogin provideEmailPasswordLogin() {
         return new EmailPasswordLogin(provideUsersRepository());
     }
@@ -56,5 +81,9 @@ public class Injection {
 
     public static DeleteFavourite provideDeleteFavourite() {
         return new DeleteFavourite(provideFavouritesRepository());
+    }
+
+    public static UseCaseHandler provideUseCaseHandler() {
+        return UseCaseHandler.getInstance();
     }
 }

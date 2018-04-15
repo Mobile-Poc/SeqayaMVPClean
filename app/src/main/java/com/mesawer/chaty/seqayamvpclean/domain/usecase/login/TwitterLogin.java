@@ -2,14 +2,13 @@ package com.mesawer.chaty.seqayamvpclean.domain.usecase.login;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
 
-public class TwitterLogin implements
-        UseCase<TwitterLogin.RequestValues, TwitterLogin.ResponseValues> {
+public class TwitterLogin extends
+        UseCase<TwitterLogin.RequestValues,TwitterLogin.ResponseValues> {
 
 
     @Override
-    public void execute(RequestValues requestValue,
-                        UseCaseSuccessCallback<ResponseValues> successCallback,
-                        UseCaseErrorCallback errorCallback) {
+    protected void executeUseCase(RequestValues requestValues) {
+
     }
 
     public static final class RequestValues implements UseCase.RequestValues{

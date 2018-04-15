@@ -1,7 +1,9 @@
-package com.mesawer.chaty.seqayamvpclean.presentation.favourites;
+package com.mesawer.chaty.seqayamvpclean.presentation.products;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -18,29 +19,34 @@ import com.mesawer.chaty.seqayamvpclean.domain.entity.CartItem;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Product;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.ShoppingCart;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.User;
+import com.mesawer.chaty.seqayamvpclean.presentation.main.CartItemsCountListener;
 import com.mesawer.chaty.seqayamvpclean.utils.ViewUtil;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.subjects.PublishSubject;
 
-public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.ProductViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
+    private static String TAG = ProductAdapter.class.getSimpleName();
     private List<Product> productList;
     private Context context;
-    private PublishSubject<Product> unLikedProduct;
+    private PublishSubject<Product> productPublishSubject;
+    private List<Product> favouriteProducts;
+    private CartItemsCountListener cartItemsCountListener;
 
-    public FavouritesAdapter(List<Product> productList,
-                             Context context, PublishSubject<Product> unLikedProduct) {
+    ProductAdapter(List<Product> productList, Context context, PublishSubject<Product> productPublishSubject, CartItemsCountListener cartItemsCountListener) {
         this.productList = productList;
         this.context = context;
-        this.unLikedProduct = unLikedProduct;
+        this.productPublishSubject = productPublishSubject;
+        this.cartItemsCountListener = cartItemsCountListener;
     }
 
+
+
+    @NonNull
     @Override
-    public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.product_row, parent, false);
         view.setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
@@ -49,18 +55,24 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Pr
     }
 
     @Override
-    public void onBindViewHolder(final ProductViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ProductViewHolder holder, int position) {
         final Product product = productList.get(position);
+        if (favouriteProducts != null){
+            for (int i =0 ; i<favouriteProducts.size() ; i++){
+                if (product.getId() == favouriteProducts.get(i).getId()){
+                    product.setLiked(true);
+                }
+            }
+        }
         Glide.with(context)
                 .load(context.getResources()
-                        .getIdentifier(product.getPhotoUrl(), "drawable",
-                                context.getPackageName()))
+                        .getIdentifier(product.getPhotoUrl(), "drawable", context.getPackageName()))
                 .into(holder.productImage);
         holder.name.setText(product.getName());
         holder.manufacturer.setText(product.getManufacturer());
         holder.bottleSize.setText(String.valueOf(product.getBottleSize()) + "لتر");
         holder.numberInPackage.setText(String.valueOf(product.getNo_bpp()) + "زجاجة");
-        holder.price.setText(String.valueOf(product.getPrice()) + " ريال");
+        holder.price.setText(String.valueOf(product.getPrice()));
         holder.increase.setOnClickListener(view -> {
             int number = Integer.parseInt(holder.numberOfItem.getText().toString());
             number++;
@@ -83,19 +95,43 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Pr
                 }
             }
             shoppingCart.getCartItemList().add(cartItem);
+            cartItemsCountListener.onCartItemsCountChanged(shoppingCart.getCartItemList().size());
         });
-        holder.likeButton.setLiked(true);
+
+
+
         holder.likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
+                if (!product.isLiked()){
+                    productPublishSubject.onNext(product);
+                }
 
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                unLikedProduct.onNext(product);
+                if (product.isLiked())
+                productPublishSubject.onNext(product);
             }
         });
+
+        if (product.isLiked()){
+            holder.likeButton.setLiked(true);
+        }else {
+            holder.likeButton.setLiked(false);
+        }
+    }
+
+    public void setFavouriteProducts(List<Product> favouriteProducts){
+        this.favouriteProducts = favouriteProducts;
+        notifyDataSetChanged();
+        Log.d("adapterFav" , favouriteProducts.size()+"");
+    }
+
+    public void setProductList(List<Product> newList){
+        this.productList = newList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -103,13 +139,9 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Pr
         return productList.size();
     }
 
-    public void removeFavourite(int productId) {
-        for (Product product : productList) {
-            if (product.getId() == productId) {
-                productList.remove(product);
-                notifyDataSetChanged();
-            }
-        }
+    public void clear() {
+        this.productList.clear();
+        notifyDataSetChanged();
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {

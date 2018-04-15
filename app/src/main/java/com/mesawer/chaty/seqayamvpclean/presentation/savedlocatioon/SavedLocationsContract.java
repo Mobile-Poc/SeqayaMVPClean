@@ -16,6 +16,6 @@ public interface SavedLocationsContract {
 
     interface Presenter extends BasePresenter {
 
-        void getSavedLocations(String userId);
+        void getSavedLocations();
     }
 }

@@ -6,8 +6,8 @@ import com.mesawer.chaty.seqayamvpclean.domain.repository.ILocationsRepository;
 
 import java.util.List;
 
-public class GetSavedLocations implements
-        UseCase<GetSavedLocations.RequestValues, GetSavedLocations.ResponseValues> {
+public class GetSavedLocations extends
+        UseCase<GetSavedLocations.RequestValues,GetSavedLocations.ResponseValues> {
 
     private ILocationsRepository locationsRepository;
 
@@ -16,13 +16,11 @@ public class GetSavedLocations implements
     }
 
     @Override
-    public void execute(RequestValues requestValue,
-                        UseCaseSuccessCallback<ResponseValues> successCallback,
-                        UseCaseErrorCallback errorCallback) {
+    protected void executeUseCase(RequestValues requestValues) {
         locationsRepository.getSavedLocations(locations -> {
             ResponseValues responseValues = new ResponseValues(locations);
-            successCallback.onSuccess(responseValues);
-        }, errorCallback::onError);
+            getUseCaseCallback().onSuccess(responseValues);
+        }, getUseCaseCallback()::onError);
     }
 
     public static final class RequestValues implements UseCase.RequestValues {

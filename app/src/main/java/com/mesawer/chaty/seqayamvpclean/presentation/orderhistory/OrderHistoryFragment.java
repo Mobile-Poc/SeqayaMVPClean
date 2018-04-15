@@ -51,8 +51,8 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryCo
         View view = inflater.inflate(R.layout.fragment_order_history, container, false);
         unbinder = ButterKnife.bind(this, view);
         super.layout = orderHistoryLayout;
-        orderHistoryPresenter = new OrderHistoryPresenter(this,
-                Injection.provideGetOrderHistory());
+        orderHistoryPresenter = new OrderHistoryPresenter(Injection.provideUseCaseHandler(),
+                this, Injection.provideGetOrderHistory());
         ViewUtil.setupActionBar(getActivity(), getString(R.string.history));
         layoutManager = new LinearLayoutManager(this.getActivity());
         orderHistoryRv.setLayoutManager(layoutManager);
@@ -77,7 +77,8 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryCo
         if (loadingIndicator != null)
             loadingIndicator.setVisibility(View.GONE);
         if (orders.isEmpty()) {
-            noItemsLayout.setVisibility(View.VISIBLE);
+            if (noItemsLayout != null)
+                noItemsLayout.setVisibility(View.VISIBLE);
         } else {
             adapter = new OrderHistoryAdapter(orders, getActivity());
             orderHistoryRv.setAdapter(adapter);

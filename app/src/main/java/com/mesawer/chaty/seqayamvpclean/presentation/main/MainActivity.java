@@ -11,8 +11,11 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 import com.mesawer.chaty.seqayamvpclean.R;
+import com.mesawer.chaty.seqayamvpclean.presentation.cart.CartFragment;
 import com.mesawer.chaty.seqayamvpclean.presentation.favourites.FavouritesFragment;
 import com.mesawer.chaty.seqayamvpclean.presentation.orderhistory.OrderHistoryFragment;
+import com.mesawer.chaty.seqayamvpclean.presentation.products.ProductsFragment;
+import com.mesawer.chaty.seqayamvpclean.presentation.settings.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,16 +32,15 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         setupBottomNavigation();
 
-//        getFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.container, ProductsFragment.newInstance())
-//                .commit();
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, ProductsFragment.newInstance())
+                .commit();
     }
 
     private void setupBottomNavigation() {
@@ -68,19 +70,19 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
                 (position, wasSelected) -> {
                     switch (position) {
                         case 0:
-//                            getFragmentManager()
-//                                    .beginTransaction()
-//                                    .replace(R.id.container,
-//                                            ProductsFragment.newInstance())
-//                                    .commit();
-//                            return true;
+                            getFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.container,
+                                            ProductsFragment.newInstance())
+                                    .commit();
+                            return true;
 
                         case 1:
-//                            getFragmentManager()
-//                                    .beginTransaction().addToBackStack(null)
-//                                    .replace(R.id.container, CartFragment.newInstance(),
-//                                            "CartFragment").commit();
-//                            return true;
+                            getFragmentManager()
+                                    .beginTransaction().addToBackStack(null)
+                                    .replace(R.id.container, CartFragment.newInstance(),
+                                            "CartFragment").commit();
+                            return true;
 
                         case 2:
                             getFragmentManager().beginTransaction().addToBackStack(null)
@@ -94,11 +96,11 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
                             return true;
 
                         case 4:
-//                            getFragmentManager()
-//                                    .beginTransaction().addToBackStack(null)
-//                                    .replace(R.id.container, SettingsFragment.newInstance())
-//                                    .commit();
-//                            return true;
+                            getFragmentManager()
+                                    .beginTransaction().addToBackStack(null)
+                                    .replace(R.id.container, SettingsFragment.newInstance())
+                                    .commit();
+                            return true;
                         default:
                             return false;
                     }

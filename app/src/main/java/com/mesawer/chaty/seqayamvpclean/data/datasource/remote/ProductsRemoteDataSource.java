@@ -1,11 +1,20 @@
 package com.mesawer.chaty.seqayamvpclean.data.datasource.remote;
 
+import android.support.annotation.NonNull;
+
 import com.mesawer.chaty.seqayamvpclean.data.datasource.ProductsDataSource;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.network.ApiClient;
+import com.mesawer.chaty.seqayamvpclean.data.datasource.remote.network.ProductService;
 import com.mesawer.chaty.seqayamvpclean.domain.entity.Product;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.ErrorCallback;
 import com.mesawer.chaty.seqayamvpclean.domain.repository.SuccessCallback;
 
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductsRemoteDataSource implements ProductsDataSource {
 
@@ -23,12 +32,27 @@ public class ProductsRemoteDataSource implements ProductsDataSource {
     public void getProducts(
             SuccessCallback<List<Product>> successCallback,
             ErrorCallback errorCallback) {
+        try {
+            Response<List<Product>> response = ApiClient.getClient()
+                    .create(ProductService.class)
+                    .getProducts().execute();
+            successCallback.onSuccess(response.body());
+        } catch (IOException e) {
+            errorCallback.onError("تأكد من اتصال الانترنت");
+        }
     }
 
     @Override
     public void getSearchResult(String searchKeyword,
                                 SuccessCallback<List<Product>> successCallback,
                                 ErrorCallback errorCallback) {
-
+        try {
+            Response<List<Product>> response = ApiClient.getClient()
+                    .create(ProductService.class)
+                    .getSearchResult(searchKeyword).execute();
+            successCallback.onSuccess(response.body());
+        } catch (IOException e) {
+            errorCallback.onError("تأكد من اتصال الانترنت");
+        }
     }
 }

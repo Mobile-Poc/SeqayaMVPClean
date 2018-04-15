@@ -1,27 +1,40 @@
 package com.mesawer.chaty.seqayamvpclean.presentation.savedlocatioon;
 
+import com.mesawer.chaty.seqayamvpclean.base.UseCaseHandler;
+import com.mesawer.chaty.seqayamvpclean.base.UseCase;
 import com.mesawer.chaty.seqayamvpclean.domain.usecase.savedlocation.GetSavedLocations;
 
 public class SavedLocationsPresenter implements SavedLocationsContract.Presenter {
 
+    private UseCaseHandler useCaseHandler;
     private SavedLocationsContract.View savedLocationsView;
     private GetSavedLocations getSavedLocations;
 
-    public SavedLocationsPresenter(SavedLocationsContract.View savedLocationsView,
+    public SavedLocationsPresenter(UseCaseHandler useCaseHandler,
+                                   SavedLocationsContract.View savedLocationsView,
                                    GetSavedLocations getSavedLocations) {
+        this.useCaseHandler = useCaseHandler;
         this.savedLocationsView = savedLocationsView;
         this.getSavedLocations = getSavedLocations;
     }
 
     @Override
-    public void getSavedLocations(String userId) {
-        getSavedLocations.execute(null,
-                response -> {
-                    if (response.getLocations().isEmpty()){
-                        savedLocationsView.showNoLocations();
-                    } else {
-                        savedLocationsView.showSavedLocations(response.getLocations());
+    public void getSavedLocations() {
+        useCaseHandler.execute(getSavedLocations, null,
+                new UseCase.UseCaseCallback<GetSavedLocations.ResponseValues>() {
+                    @Override
+                    public void onSuccess(GetSavedLocations.ResponseValues response) {
+                        if (response.getLocations().isEmpty()) {
+                            savedLocationsView.showNoLocations();
+                        } else {
+                            savedLocationsView.showSavedLocations(response.getLocations());
+                        }
                     }
-                }, savedLocationsView::showErrorMessage);
+
+                    @Override
+                    public void onError(String errMsg) {
+                        savedLocationsView.showErrorMessage(errMsg);
+                    }
+                });
     }
 }

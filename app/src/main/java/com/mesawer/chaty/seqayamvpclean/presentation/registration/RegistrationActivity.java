@@ -50,8 +50,8 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
         super.layout = registrationLayout;
-        registrationPresenter = new RegistrationPresenter(this,
-                Injection.provideAddNewUser());
+        registrationPresenter = new RegistrationPresenter(Injection.provideUseCaseHandler(),
+                this, Injection.provideAddNewUser());
         changeLocalLanguageToArabic();
 
     }

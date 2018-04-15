@@ -2,13 +2,12 @@ package com.mesawer.chaty.seqayamvpclean.domain.usecase.paymentmethod;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
 
-public class AddOrder implements UseCase<AddOrder.RequestValues, AddOrder.ResponseValues> {
+public class AddOrder extends UseCase<AddOrder.RequestValues, AddOrder.ResponseValues> {
 
 
     @Override
-    public void execute(RequestValues requestValue,
-                        UseCaseSuccessCallback<ResponseValues> successCallback,
-                        UseCaseErrorCallback errorCallback) {
+    protected void executeUseCase(RequestValues requestValues) {
+
     }
 
     public static final class RequestValues implements UseCase.RequestValues{

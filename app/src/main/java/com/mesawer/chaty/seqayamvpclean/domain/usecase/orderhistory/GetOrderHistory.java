@@ -6,7 +6,8 @@ import com.mesawer.chaty.seqayamvpclean.domain.repository.IOrdersRepository;
 
 import java.util.List;
 
-public class GetOrderHistory implements UseCase<GetOrderHistory.RequestValues, GetOrderHistory.ResponseValues> {
+public class GetOrderHistory extends
+        UseCase<GetOrderHistory.RequestValues,GetOrderHistory.ResponseValues> {
 
     private IOrdersRepository ordersRepository;
 
@@ -15,13 +16,11 @@ public class GetOrderHistory implements UseCase<GetOrderHistory.RequestValues, G
     }
 
     @Override
-    public void execute(RequestValues requestValue,
-                        UseCaseSuccessCallback<ResponseValues> successCallback,
-                        UseCaseErrorCallback errorCallback) {
+    protected void executeUseCase(RequestValues requestValues) {
         ordersRepository.getOrderHistory(orders -> {
-                    ResponseValues responseValues = new ResponseValues(orders);
-                    successCallback.onSuccess(responseValues);
-                }, errorCallback::onError);
+            ResponseValues responseValues = new ResponseValues(orders);
+            getUseCaseCallback().onSuccess(responseValues);
+        }, getUseCaseCallback()::onError);
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
