@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/favourites_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.mesawer.chaty.seqayamvpclean.presentation.favourites.FavouritesFragment">
+    tools:context="com.ntg.seqaya.seqayamvpclean.presentation.favourites.FavouritesFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_products"
