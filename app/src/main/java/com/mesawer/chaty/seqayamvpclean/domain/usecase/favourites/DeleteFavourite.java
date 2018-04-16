@@ -1,10 +1,16 @@
 package com.mesawer.chaty.seqayamvpclean.domain.usecase.favourites;
 
 import com.mesawer.chaty.seqayamvpclean.base.UseCase;
+import com.mesawer.chaty.seqayamvpclean.domain.repository.IFavouritesRepository;
 
 public class DeleteFavourite implements
         UseCase<DeleteFavourite.RequestValues, DeleteFavourite.ResponseValues> {
 
+    private IFavouritesRepository favouritesRepository;
+
+    public DeleteFavourite(IFavouritesRepository favouritesRepository) {
+        this.favouritesRepository = favouritesRepository;
+    }
 
     @Override
     public void execute(RequestValues requestValue,

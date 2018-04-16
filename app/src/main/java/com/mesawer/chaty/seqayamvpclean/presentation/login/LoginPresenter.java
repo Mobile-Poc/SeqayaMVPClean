@@ -9,7 +9,6 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.View loginView;
     private EmailPasswordLogin emailPasswordUseCase;
-    private Disposable emailPasswordDisposable;
 
     public LoginPresenter(LoginContract.View loginView, EmailPasswordLogin emailPasswordUseCase) {
         this.loginView = loginView;
@@ -20,6 +19,8 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void emailPasswordLogin(String email, String password) {
         RequestValues requestValues = new RequestValues(email, password);
-
+        emailPasswordUseCase.execute(requestValues,
+                v -> loginView.navigateToMainActivity(),
+                loginView::showErrorMessage);
     }
 }

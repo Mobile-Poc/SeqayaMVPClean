@@ -11,6 +11,8 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 import com.mesawer.chaty.seqayamvpclean.R;
+import com.mesawer.chaty.seqayamvpclean.presentation.favourites.FavouritesFragment;
+import com.mesawer.chaty.seqayamvpclean.presentation.orderhistory.OrderHistoryFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,15 +83,15 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
 //                            return true;
 
                         case 2:
-//                            getFragmentManager().beginTransaction().addToBackStack(null)
-//                                    .replace(R.id.container, new OrderHistoryFragment()).commit();
-//                            return true;
+                            getFragmentManager().beginTransaction().addToBackStack(null)
+                                    .replace(R.id.container, new OrderHistoryFragment()).commit();
+                            return true;
 
                         case 3:
-//                            getFragmentManager()
-//                                    .beginTransaction().addToBackStack(null)
-//                                    .replace(R.id.container, new FavouritesFragment()).commit();
-//                            return true;
+                            getFragmentManager()
+                                    .beginTransaction().addToBackStack(null)
+                                    .replace(R.id.container, new FavouritesFragment()).commit();
+                            return true;
 
                         case 4:
 //                            getFragmentManager()

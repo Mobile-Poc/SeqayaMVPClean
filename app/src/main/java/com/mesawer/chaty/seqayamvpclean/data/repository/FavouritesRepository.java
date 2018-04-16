@@ -38,6 +38,6 @@ public class FavouritesRepository implements IFavouritesRepository {
     @Override
     public void getFavs(SuccessCallback<List<Product>> successCallback,
                         ErrorCallback errorCallback) {
-
+        favouritesDataSource.getFavs(successCallback, errorCallback);
     }
 }
