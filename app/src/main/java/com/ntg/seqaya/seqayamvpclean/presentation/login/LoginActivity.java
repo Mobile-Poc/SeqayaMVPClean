@@ -56,6 +56,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SocialMedia.initializeTwitter(this);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         super.layout = loginLayout;
@@ -76,7 +77,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        SocialMedia.getCallbackManager().onActivityResult(requestCode, resultCode, data);
+        socialMedia.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -106,6 +107,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                         this::showErrorMessage);
                 break;
             case R.id.twitter_button:
+                socialMedia.loginWithTwitter(this,
+                        email -> loginPresenter.emailPasswordLogin(email, ""),
+                        this::showErrorMessage);
                 break;
             case R.id.google_button:
                 break;
