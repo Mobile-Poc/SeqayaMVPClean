@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.mesawer.chaty.seqayamvpclean"
+        applicationId "com.ntg.seqaya.seqayamvpclean"
         minSdkVersion 17
         targetSdkVersion 27
         versionCode 1
@@ -50,6 +50,7 @@ dependencies {
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
     implementation 'com.github.bumptech.glide:glide:4.3.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.0'
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation('de.keyboardsurfer.android.widget:crouton:1.8.5@aar') {
         exclude group: 'com.google.android', module: 'support-v4'
     }
