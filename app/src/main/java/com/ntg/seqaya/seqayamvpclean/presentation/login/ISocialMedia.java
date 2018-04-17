@@ -13,8 +13,18 @@ public interface ISocialMedia {
                            ErrorCallback errorCallback);
 
     void loginWithTwitter(AppCompatActivity activity,
-                           SuccessCallback<String> successCallback,
-                           ErrorCallback errorCallback);
+                          SuccessCallback<String> successCallback,
+                          ErrorCallback errorCallback);
+
+    void loginWithGoogle(AppCompatActivity activity,
+                         SuccessCallback<String> successCallback,
+                         ErrorCallback errorCallback);
 
     void onActivityResult(int requestCode, int resultCode, Intent data);
+
+    void onCreate();
+
+    void onPause(AppCompatActivity activity);
+
+    void onStop();
 }

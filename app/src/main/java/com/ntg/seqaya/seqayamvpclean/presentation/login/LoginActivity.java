@@ -76,6 +76,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        socialMedia.onPause(this);
+
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         socialMedia.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
@@ -112,6 +119,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                         this::showErrorMessage);
                 break;
             case R.id.google_button:
+                socialMedia.loginWithGoogle(this,
+                        email -> loginPresenter.emailPasswordLogin(email, ""),
+                        this::showErrorMessage);
                 break;
             case R.id.language_change:
                 if (languageLetterIndicator.getText().toString()
