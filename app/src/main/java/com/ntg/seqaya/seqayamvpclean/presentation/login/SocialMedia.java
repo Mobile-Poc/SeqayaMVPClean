@@ -1,5 +1,6 @@
 package com.ntg.seqaya.seqayamvpclean.presentation.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,14 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.ntg.seqaya.seqayamvpclean.domain.repository.ErrorCallback;
 import com.ntg.seqaya.seqayamvpclean.domain.repository.SuccessCallback;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthToken;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 
 import org.json.JSONException;
 
@@ -23,11 +32,10 @@ public class SocialMedia implements ISocialMedia {
     private static SocialMedia INSTANCE;
     private static CallbackManager callbackManager;
     private LoginManager loginManager;
+    private TwitterAuthClient authClient;
     private static final String TAG = SocialMedia.class.getSimpleName();
 
     private SocialMedia() {
-        callbackManager = CallbackManager.Factory.create();
-        loginManager = LoginManager.getInstance();
     }
 
     public static SocialMedia getInstance() {
@@ -35,10 +43,14 @@ public class SocialMedia implements ISocialMedia {
         return INSTANCE;
     }
 
+
+    //region Facebook
     @Override
     public void loginWithFacebook(AppCompatActivity activity,
                                   SuccessCallback<String> successCallback,
                                   ErrorCallback errorCallback) {
+        callbackManager = CallbackManager.Factory.create();
+        loginManager = LoginManager.getInstance();
         loginManager.logInWithReadPermissions(activity, Collections.singletonList("email"));
         loginManager.registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -75,7 +87,53 @@ public class SocialMedia implements ISocialMedia {
                 });
     }
 
-    static CallbackManager getCallbackManager() {
-        return callbackManager;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (callbackManager != null)
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        if (authClient != null)
+            authClient.onActivityResult(requestCode, resultCode, data);
     }
+    //endregion
+
+    //region Twitter
+    @Override
+    public void loginWithTwitter(AppCompatActivity activity,
+                                 SuccessCallback<String> successCallback,
+                                 ErrorCallback errorCallback) {
+        authClient = new TwitterAuthClient();
+        authClient.authorize(activity, new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+                TwitterAuthToken authToken = session.getAuthToken();
+                String token = authToken.token;
+                String secret = authToken.secret;
+                authClient.requestEmail(session, new Callback<String>() {
+                    @Override
+                    public void success(Result<String> result) {
+                        String email = result.data;
+                        successCallback.onSuccess(email);
+                        Log.d(TAG, email);
+                    }
+
+                    @Override
+                    public void failure(TwitterException exception) {
+//                        errorCallback.onError(exception.getMessage());
+                        Log.d(TAG, exception.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Log.d(TAG, exception.getMessage());
+            }
+        });
+    }
+
+    public static void initializeTwitter(Context context) {
+        Twitter.initialize(context);
+    }
+    //endregion
 }
