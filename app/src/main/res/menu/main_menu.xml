@@ -14,5 +14,10 @@
         android:icon="@drawable/ic_sort"
         android:title="@string/sort"
         app:showAsAction="ifRoom" />
+    <item
+    android:id="@+id/filter"
+    android:icon="@drawable/ic_filter"
+    android:title="Filter"
+    app:showAsAction="ifRoom" />
 
 </menu>

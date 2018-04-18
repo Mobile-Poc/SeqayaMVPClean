@@ -12,7 +12,7 @@
     <color name="gray">#a7a7a7</color>
     <color name="backgroundTransparent">#7000569b</color>
     <color name="colorTransparent">#00000000</color>
-
+    <color name="black">#000000</color>
 
 </resources>
 

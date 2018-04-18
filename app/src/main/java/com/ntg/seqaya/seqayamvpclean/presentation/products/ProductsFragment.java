@@ -4,6 +4,7 @@ package com.ntg.seqaya.seqayamvpclean.presentation.products;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -21,6 +22,7 @@ import com.ntg.seqaya.seqayamvpclean.base.BaseFragment;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Fav;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.User;
+import com.ntg.seqaya.seqayamvpclean.presentation.filter.BottomSheetFragment;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.CartItemsCountListener;
 import com.ntg.seqaya.seqayamvpclean.utils.Injection;
 
@@ -47,6 +49,7 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     private CartItemsCountListener cartItemsCountListener;
     private Disposable disposable;
     private Unbinder unbinder;
+    private AppCompatActivity activity;
 
     public static ProductsFragment newInstance() {
 
@@ -206,6 +209,11 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
                 showSortResult();
                 break;
             }
+            case R.id.filter: {
+                BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+                bottomSheetFragment.show(activity.getSupportFragmentManager(), bottomSheetFragment.getTag());
+                break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -215,6 +223,7 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
         super.onAttach(context);
 
         try {
+            this.activity = (AppCompatActivity) context;
             cartItemsCountListener = (CartItemsCountListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
