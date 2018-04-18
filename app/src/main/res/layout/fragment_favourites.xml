@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".favourites.FavouritesFragment">
+    android:id="@+id/favourites_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ntg.seqaya.seqayamvpclean.presentation.favourites.FavouritesFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_products"
@@ -12,5 +14,33 @@
 
     <include
         layout="@layout/partial_blocking_loading_indicator" />
+
+    <LinearLayout
+        android:id="@+id/no_items_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_fav" />
+
+        <TextView
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_favs"
+            android:textSize="24sp"
+            android:textColor="@color/gray" />
+    </LinearLayout>
 
 </FrameLayout>
