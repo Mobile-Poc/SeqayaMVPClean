@@ -1,6 +1,7 @@
 package com.ntg.seqaya.seqayamvpclean.presentation.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -68,7 +69,14 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             loginEmailEditText.setText("seqaya@ntgclarity.com");
             loginPasswordEditText.setText("1234");
         }
-        changeLocalLanguageToArabic();
+        SharedPreferences sharedPref = this.getSharedPreferences("lang", 0);
+        String language = sharedPref.getString("lang", "ar");
+
+        if (language.equals("ar")){
+            languageLetterIndicator.setText(R.string.arabic);
+        }else {
+            languageLetterIndicator.setText(R.string.english);
+        }
     }
 
     @Override
@@ -124,8 +132,17 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 if (languageLetterIndicator.getText().toString()
                         .equals(getString(R.string.english))) {
                     languageLetterIndicator.setText(R.string.arabic);
-                } else {
+                    SharedPreferences sharedPreferences = this.getSharedPreferences("lang", 0);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("lang", "ar");
+                    editor.apply();
+                } else if (languageLetterIndicator.getText().toString()
+                        .equals(getString(R.string.arabic))){
                     languageLetterIndicator.setText(R.string.english);
+                    SharedPreferences sharedPreferences = this.getSharedPreferences("lang", 0);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("lang", "en");
+                    editor.apply();
                 }
                 break;
         }
