@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ntg.seqaya.seqayamvpclean.BuildConfig;
 import com.ntg.seqaya.seqayamvpclean.R;
@@ -27,7 +28,6 @@ import butterknife.OnClick;
 import static com.ntg.seqaya.seqayamvpclean.utils.StringUtil.isNullOrEmpty;
 import static com.ntg.seqaya.seqayamvpclean.utils.StringUtil.isValidEmailAddress;
 import static com.ntg.seqaya.seqayamvpclean.utils.StringUtil.notNullOrEmpty;
-
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
@@ -52,10 +52,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @BindView(R.id.language_letter_indicator)
     TextView languageLetterIndicator;
     private LoginContract.Presenter loginPresenter;
+    private ISocialMedia socialMedia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        socialMedia = SocialMedia.getInstance();
+        socialMedia.onCreate(this);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         super.layout = loginLayout;
@@ -66,6 +69,26 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             loginPasswordEditText.setText("1234");
         }
         changeLocalLanguageToArabic();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        socialMedia.setCallbacks(email -> loginPresenter.emailPasswordLogin(email, ""),
+                this::showErrorMessage);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        socialMedia.onPause();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        socialMedia.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void changeLocalLanguageToArabic() {
@@ -89,10 +112,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 navigateToRegistrationActivity();
                 break;
             case R.id.facebook_button:
+                socialMedia.loginWithFacebook();
                 break;
             case R.id.twitter_button:
+                socialMedia.loginWithTwitter();
                 break;
             case R.id.google_button:
+                socialMedia.loginWithGoogle();
                 break;
             case R.id.language_change:
                 if (languageLetterIndicator.getText().toString()

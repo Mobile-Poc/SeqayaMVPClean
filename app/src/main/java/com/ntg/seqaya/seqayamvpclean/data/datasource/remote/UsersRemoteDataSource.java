@@ -1,5 +1,7 @@
 package com.ntg.seqaya.seqayamvpclean.data.datasource.remote;
 
+import android.util.Log;
+
 import com.ntg.seqaya.seqayamvpclean.data.datasource.UsersDataSource;
 import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.Credential;
 import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserAPI;
@@ -65,11 +67,31 @@ public class UsersRemoteDataSource implements UsersDataSource {
                     User.setPassword(userAPI.getPassword());
                     User.setName(userAPI.getName());
                     successCallback.onSuccess(null);
-                }else {
+                }
+            } else {
+                if (password.equals("")) {
+                    UserAPI user = new UserAPI();
+                    user.setEmail(email);
+                    user.setPassword(password);
+                    user.setName("");
+                    Response<UserAPI> userResponse = ApiClient.getClient()
+                            .create(ProductService.class)
+                            .addNewUser(user)
+                            .execute();
+                    if (userResponse.isSuccessful()) {
+                        UserAPI userAPI = userResponse.body();
+                        if (userAPI != null) {
+                            User.setEmail(userAPI.getEmail());
+                            User.setPassword(userAPI.getPassword());
+                            User.setName(userAPI.getName());
+                            successCallback.onSuccess(null);
+                        }
+                    }
+                } else {
                     try {
                         errorCallback.onError(apiErrMsg(response.errorBody().string()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log.d("apiErrMsg", e.getMessage());
                     }
                 }
             }
