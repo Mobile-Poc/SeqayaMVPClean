@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ntg.seqaya.seqayamvpclean.BuildConfig;
 import com.ntg.seqaya.seqayamvpclean.R;
@@ -56,7 +57,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SocialMedia.initializeTwitter(this);
+        socialMedia = SocialMedia.getInstance();
+        socialMedia.onCreate(this);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         super.layout = loginLayout;
@@ -72,14 +74,15 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     protected void onResume() {
         super.onResume();
-        socialMedia = SocialMedia.getInstance();
+        socialMedia.setCallbacks(email -> loginPresenter.emailPasswordLogin(email, ""),
+                this::showErrorMessage);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        socialMedia.onPause(this);
 
+        socialMedia.onPause();
     }
 
     @Override
@@ -109,19 +112,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 navigateToRegistrationActivity();
                 break;
             case R.id.facebook_button:
-                socialMedia.loginWithFacebook(this,
-                        email -> loginPresenter.emailPasswordLogin(email, ""),
-                        this::showErrorMessage);
+                socialMedia.loginWithFacebook();
                 break;
             case R.id.twitter_button:
-                socialMedia.loginWithTwitter(this,
-                        email -> loginPresenter.emailPasswordLogin(email, ""),
-                        this::showErrorMessage);
+                socialMedia.loginWithTwitter();
                 break;
             case R.id.google_button:
-                socialMedia.loginWithGoogle(this,
-                        email -> loginPresenter.emailPasswordLogin(email, ""),
-                        this::showErrorMessage);
+                socialMedia.loginWithGoogle();
                 break;
             case R.id.language_change:
                 if (languageLetterIndicator.getText().toString()

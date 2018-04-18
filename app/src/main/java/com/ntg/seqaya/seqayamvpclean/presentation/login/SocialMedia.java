@@ -1,6 +1,5 @@
 package com.ntg.seqaya.seqayamvpclean.presentation.login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +32,10 @@ import org.json.JSONException;
 import java.util.Collections;
 
 public class SocialMedia implements ISocialMedia {
+
+    private AppCompatActivity activity;
+    private SuccessCallback<String> successCallback;
+    private ErrorCallback errorCallback;
     private GoogleApiClient googleApiClient;
     private static final int RC_SIGN_IN = 007;
     private static SocialMedia INSTANCE;
@@ -63,12 +66,15 @@ public class SocialMedia implements ISocialMedia {
     }
 
     @Override
-    public void onCreate() {
-
+    public void onCreate(AppCompatActivity activity) {
+        this.activity = activity;
+        Twitter.initialize(activity);
     }
 
     @Override
-    public void onPause(AppCompatActivity activity) {
+    public void onPause() {
+//        if (loginManager != null)
+//            loginManager.unregisterCallback(callbackManager);
         if (googleApiClient != null) {
             googleApiClient.stopAutoManage(activity);
             googleApiClient.disconnect();
@@ -76,15 +82,14 @@ public class SocialMedia implements ISocialMedia {
     }
 
     @Override
-    public void onStop() {
-
+    public void setCallbacks(SuccessCallback<String> successCallback, ErrorCallback errorCallback) {
+        this.successCallback = successCallback;
+        this.errorCallback = errorCallback;
     }
 
     //region Facebook
     @Override
-    public void loginWithFacebook(AppCompatActivity activity,
-                                  SuccessCallback<String> successCallback,
-                                  ErrorCallback errorCallback) {
+    public void loginWithFacebook() {
         callbackManager = CallbackManager.Factory.create();
         loginManager = LoginManager.getInstance();
         loginManager.logInWithReadPermissions(activity, Collections.singletonList("email"));
@@ -126,9 +131,7 @@ public class SocialMedia implements ISocialMedia {
 
     //region Twitter
     @Override
-    public void loginWithTwitter(AppCompatActivity activity,
-                                 SuccessCallback<String> successCallback,
-                                 ErrorCallback errorCallback) {
+    public void loginWithTwitter() {
         authClient = new TwitterAuthClient();
         authClient.authorize(activity, new Callback<TwitterSession>() {
             @Override
@@ -159,25 +162,19 @@ public class SocialMedia implements ISocialMedia {
             }
         });
     }
-
-
-    public static void initializeTwitter(Context context) {
-        Twitter.initialize(context);
-    }
     //endregion
 
     //region Google
     @Override
-    public void loginWithGoogle(AppCompatActivity activity,
-                                SuccessCallback<String> successCallback,
-                                ErrorCallback errorCallback) {
+    public void loginWithGoogle() {
         initializeGoogleClient(activity);
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         activity.startActivityForResult(intent, RC_SIGN_IN);
     }
 
     private void initializeGoogleClient(AppCompatActivity activity) {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
@@ -188,7 +185,8 @@ public class SocialMedia implements ISocialMedia {
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        Log.d(TAG, "handleSignInResult:" + result.isSuccess() + " " +
+                result.getStatus().toString() + " " + result.getStatus().getStatusMessage());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             account = result.getSignInAccount();
@@ -196,43 +194,17 @@ public class SocialMedia implements ISocialMedia {
             Log.d(TAG, "display name: " + account.getDisplayName());
 
             String personName = account.getDisplayName();
-//            String personPhotoUrl = account.getPhotoUrl().toString();
             String email = account.getEmail();
+            successCallback.onSuccess(email);
 
             Log.d(TAG, "Name: " + personName + ", email: " + email);
-
-//            txtName.setText(personName);
-//            txtEmail.setText(email);
-//            Glide.with(getApplicationContext()).load(personPhotoUrl)
-//                    .thumbnail(0.5f)
-//                    .crossFade()
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .into(imgProfilePic);
-//
-//            updateUI(true);
-//        } else {
-//            // Signed out, show unauthenticated UI.
-//            updateUI(false);
         }
     }
 
-    GoogleApiClient.OnConnectionFailedListener failedListener = connectionResult ->
-            Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    private GoogleApiClient.OnConnectionFailedListener failedListener = connectionResult -> {
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        errorCallback.onError(connectionResult.getErrorMessage());
+    };
     //endregion
-
-//    private void showProgressDialog() {
-//        if (mProgressDialog == null) {
-//            mProgressDialog = new ProgressDialog(this);
-//            mProgressDialog.setMessage("Loading");
-//            mProgressDialog.setIndeterminate(true);
-//        }
-//
-//        mProgressDialog.show();
-//    }
-//
-//    private void hideProgressDialog() {
-//        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-//            mProgressDialog.hide();
-//        }
 }
 

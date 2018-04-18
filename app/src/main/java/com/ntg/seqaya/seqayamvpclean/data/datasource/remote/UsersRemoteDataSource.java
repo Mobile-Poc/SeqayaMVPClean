@@ -69,10 +69,30 @@ public class UsersRemoteDataSource implements UsersDataSource {
                     successCallback.onSuccess(null);
                 }
             } else {
-                try {
-                    errorCallback.onError(apiErrMsg(response.errorBody().string()));
-                } catch (IOException e) {
-                    Log.d("apiErrMsg", e.getMessage());
+                if (password.equals("")) {
+                    UserAPI user = new UserAPI();
+                    user.setEmail(email);
+                    user.setPassword(password);
+                    user.setName("");
+                    Response<UserAPI> userResponse = ApiClient.getClient()
+                            .create(ProductService.class)
+                            .addNewUser(user)
+                            .execute();
+                    if (userResponse.isSuccessful()) {
+                        UserAPI userAPI = userResponse.body();
+                        if (userAPI != null) {
+                            User.setEmail(userAPI.getEmail());
+                            User.setPassword(userAPI.getPassword());
+                            User.setName(userAPI.getName());
+                            successCallback.onSuccess(null);
+                        }
+                    }
+                } else {
+                    try {
+                        errorCallback.onError(apiErrMsg(response.errorBody().string()));
+                    } catch (IOException e) {
+                        Log.d("apiErrMsg", e.getMessage());
+                    }
                 }
             }
         } catch (IOException e) {

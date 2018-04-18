@@ -8,23 +8,17 @@ import com.ntg.seqaya.seqayamvpclean.domain.repository.SuccessCallback;
 
 public interface ISocialMedia {
 
-    void loginWithFacebook(AppCompatActivity activity,
-                           SuccessCallback<String> successCallback,
-                           ErrorCallback errorCallback);
+    void setCallbacks(SuccessCallback<String> successCallback, ErrorCallback errorCallback);
 
-    void loginWithTwitter(AppCompatActivity activity,
-                          SuccessCallback<String> successCallback,
-                          ErrorCallback errorCallback);
+    void loginWithFacebook();
 
-    void loginWithGoogle(AppCompatActivity activity,
-                         SuccessCallback<String> successCallback,
-                         ErrorCallback errorCallback);
+    void loginWithTwitter();
+
+    void loginWithGoogle();
+
+    void onCreate(AppCompatActivity activity);
 
     void onActivityResult(int requestCode, int resultCode, Intent data);
 
-    void onCreate();
-
-    void onPause(AppCompatActivity activity);
-
-    void onStop();
+    void onPause();
 }
