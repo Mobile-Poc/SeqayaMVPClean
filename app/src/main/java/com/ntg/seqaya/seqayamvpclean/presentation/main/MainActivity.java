@@ -6,11 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 import com.ntg.seqaya.seqayamvpclean.R;
+import com.ntg.seqaya.seqayamvpclean.presentation.ManfactureClick;
+import com.ntg.seqaya.seqayamvpclean.presentation.ManufactureFragment;
 import com.ntg.seqaya.seqayamvpclean.presentation.cart.CartFragment;
 import com.ntg.seqaya.seqayamvpclean.presentation.favourites.FavouritesFragment;
 import com.ntg.seqaya.seqayamvpclean.presentation.orderhistory.OrderHistoryFragment;
@@ -21,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity implements CartItemsCountListener {
+public class MainActivity extends AppCompatActivity implements CartItemsCountListener , ManfactureClick {
 
     public static String ORDER = "order";
     @BindView(R.id.include)
@@ -39,8 +42,9 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
 
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.container, ProductsFragment.newInstance())
+                .replace(R.id.container, ManufactureFragment.newInstance())
                 .commit();
+        bottomNavigationView.setVisibility(View.GONE);
     }
 
     private void setupBottomNavigation() {
@@ -135,6 +139,17 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
             bottomNavigationView.setNotification("" , 1);
         } else {
             showCartItemsCountNotification(count);
+        }
+    }
+
+    @Override
+    public void clickListner(boolean b) {
+        if (b){
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, ProductsFragment.newInstance())
+                    .commit();
         }
     }
 }

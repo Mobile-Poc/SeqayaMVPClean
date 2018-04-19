@@ -20,6 +20,7 @@ import android.os.Handler;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -49,7 +50,10 @@ public class UseCaseThreadPoolScheduler implements UseCaseScheduler {
     @Override
     public void execute(Runnable runnable) {
         mThreadPoolExecutor.execute(runnable);
+
     }
+
+
 
     @Override
     public <V extends UseCase.ResponseValues> void notifyResponse(final V response,

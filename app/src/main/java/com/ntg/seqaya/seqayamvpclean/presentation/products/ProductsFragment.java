@@ -102,7 +102,10 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     public void showProducts(List<Product> productList) {
         this.products = productList;
         productAdapter.setProductList(productList);
-        products_rv.setAdapter(productAdapter);
+
+        if (products_rv != null) {
+            products_rv.setAdapter(productAdapter);
+        }
     }
 
     @Override
