@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.ntg.seqaya.seqayamvpclean.R;
 import com.ntg.seqaya.seqayamvpclean.utils.ViewUtil;
 
@@ -43,7 +45,10 @@ public class ManufactureAdapter extends RecyclerView.Adapter<ManufactureAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ManufactureViewHolder holder, int position) {
-        holder.manfacture_image.setImageResource(manfactureList.get(position));
+        Glide.with(context)
+                .load(manfactureList.get(position))
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.manfacture_image);
         holder.manfacture_image.setOnClickListener(v -> manfactureClick.clickListner(true));
     }
 

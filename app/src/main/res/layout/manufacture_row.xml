@@ -11,6 +11,7 @@
     android:paddingLeft="0dp"
     >
     <ImageView
+        android:padding="32dp"
         android:background="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="200dp"
