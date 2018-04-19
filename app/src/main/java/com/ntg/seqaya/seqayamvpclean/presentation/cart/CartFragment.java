@@ -2,7 +2,6 @@ package com.ntg.seqaya.seqayamvpclean.presentation.cart;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +20,7 @@ import com.ntg.seqaya.seqayamvpclean.base.BaseFragment;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.CartItem;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Order;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.User;
+import com.ntg.seqaya.seqayamvpclean.presentation.DeliveryTimeFragment;
 import com.ntg.seqaya.seqayamvpclean.presentation.location.OrderMapActivity;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.CartItemsCountListener;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.MainActivity;
@@ -114,12 +114,12 @@ public class CartFragment extends BaseFragment implements CartAdapter.TotalListe
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-//            DeliveryTimeFragment deliveryTimeFragment = new DeliveryTimeFragment();
-//            Bundle args = new Bundle();
-//            args.putSerializable(MainActivity.ORDER, data.getSerializableExtra(MainActivity.ORDER));
-//            deliveryTimeFragment.setArguments(args);
-//            getActivity().getFragmentManager().beginTransaction().addToBackStack(null)
-//                    .replace(R.id.container, deliveryTimeFragment).commitAllowingStateLoss();
+            DeliveryTimeFragment deliveryTimeFragment = new DeliveryTimeFragment();
+            Bundle args = new Bundle();
+            args.putSerializable(MainActivity.ORDER, data.getSerializableExtra(MainActivity.ORDER));
+            deliveryTimeFragment.setArguments(args);
+            getActivity().getFragmentManager().beginTransaction().addToBackStack(null)
+                    .replace(R.id.container, deliveryTimeFragment).commitAllowingStateLoss();
         }
     }
 
