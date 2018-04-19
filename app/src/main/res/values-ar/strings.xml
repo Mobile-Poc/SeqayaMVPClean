@@ -71,9 +71,6 @@
     <string name="settings">الاعدادت</string>
     <string name="no_order_history">لا يوجد طلبات سابقة</string>
     <string name="no_favs">لا يوجد منتجات مفضلة</string>
-    <string name="facebook_app_id">1726072650786982</string>
-    <string name="fb_login_protocol_scheme">fb1726072650786982</string>
-    <string name="com.twitter.sdk.android.CONSUMER_KEY">6pBxN2PGQZ4YkIQaaQ2PvWZRa</string>
-    <string name="com.twitter.sdk.android.CONSUMER_SECRET">NWdaHxDZXrFn1BDcgkfQ4HvE0QNlkfNXYPjE1mUhxEaqKFixPg</string>
     <string name="manufacurers">المصنعين</string>
+    <string name="map_loading_message">من فضلك انتظر تحميل خرائط جوجل…</string>
 </resources>

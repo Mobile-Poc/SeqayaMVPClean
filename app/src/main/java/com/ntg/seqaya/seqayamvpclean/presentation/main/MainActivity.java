@@ -13,6 +13,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 import com.ntg.seqaya.seqayamvpclean.R;
+import com.ntg.seqaya.seqayamvpclean.base.BaseActivity;
 import com.ntg.seqaya.seqayamvpclean.presentation.manufacturer.ManufacturerClick;
 import com.ntg.seqaya.seqayamvpclean.presentation.manufacturer.ManufactureFragment;
 import com.ntg.seqaya.seqayamvpclean.presentation.cart.CartFragment;
@@ -25,8 +26,7 @@ import com.ntg.seqaya.seqayamvpclean.utils.LocalManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
-public class MainActivity extends AppCompatActivity implements CartItemsCountListener, ManufacturerClick {
+public class MainActivity extends BaseActivity implements CartItemsCountListener, ManufacturerClick {
 
     public static String ORDER = "order";
     @BindView(R.id.include)

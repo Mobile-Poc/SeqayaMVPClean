@@ -182,11 +182,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LocalManager.onAttach(base , "ar"));
-    }
-
-    @Override
     public void setPresenter(LoginContract.Presenter presenter) {
         loginPresenter = presenter;
     }

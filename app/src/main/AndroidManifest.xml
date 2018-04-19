@@ -20,16 +20,19 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAart3Wid56cjycxc6zAGNLKOj-jGsSwFA" />
 
-        <activity android:name=".presentation.login.LoginActivity">
+        <activity android:name=".presentation.login.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.registration.RegistrationActivity" />
+        <activity android:name=".presentation.registration.RegistrationActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".presentation.main.MainActivity" />
+        <activity android:name=".presentation.main.MainActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presentation.location.OrderMapActivity"

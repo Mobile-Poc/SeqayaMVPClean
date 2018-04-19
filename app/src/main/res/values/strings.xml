@@ -76,4 +76,5 @@
     <string name="com.twitter.sdk.android.CONSUMER_KEY">6pBxN2PGQZ4YkIQaaQ2PvWZRa</string>
     <string name="com.twitter.sdk.android.CONSUMER_SECRET">NWdaHxDZXrFn1BDcgkfQ4HvE0QNlkfNXYPjE1mUhxEaqKFixPg</string>
     <string name="manufacurers">Manufacturers</string>
+    <string name="map_loading_message">please wait map loading…</string>
 </resources>

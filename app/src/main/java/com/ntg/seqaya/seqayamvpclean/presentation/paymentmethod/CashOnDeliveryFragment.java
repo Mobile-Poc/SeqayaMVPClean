@@ -39,7 +39,7 @@ public class CashOnDeliveryFragment extends BaseFragment implements View.OnClick
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cash_on_delivery, container, false);
-        ViewUtil.setupActionBar(getActivity(), getString(R.string.cash_on_delivery));
+        ViewUtil.setupActionBarWithBackButton(getActivity(), getString(R.string.cash_on_delivery));
         deliveryLocation = view.findViewById(R.id.deliveryLocation);
         phone_number = view.findViewById(R.id.phone_number);
         confim = view.findViewById(R.id.confim);
@@ -47,7 +47,9 @@ public class CashOnDeliveryFragment extends BaseFragment implements View.OnClick
         customer_number = view.findViewById(R.id.customer_number);
 
         order = (Order) getArguments().getSerializable(MainActivity.ORDER);
-        deliveryLocation.setText(order.getLocation().getAddress());
+        if (order != null) {
+            deliveryLocation.setText(order.getLocation().getAddress());
+        }
         return view;
 
     }

@@ -20,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -44,6 +45,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,6 +74,8 @@ public class OrderMapActivity extends BaseActivity implements
     Location location;
     LocationManager locationManager;
     String provider;
+    @BindView(R.id.map_layout)
+    LinearLayout mapLayout;
     private boolean flag = false;
 
 
@@ -78,8 +83,9 @@ public class OrderMapActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        ButterKnife.bind(this);
         //checkLocationPermission();
-
+        super.layout = mapLayout;
         order = (Order) getIntent().getExtras().getSerializable(MainActivity.ORDER);
         nextButton = findViewById(R.id.next_button_id);
         savedLocationButton = findViewById(R.id.saved_location_button_id);
@@ -179,13 +185,13 @@ public class OrderMapActivity extends BaseActivity implements
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if (addresses.size() > 0) {
+                if (addresses != null && addresses.size() > 0) {
                     String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                     Toast.makeText(OrderMapActivity.this, address, Toast.LENGTH_SHORT).show();
                     finaladdress = address;
                 }
                 location = new Location(User.getEmail(), finaladdress, latLng.latitude, latLng.longitude);
-
+                order.setLocation(location);
             }
         });
 
@@ -212,6 +218,7 @@ public class OrderMapActivity extends BaseActivity implements
 
                     finaladdress = address;
                     location = new Location(User.getEmail(), finaladdress, lattiude, longtude);
+                    order.setLocation(location);
 
                     MarkerInfo markerInfo = new MarkerInfo();
                     markerInfo.setAddress(address);
@@ -358,7 +365,6 @@ public class OrderMapActivity extends BaseActivity implements
     public void onProviderDisabled(String provider) {
 
     }
-
 
     @Override
     protected void onResume() {
