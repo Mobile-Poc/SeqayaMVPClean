@@ -1,4 +1,4 @@
-package com.ntg.seqaya.seqayamvpclean.presentation;
+package com.ntg.seqaya.seqayamvpclean.presentation.manufacturer;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -24,13 +24,13 @@ import butterknife.ButterKnife;
 
 public class ManufactureAdapter extends RecyclerView.Adapter<ManufactureAdapter.ManufactureViewHolder>{
 
-    private List<Integer> manfactureList;
-    private ManfactureClick manfactureClick;
+    private List<Integer> manufacturersList;
+    private ManufacturerClick manufacturerClick;
     private Context context;
 
-    public ManufactureAdapter(List<Integer> manfactureList, ManfactureClick manfactureClick, Context context) {
-        this.manfactureList = manfactureList;
-        this.manfactureClick = manfactureClick;
+    public ManufactureAdapter(List<Integer> manufacturersList, ManufacturerClick manufacturerClick, Context context) {
+        this.manufacturersList = manufacturersList;
+        this.manufacturerClick = manufacturerClick;
         this.context = context;
     }
 
@@ -46,19 +46,19 @@ public class ManufactureAdapter extends RecyclerView.Adapter<ManufactureAdapter.
     @Override
     public void onBindViewHolder(@NonNull ManufactureViewHolder holder, int position) {
         Glide.with(context)
-                .load(manfactureList.get(position))
+                .load(manufacturersList.get(position))
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.manfacture_image);
-        holder.manfacture_image.setOnClickListener(v -> manfactureClick.clickListner(true));
+        holder.manfacture_image.setOnClickListener(v -> manufacturerClick.clickListener(true));
     }
 
     @Override
     public int getItemCount() {
-        return manfactureList.size();
+        return manufacturersList.size();
     }
 
     class ManufactureViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.manfacture_image)
+        @BindView(R.id.manufacturer_image)
         ImageView manfacture_image;
         public ManufactureViewHolder(View itemView) {
             super(itemView);

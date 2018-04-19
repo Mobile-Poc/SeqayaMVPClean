@@ -1,4 +1,4 @@
-package com.ntg.seqaya.seqayamvpclean.presentation;
+package com.ntg.seqaya.seqayamvpclean.presentation.manufacturer;
 
 
 import android.app.Activity;
@@ -24,7 +24,7 @@ public class ManufactureFragment extends BaseFragment {
     RecyclerView manufacture;
     private ManufactureAdapter manufactureAdapter;
     private List<Integer> manufacture_images;
-    private ManfactureClick manfactureClick;
+    private ManufacturerClick manufacturerClick;
     public static ManufactureFragment newInstance() {
 
         return new ManufactureFragment();
@@ -55,7 +55,7 @@ public class ManufactureFragment extends BaseFragment {
         manufacture_images.add(R.drawable.nestle);
         manufacture_images.add(R.drawable.naya);
 
-        manufactureAdapter = new ManufactureAdapter(manufacture_images,manfactureClick, getActivity());
+        manufactureAdapter = new ManufactureAdapter(manufacture_images, manufacturerClick, getActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity() , 2);
         manufacture.setLayoutManager(gridLayoutManager);
         manufacture.setAdapter(manufactureAdapter);
@@ -68,7 +68,7 @@ public class ManufactureFragment extends BaseFragment {
     public void onAttach(Activity context) {
         super.onAttach(context);
         try {
-            manfactureClick = (ManfactureClick)context;
+            manufacturerClick = (ManufacturerClick)context;
         }catch (ClassCastException e){
             throw new ClassCastException(context.toString() + " must implement onViewSelected");
         }
