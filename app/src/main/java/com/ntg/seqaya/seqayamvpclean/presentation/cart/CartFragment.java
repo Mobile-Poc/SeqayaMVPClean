@@ -2,7 +2,6 @@ package com.ntg.seqaya.seqayamvpclean.presentation.cart;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -72,7 +71,7 @@ public class CartFragment extends BaseFragment implements CartAdapter.TotalListe
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         unbinder = ButterKnife.bind(this, view);
-        ViewUtil.setupActionBar(getActivity(), getString(R.string.shopping_cart));
+        ViewUtil.setupActionBarWithoutBackButton(getActivity(), getString(R.string.shopping_cart));
         setupRecyclerView();
 
         confirmBtn.setOnClickListener(v -> navigateToMapActivity(newOrder()));

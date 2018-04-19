@@ -70,8 +70,8 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
         unbinder = ButterKnife.bind(this, view);
         super.layout = productsLayout;
         setHasOptionsMenu(true);
-        ViewUtil.setupActionBar(getActivity(), getString(R.string.catalog));
 
+        ViewUtil.setupActionBarWithBackButton(getActivity() , getString(R.string.catalog));
         disposable = productPublishSubject.subscribe(product -> {
             if (product.isLiked()) {
                 productsPresenter.deleteFavourite(String.valueOf(product.getId()));
@@ -210,6 +210,14 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
                 showSortResult();
                 break;
             }
+//            case R.id.back:{
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .addToBackStack(null)
+//                        .replace(R.id.container, ManufactureFragment.newInstance())
+//                        .commit();
+//                break;
+//            }
         }
         return super.onOptionsItemSelected(item);
     }

@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
                 .beginTransaction()
                 .replace(R.id.container, ManufactureFragment.newInstance())
                 .commit();
-        bottomNavigationView.setVisibility(View.GONE);
     }
 
     private void setupBottomNavigation() {
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
                             getFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.container,
-                                            ProductsFragment.newInstance())
+                                            ManufactureFragment.newInstance())
                                     .commit();
                             return true;
 
@@ -148,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
             bottomNavigationView.setVisibility(View.VISIBLE);
             getFragmentManager()
                     .beginTransaction()
+                    .addToBackStack(null)
                     .replace(R.id.container, ProductsFragment.newInstance())
                     .commit();
         }

@@ -3,8 +3,6 @@ package com.ntg.seqaya.seqayamvpclean.presentation.orderhistory;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -53,7 +51,7 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryCo
         super.layout = orderHistoryLayout;
         orderHistoryPresenter = new OrderHistoryPresenter(Injection.provideUseCaseHandler(),
                 this, Injection.provideGetOrderHistory());
-        ViewUtil.setupActionBar(getActivity(), getString(R.string.history));
+        ViewUtil.setupActionBarWithoutBackButton(getActivity(), getString(R.string.history));
         layoutManager = new LinearLayoutManager(this.getActivity());
         orderHistoryRv.setLayoutManager(layoutManager);
 
@@ -81,7 +79,9 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryCo
                 noItemsLayout.setVisibility(View.VISIBLE);
         } else {
             adapter = new OrderHistoryAdapter(orders, getActivity());
-            orderHistoryRv.setAdapter(adapter);
+            if (orderHistoryRv != null) {
+                orderHistoryRv.setAdapter(adapter);
+            }
         }
     }
 

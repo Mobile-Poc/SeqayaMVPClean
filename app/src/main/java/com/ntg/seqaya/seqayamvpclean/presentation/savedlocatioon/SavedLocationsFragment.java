@@ -19,6 +19,7 @@ import com.ntg.seqaya.seqayamvpclean.domain.entity.Location;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Order;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.MainActivity;
 import com.ntg.seqaya.seqayamvpclean.utils.Injection;
+import com.ntg.seqaya.seqayamvpclean.utils.ViewUtil;
 
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class SavedLocationsFragment extends BaseFragment implements SavedLocatio
 
         savedLocationsLayout.setOnClickListener(v -> getActivity().getFragmentManager().popBackStack());
         cancelButton.setOnClickListener(v -> getActivity().getFragmentManager().popBackStack());
-
+        ViewUtil.setupActionBarWithBackButton(getActivity() , "العناوين السابقة");
         return view;
     }
 

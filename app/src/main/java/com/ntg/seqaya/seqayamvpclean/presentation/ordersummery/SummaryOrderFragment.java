@@ -60,7 +60,7 @@ public class SummaryOrderFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.order_main, container, false);
         ButterKnife.bind(this, view);
-        ViewUtil.setupActionBar(getActivity(), getString(R.string.order_summary));
+        ViewUtil.setupActionBarWithBackButton(getActivity(), getString(R.string.order_summary));
 
         order = (Order) getArguments().getSerializable(MainActivity.ORDER);
         if (order != null) {

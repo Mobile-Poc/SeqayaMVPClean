@@ -37,7 +37,7 @@ public class PaymentFragment extends BaseFragment implements View.OnClickListene
 
         View view = inflater.inflate(R.layout.fragment_payment, container, false);
 
-        ViewUtil.setupActionBar(getActivity(), getString(R.string.payment_method));
+        ViewUtil.setupActionBarWithBackButton(getActivity(), getString(R.string.payment_method));
         bankTransfer = view.findViewById(R.id.bankTransfer);
         sadad = view.findViewById(R.id.sadad);
         creditCard = view.findViewById(R.id.creditCard);
