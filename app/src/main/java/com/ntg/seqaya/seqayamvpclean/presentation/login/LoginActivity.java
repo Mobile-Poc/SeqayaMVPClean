@@ -54,6 +54,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     private LoginContract.Presenter loginPresenter;
     private ISocialMedia socialMedia;
     private ProgressDialog progressDialog;
+    private String language;
 
 
     @Override
@@ -73,7 +74,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             loginPasswordEditText.setText("1234");
         }
         SharedPreferences sharedPref = this.getSharedPreferences("lang", 0);
-        String language = sharedPref.getString("lang", "ar");
+        language = sharedPref.getString("lang", "ar");
 
         if (language.equals("ar")){
             languageLetterIndicator.setText(R.string.arabic);

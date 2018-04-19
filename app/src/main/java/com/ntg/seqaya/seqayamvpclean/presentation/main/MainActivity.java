@@ -1,5 +1,6 @@
 package com.ntg.seqaya.seqayamvpclean.presentation.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,12 +20,13 @@ import com.ntg.seqaya.seqayamvpclean.presentation.favourites.FavouritesFragment;
 import com.ntg.seqaya.seqayamvpclean.presentation.orderhistory.OrderHistoryFragment;
 import com.ntg.seqaya.seqayamvpclean.presentation.products.ProductsFragment;
 import com.ntg.seqaya.seqayamvpclean.presentation.settings.SettingsFragment;
+import com.ntg.seqaya.seqayamvpclean.utils.LocalManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity implements CartItemsCountListener , ManufacturerClick {
+public class MainActivity extends AppCompatActivity implements CartItemsCountListener, ManufacturerClick {
 
     public static String ORDER = "order";
     @BindView(R.id.include)
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         setupBottomNavigation();
+
+        bottomNavigationView.setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
+        toolbar.setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
 
         getFragmentManager()
                 .beginTransaction()
@@ -134,8 +139,8 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
 
     @Override
     public void onCartItemsCountChanged(int count) {
-        if (count == 0){
-            bottomNavigationView.setNotification("" , 1);
+        if (count == 0) {
+            bottomNavigationView.setNotification("", 1);
         } else {
             showCartItemsCountNotification(count);
         }
@@ -143,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
 
     @Override
     public void clickListener(boolean b) {
-        if (b){
+        if (b) {
             bottomNavigationView.setVisibility(View.VISIBLE);
             getFragmentManager()
                     .beginTransaction()
@@ -153,6 +158,9 @@ public class MainActivity extends AppCompatActivity implements CartItemsCountLis
         }
     }
 
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocalManager.onAttach(base, "ar"));
+    }
 }
 

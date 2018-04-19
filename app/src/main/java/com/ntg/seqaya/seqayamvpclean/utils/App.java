@@ -25,6 +25,6 @@ public class App extends Application {
 
     @Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LocalManager.onAttach(base , "en"));
+        super.attachBaseContext(LocalManager.onAttach(base , "ar"));
     }
 }
