@@ -27,6 +27,7 @@
     <string name="quantity">الكمية: </string>
     <string name="bottle_per_package">زجاجة / عبوة</string>
     <string name="litre">لتر</string>
+    <string name="box">كرتونة</string>
     <string name="rs">ريال سعودي</string>
     <string name="checkout">الدفع</string>
     <string name="add_to_cart">إضافة إلى العربة</string>
@@ -47,8 +48,28 @@
     <string name="history">الطلبات السابقة</string>
     <string name="order_summary">"الملخص"</string>
     <string name="loading_indicator_message">"فى انتظار التحميل"</string>
-    <string name="in_progress">فى الطريق</string>
+    <string name="in_progress">مرحلة التجهيز</string>
     <string name="delivered">تم التوصيل</string>
     <string name="canceled">تم إلغاء الطلب</string>
+    <string name="shopping_cart">عربة البضائع</string>
+    <string name="order_details">تفاصيل الطلب</string>
+    <string name="order_status">حالة الطلب</string>
+    <string name="shipment_no">رقم الطلب</string>
+    <string name="delivery_date">تاريخ وصول الطلب</string>
+    <string name="track_order">متابعة الطلب</string>
+    <string name="shipped">تم الشحن</string>
+    <string name="order_date">تاريخ الطلب</string>
+    <string name="sign_out">تسجيل الخروج</string>
+    <string name="arabic">ع</string>
+    <string name="english">En</string>
+    <string name="no_items">العربة فارغة</string>
     <string name="favourite">المفضلة</string>
+    <string name="catalog">الرئيسية</string>
+    <string name="settings">الاعدادت</string>
+    <string name="no_order_history">لا يوجد طلبات سابقة</string>
+    <string name="no_favs">لا يوجد منتجات مفضلة</string>
+    <string name="facebook_app_id">1726072650786982</string>
+    <string name="fb_login_protocol_scheme">fb1726072650786982</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">6pBxN2PGQZ4YkIQaaQ2PvWZRa</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">NWdaHxDZXrFn1BDcgkfQ4HvE0QNlkfNXYPjE1mUhxEaqKFixPg</string>
 </resources>

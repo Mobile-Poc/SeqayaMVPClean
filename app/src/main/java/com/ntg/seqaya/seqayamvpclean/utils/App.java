@@ -10,9 +10,6 @@ import java.util.Locale;
 
 public class App extends Application {
 
-
-
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -28,6 +25,6 @@ public class App extends Application {
 
     @Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LocalManager.onAttach(base , "ar"));
+        super.attachBaseContext(LocalManager.onAttach(base , "en"));
     }
 }

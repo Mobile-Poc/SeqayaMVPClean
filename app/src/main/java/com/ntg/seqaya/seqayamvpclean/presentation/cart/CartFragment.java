@@ -21,7 +21,9 @@ import com.ntg.seqaya.seqayamvpclean.base.BaseFragment;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.CartItem;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Order;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.User;
+import com.ntg.seqaya.seqayamvpclean.presentation.location.OrderMapActivity;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.CartItemsCountListener;
+import com.ntg.seqaya.seqayamvpclean.presentation.main.MainActivity;
 import com.ntg.seqaya.seqayamvpclean.utils.ViewUtil;
 
 import java.util.List;
@@ -78,9 +80,9 @@ public class CartFragment extends BaseFragment implements CartAdapter.TotalListe
     }
 
     private void navigateToMapActivity(Order order) {
-//        Intent i = new Intent(CartFragment.this.getActivity(), OrderMapActivity.class);
-//        i.putExtra(MainActivity.ORDER, order);
-//        startActivityForResult(i, REQUEST_CODE);
+        Intent i = new Intent(CartFragment.this.getActivity(), OrderMapActivity.class);
+        i.putExtra(MainActivity.ORDER, order);
+        startActivityForResult(i, REQUEST_CODE);
     }
 
     private Order newOrder() {
