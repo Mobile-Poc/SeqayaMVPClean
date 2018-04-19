@@ -11,9 +11,7 @@ import android.util.Log;
 
 import java.util.Locale;
 
-/**
- * Created by islam on 4/16/2018.
- */
+
 
 public class LocalManager {
    public static Context onAttach(Context context ){

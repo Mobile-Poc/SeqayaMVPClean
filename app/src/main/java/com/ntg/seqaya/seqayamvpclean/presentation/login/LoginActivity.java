@@ -1,8 +1,9 @@
 package com.ntg.seqaya.seqayamvpclean.presentation.login;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ntg.seqaya.seqayamvpclean.BuildConfig;
 import com.ntg.seqaya.seqayamvpclean.R;
@@ -19,8 +19,7 @@ import com.ntg.seqaya.seqayamvpclean.base.BaseActivity;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.MainActivity;
 import com.ntg.seqaya.seqayamvpclean.presentation.registration.RegistrationActivity;
 import com.ntg.seqaya.seqayamvpclean.utils.Injection;
-
-import java.util.Locale;
+import com.ntg.seqaya.seqayamvpclean.utils.LocalManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +53,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     TextView languageLetterIndicator;
     private LoginContract.Presenter loginPresenter;
     private ISocialMedia socialMedia;
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         super.layout = loginLayout;
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Loading");
         loginPresenter = new LoginPresenter(Injection.provideUseCaseHandler(),
                 this, Injection.provideEmailPasswordLogin());
         if (BuildConfig.DEBUG) {
@@ -99,15 +104,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void changeLocalLanguageToArabic() {
-        String languageToLoad = "ar";
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-    }
+
 
     @OnClick({R.id.login_button, R.id.reg_nav_button, R.id.facebook_button, R.id.twitter_button,
             R.id.google_button, R.id.language_change})
@@ -131,18 +128,26 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             case R.id.language_change:
                 if (languageLetterIndicator.getText().toString()
                         .equals(getString(R.string.english))) {
+                    progressDialog.show();
                     languageLetterIndicator.setText(R.string.arabic);
                     SharedPreferences sharedPreferences = this.getSharedPreferences("lang", 0);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("lang", "ar");
                     editor.apply();
+                    LocalManager.setLocale(this , "ar");
+                    recreate();
+                    progressDialog.dismiss();
                 } else if (languageLetterIndicator.getText().toString()
                         .equals(getString(R.string.arabic))){
+                    progressDialog.show();
                     languageLetterIndicator.setText(R.string.english);
                     SharedPreferences sharedPreferences = this.getSharedPreferences("lang", 0);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("lang", "en");
                     editor.apply();
+                    LocalManager.setLocale(this , "en");
+                    recreate();
+                    progressDialog.dismiss();
                 }
                 break;
         }
@@ -171,6 +176,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocalManager.onAttach(base , "ar"));
     }
 
     @Override
