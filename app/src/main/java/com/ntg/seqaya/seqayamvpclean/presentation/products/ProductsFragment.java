@@ -23,6 +23,7 @@ import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.User;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.CartItemsCountListener;
 import com.ntg.seqaya.seqayamvpclean.utils.Injection;
+import com.ntg.seqaya.seqayamvpclean.utils.ViewUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -69,6 +70,7 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
         unbinder = ButterKnife.bind(this, view);
         super.layout = productsLayout;
         setHasOptionsMenu(true);
+        ViewUtil.setupActionBar(getActivity(), getString(R.string.catalog));
 
         disposable = productPublishSubject.subscribe(product -> {
             if (product.isLiked()) {
@@ -173,7 +175,6 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
         if (favList != null)
             productAdapter.setFavouriteProducts(favList);
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

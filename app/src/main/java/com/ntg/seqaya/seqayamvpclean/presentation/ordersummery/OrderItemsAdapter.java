@@ -19,13 +19,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
+public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.ListViewHolder> {
 
     List<CartItem> orderList;
     Context context;
 
 
-    public ListAdapter(List<CartItem> orderList, Context context) {
+    public OrderItemsAdapter(List<CartItem> orderList, Context context) {
         this.orderList = orderList;
         this.context = context;
     }

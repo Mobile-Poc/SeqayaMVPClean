@@ -4,7 +4,6 @@ package com.ntg.seqaya.seqayamvpclean.presentation.ordersummery;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,7 +40,7 @@ public class SummaryOrderFragment extends BaseFragment {
     TextView deliveryTime;
     @BindView(R.id.recyclerList)
     RecyclerView recyclerList;
-    ListAdapter listAdapter;
+    OrderItemsAdapter orderItemsAdapter;
     @BindView(R.id.cardView)
     LinearLayout cardView;
     @BindView(R.id.cardView2)
@@ -61,37 +60,41 @@ public class SummaryOrderFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.order_main, container, false);
         ButterKnife.bind(this, view);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.order_summary);
+        ViewUtil.setupActionBar(getActivity(), getString(R.string.order_summary));
 
         order = (Order) getArguments().getSerializable(MainActivity.ORDER);
-        deliveryLocation.setText(order.getLocation().getAddress());
-        switch (order.getPaymentMethod()) {
-            case PaymentMethod.BANK_TRANSFER:
-                paymentDetails.setText(getString(R.string.bank_transfer));
-                break;
+        if (order != null) {
+            deliveryLocation.setText(order.getLocation().getAddress());
+            switch (order.getPaymentMethod()) {
+                case PaymentMethod.BANK_TRANSFER:
+                    paymentDetails.setText(getString(R.string.bank_transfer));
+                    break;
 
-            case PaymentMethod.CREDIT_CARD:
-                paymentDetails.setText(getString(R.string.credit_card));
-                break;
-            case PaymentMethod.SADAD:
-                paymentDetails.setText(getString(R.string.sadad));
-                break;
+                case PaymentMethod.CREDIT_CARD:
+                    paymentDetails.setText(getString(R.string.credit_card));
+                    break;
+                case PaymentMethod.SADAD:
+                    paymentDetails.setText(getString(R.string.sadad));
+                    break;
+            }
+            Log.i("Order", order.toString());
+            deliveryTime.setText(order.getDeliveryTime() + " , " + order.getDeliveryDate());
+            total.setText(String.valueOf(order.getTotal()));
+            setupOrderItemsList();
         }
-        Log.i("Order", order.toString());
-        deliveryTime.setText(order.getDeliveryTime() + " , " + order.getDeliveryDate());
-        total.setText(String.valueOf(order.getTotal()));
-        listAdapter = new ListAdapter(order.getCartItems(), getActivity());
-        recyclerList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerList.setAdapter(listAdapter);
-        listAdapter.notifyDataSetChanged();
 
         ViewUtil.addShadowToView(getActivity(), cardView);
         ViewUtil.addShadowToView(getActivity(), cardView2);
         ViewUtil.addShadowToView(getActivity(), cardView3);
 
         return view;
+    }
+
+    private void setupOrderItemsList() {
+        orderItemsAdapter = new OrderItemsAdapter(order.getCartItems(), getActivity());
+        recyclerList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerList.setAdapter(orderItemsAdapter);
+        orderItemsAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -65,9 +65,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         ButterKnife.bind(this);
         super.layout = loginLayout;
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setTitle("Loading");
+        showLoadingIndicator();
         loginPresenter = new LoginPresenter(Injection.provideUseCaseHandler(),
                 this, Injection.provideEmailPasswordLogin());
         if (BuildConfig.DEBUG) {
@@ -82,6 +80,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         }else {
             languageLetterIndicator.setText(R.string.english);
         }
+    }
+
+    private void showLoadingIndicator() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Loading");
     }
 
     @Override
@@ -103,8 +107,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         socialMedia.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
 
     @OnClick({R.id.login_button, R.id.reg_nav_button, R.id.facebook_button, R.id.twitter_button,
             R.id.google_button, R.id.language_change})

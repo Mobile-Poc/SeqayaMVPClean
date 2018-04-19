@@ -47,7 +47,7 @@
     <string name="sort">Sort by</string>
     <string name="history">Order history</string>
     <string name="order_summary">Order summery</string>
-    <string name="loading_indicator_message">loading...</string>
+    <string name="loading_indicator_message">loading…</string>
     <string name="in_progress">In progress</string>
     <string name="delivered">Delivered</string>
     <string name="canceled">Canceled</string>
