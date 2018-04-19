@@ -12,11 +12,13 @@
     <string name="time_title">اختر توقيت الطلب</string>
     <string name="payment_method">طريقة الدفع</string>
     <string name="credit_card">بطاقة الإئتمان</string>
+    <string name="cash_on_delivery">الدفع نقدا</string>
     <string name="sadad">سداد</string>
     <string name="transaction_approved">العملية</string>
     <string name="order_items">أصناف الطلب</string>
     <string name="payment_details">تفاصيل الدفع</string>
     <string name="delivery_location">عنوان التوصيل</string>
+    <string name="customer_number">رقم الهاتف</string>
     <string name="delivery_time">وقت التوصيل</string>
     <string name="done">تم</string>
     <string name="next">التالي</string>
@@ -43,6 +45,7 @@
     <string name="create_account">إنشاء حساب</string>
     <string name="pick_date">أختر تاريخ</string>
     <string name="pick_time">أختر توقيت</string>
+    <string name="please_enter_time_and_date">من فضلك ادخل الوقت والتاريخ</string>
     <string name="copyright">©جميع حقوق الطبع محفوظة لشركة NTG Clarity</string>
     <string name="sort">الترتيب علي حسب</string>
     <string name="history">الطلبات السابقة</string>

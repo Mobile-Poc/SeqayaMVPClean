@@ -32,12 +32,12 @@ import java.util.Calendar;
  */
 public class DeliveryTimeFragment extends BaseFragment implements View.OnClickListener {
     View view;
-    LinearLayout Button;
     private android.widget.Button btn_dialog_confirm;
     private ImageView btn_dialog_1, btn_dialog_2;
     TextView text_date, text_time;
     Calendar calendar;
     Order order;
+    LinearLayout layout_time;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,7 +47,8 @@ public class DeliveryTimeFragment extends BaseFragment implements View.OnClickLi
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.time_title));
-        Button = view.findViewById(R.id.layout_time);
+        layout_time = view.findViewById(R.id.layout_time);
+        super.layout =layout_time;
         btn_dialog_1 = view.findViewById(R.id.btn_dialog_1);
         btn_dialog_2 = view.findViewById(R.id.btn_dialog_2);
         text_date = view.findViewById(R.id.text_date);
@@ -56,7 +57,7 @@ public class DeliveryTimeFragment extends BaseFragment implements View.OnClickLi
 
         order = (Order) getArguments().getSerializable(MainActivity.ORDER);
 
-        ViewUtil.addShadowToView(getActivity(), Button);
+        ViewUtil.addShadowToView(getActivity(), layout_time);
 
         return view;
     }
@@ -101,14 +102,19 @@ public class DeliveryTimeFragment extends BaseFragment implements View.OnClickLi
                 break;
 
             case R.id.btn_dialog_confirm:
-                PaymentFragment paymentFragment = new PaymentFragment();
-                order.setDeliveryDate(text_date.getText().toString());
-                order.setDeliveryTime(text_time.getText().toString());
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(MainActivity.ORDER, order);
-                paymentFragment.setArguments(bundle);
-                getActivity().getFragmentManager().
-                        beginTransaction().addToBackStack(null).replace(R.id.container, paymentFragment).commit();
+                if (text_date.getText().toString().equals(getString(R.string.pick_date)) || text_time.getText().toString().equals(getString(R.string.pick_time))) {
+                    showErrorMessage(getString(R.string.please_enter_time_and_date));
+                } else {
+                    PaymentFragment paymentFragment = new PaymentFragment();
+                    order.setDeliveryDate(text_date.getText().toString());
+                    order.setDeliveryTime(text_time.getText().toString());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(MainActivity.ORDER, order);
+                    paymentFragment.setArguments(bundle);
+                    getActivity().getFragmentManager().
+                            beginTransaction().addToBackStack(null).replace(R.id.container, paymentFragment).commit();
+
+                }
                 break;
         }
 

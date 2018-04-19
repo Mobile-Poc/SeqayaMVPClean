@@ -12,11 +12,13 @@
     <string name="time_title">Choose order delivery time</string>
     <string name="payment_method">Payment method</string>
     <string name="credit_card">Credit card</string>
+    <string name="cash_on_delivery">cash on delivery</string>
     <string name="sadad">Sadad</string>
     <string name="transaction_approved">Transaction approved</string>
     <string name="order_items">Order items</string>
     <string name="payment_details">Payment details</string>
     <string name="delivery_location">Delivery location</string>
+    <string name="customer_number">Customer number</string>
     <string name="delivery_time">Delivery time</string>
     <string name="done">Done</string>
     <string name="next">Next</string>
@@ -43,6 +45,7 @@
     <string name="create_account">Create account</string>
     <string name="pick_date">Choose date</string>
     <string name="pick_time">Choose time</string>
+    <string name="please_enter_time_and_date">please enter time and date</string>
     <string name="copyright">© 2018 NTG Clarity</string>
     <string name="sort">Sort by</string>
     <string name="history">Order history</string>

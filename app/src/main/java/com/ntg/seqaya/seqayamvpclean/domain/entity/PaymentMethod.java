@@ -21,4 +21,5 @@ public @interface PaymentMethod {
     String BANK_TRANSFER = "bankTransfer";
     String SADAD = "sadad";
     String CREDIT_CARD = "creditCard";
+    String CASH_ON_DELIVERY = "cashOnDelivery";
 }
