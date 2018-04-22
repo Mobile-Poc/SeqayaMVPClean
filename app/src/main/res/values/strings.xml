@@ -77,4 +77,7 @@
     <string name="com.twitter.sdk.android.CONSUMER_SECRET">NWdaHxDZXrFn1BDcgkfQ4HvE0QNlkfNXYPjE1mUhxEaqKFixPg</string>
     <string name="manufacurers">Manufacturers</string>
     <string name="map_loading_message">please wait map loading…</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
