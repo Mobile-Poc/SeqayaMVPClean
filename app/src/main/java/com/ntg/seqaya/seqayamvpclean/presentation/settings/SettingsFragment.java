@@ -49,11 +49,8 @@ public class SettingsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
         unbinder = ButterKnife.bind(this, view);
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle(getString(R.string.settings));
-        }
+
+        ViewUtil.setupActionBarWithoutBackButton(getActivity() , getString(R.string.settings));
         ViewUtil.addShadowToView(getActivity(), signOutLayout);
         return view;
     }

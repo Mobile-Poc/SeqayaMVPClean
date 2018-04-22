@@ -1,0 +1,51 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context="com.ntg.seqaya.seqayamvpclean.presentation.paymentmethod.CashOnDeliveryFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/deliveryLocationText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delivery_location"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/deliveryLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/customer_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/customer_number"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:text="966358945617+"
+        android:layout_gravity="right"
+        android:textSize="20dp"/>
+
+    <Button
+        android:id="@+id/confim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorAccent"
+        android:text="@string/confirm"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
+
+</FrameLayout>

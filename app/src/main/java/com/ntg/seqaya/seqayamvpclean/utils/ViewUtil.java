@@ -34,7 +34,16 @@ public class ViewUtil {
         }
     }
 
-    public static void setupActionBar(Activity activity, String title) {
+    public static void setupActionBarWithoutBackButton(Activity activity, String title) {
+        ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setTitle(title);
+        }
+    }
+
+    public static void setupActionBarWithBackButton(Activity activity, String title) {
         ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(true);

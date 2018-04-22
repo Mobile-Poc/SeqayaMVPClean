@@ -23,6 +23,7 @@ import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.User;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.CartItemsCountListener;
 import com.ntg.seqaya.seqayamvpclean.utils.Injection;
+import com.ntg.seqaya.seqayamvpclean.utils.ViewUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -70,6 +71,7 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
         super.layout = productsLayout;
         setHasOptionsMenu(true);
 
+        ViewUtil.setupActionBarWithBackButton(getActivity() , getString(R.string.catalog));
         disposable = productPublishSubject.subscribe(product -> {
             if (product.isLiked()) {
                 productsPresenter.deleteFavourite(String.valueOf(product.getId()));
@@ -102,7 +104,10 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     public void showProducts(List<Product> productList) {
         this.products = productList;
         productAdapter.setProductList(productList);
-        products_rv.setAdapter(productAdapter);
+
+        if (products_rv != null) {
+            products_rv.setAdapter(productAdapter);
+        }
     }
 
     @Override
@@ -171,7 +176,6 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
             productAdapter.setFavouriteProducts(favList);
     }
 
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         MenuInflater menuInflater = getActivity().getMenuInflater();
@@ -206,6 +210,14 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
                 showSortResult();
                 break;
             }
+//            case R.id.back:{
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .addToBackStack(null)
+//                        .replace(R.id.container, ManufactureFragment.newInstance())
+//                        .commit();
+//                break;
+//            }
         }
         return super.onOptionsItemSelected(item);
     }

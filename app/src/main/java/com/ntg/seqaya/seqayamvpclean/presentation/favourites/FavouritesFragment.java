@@ -58,7 +58,8 @@ public class FavouritesFragment extends BaseFragment implements FavouritesContra
                 this,
                 Injection.provideGetFavourites(),
                 Injection.provideDeleteFavourite());
-        ViewUtil.setupActionBar(getActivity(), getString(R.string.favourite));
+
+        ViewUtil.setupActionBarWithoutBackButton(getActivity(), getString(R.string.favourite));
 
         return view;
     }
