@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,9 +24,12 @@ import com.ntg.seqaya.seqayamvpclean.domain.entity.Fav;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.User;
 import com.ntg.seqaya.seqayamvpclean.presentation.filter.BottomSheetFragment;
+import com.ntg.seqaya.seqayamvpclean.presentation.filter.FilterItemsListener;
+import com.ntg.seqaya.seqayamvpclean.presentation.filter.FilterLists;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.CartItemsCountListener;
 import com.ntg.seqaya.seqayamvpclean.utils.Injection;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,18 +55,21 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     private Unbinder unbinder;
     private AppCompatActivity activity;
 
+    private FilterItemsListener filterItemsListener = items -> {
+        StringBuilder keyword = new StringBuilder();
+
+        for (String item : items) {
+            keyword.append(item);
+            keyword.append(" ");
+            Log.d("items", item);
+        }
+        Log.d("filter", keyword.toString());
+        productsPresenter.searchProduct(keyword.toString());
+    };
+
     public static ProductsFragment newInstance() {
 
         return new ProductsFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        Bundle args = getArguments();
-//        if (args != null)
-//            cartItemsCountListener = args.getParcelable("count");
-
     }
 
     @Override
@@ -94,6 +101,12 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
         productsPresenter.getProduct();
         productsPresenter.getFavourites();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     @Override
@@ -211,7 +224,12 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
             }
             case R.id.filter: {
                 BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
-                bottomSheetFragment.show(activity.getSupportFragmentManager(), bottomSheetFragment.getTag());
+                bottomSheetFragment.setCancelable(false);
+                Bundle args = new Bundle();
+                args.putSerializable("filterItems", filterItemsListener);
+                bottomSheetFragment.setArguments(args);
+                bottomSheetFragment.show(activity.getSupportFragmentManager(),
+                        bottomSheetFragment.getTag());
                 break;
             }
         }
@@ -229,6 +247,13 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
             throw new ClassCastException(context.toString()
                     + " must implement OnHeadlineSelectedListener");
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Log.d("filter", "onPause: ");
     }
 
     @Override

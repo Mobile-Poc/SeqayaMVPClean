@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    public static final String BASE_URL = "http://seqaya.getsandbox.com/";
+    public static final String BASE_URL = "http://seqayaa.getsandbox.com/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {

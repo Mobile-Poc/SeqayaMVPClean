@@ -2,6 +2,7 @@ package com.ntg.seqaya.seqayamvpclean.presentation.filter;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,25 +27,23 @@ public class BottlesPriceFragment extends Fragment {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    public BottlesPriceFragment() {
-        // Required empty public constructor
-    }
+    public BottlesPriceFragment() {}
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         List<String> list=new ArrayList<>();
         list.add("30");
-        list.add("40");
-        list.add("50");
-        list.add("60");
-        list.add("70");
-        list.add("80");
+        list.add("3");
+        list.add("56");
+        list.add("65");
+        list.add("42");
+        list.add("35");
         View view = inflater.inflate(R.layout.fragment_bottles_price, container, false);
         ButterKnife.bind(this, view);
-        sheetAdapter=new SheetAdapter(getActivity(),list);
+        sheetAdapter=new SheetAdapter(getActivity(),list,"price");
         rv.setAdapter(sheetAdapter);
         rv.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         return view;

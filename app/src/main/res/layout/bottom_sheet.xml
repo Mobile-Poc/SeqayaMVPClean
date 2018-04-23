@@ -19,47 +19,33 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2">
 
-        <!--<Button-->
-        <!--android:id="@+id/button"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:background="@drawable/custom_btn_background"-->
-        <!--android:minHeight="40dp"-->
-        <!--android:minWidth="70dp"-->
-        <!--android:text="المصنع"-->
-        <!--android:textSize="18sp"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
-
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/bottlesSizeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:background="@drawable/custom_btn_background"
+            android:fontFamily="@font/cairo_semibold"
             android:minHeight="40dp"
             android:minWidth="70dp"
             android:text="الحجم"
-            android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/bottlesPriceBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:background="@drawable/custom_btn_background"
             android:minHeight="40dp"
             android:minWidth="70dp"
             android:text="السعر"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toRightOf="@+id/button2"
-            app:layout_constraintTop_toTopOf="@+id/button2" />
+            app:layout_constraintLeft_toRightOf="@+id/bottlesSizeBtn"
+            app:layout_constraintTop_toTopOf="@+id/bottlesSizeBtn" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/bottlesNumBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
@@ -67,25 +53,15 @@
             android:background="@drawable/custom_btn_background"
             android:minHeight="40dp"
             android:minWidth="100dp"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp"
             android:text="عددالزجاجات"
-            android:textSize="18sp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/button3"
-            app:layout_constraintTop_toTopOf="@+id/button3" />
+            app:layout_constraintLeft_toRightOf="@+id/bottlesPriceBtn"
+            app:layout_constraintTop_toTopOf="@+id/bottlesPriceBtn" />
     </android.support.constraint.ConstraintLayout>
 
-    <!--<ScrollView-->
-    <!--android:id="@+id/scrollView"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="290dp"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:scrollbars="none"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/view">-->
-
-    <FrameLayout
+    <android.support.v4.view.ViewPager
         android:id="@+id/fragment_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -97,36 +73,33 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view">
 
-    </FrameLayout>
-    <!--</ScrollView>-->
+    </android.support.v4.view.ViewPager>
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/custom_btn_background"
         android:minHeight="40dp"
         android:minWidth="60dp"
         android:text="إلغاء"
-        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/btn_background"
+        android:background="@drawable/round_corner_filter"
         android:minHeight="40dp"
         android:minWidth="60dp"
         android:text="تم"
         android:textColor="#FFF"
-        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -140,10 +113,9 @@
         android:layout_marginTop="8dp"
         android:background="#cccccc"
         android:textSize="18sp"
-
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button8" />
+        app:layout_constraintTop_toBottomOf="@+id/done" />
 
     <View
         android:id="@+id/view2"

@@ -2,6 +2,7 @@ package com.ntg.seqaya.seqayamvpclean.presentation.filter;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,37 +15,56 @@ import java.util.List;
 
 public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.SheetHolder> {
 
-    List<String> mList;
-    Context context;
+    private String type;
+    private List<String> mList;
+    private Context context;
 
-    public SheetAdapter(Context context, List<String> mList) {
+
+    SheetAdapter(Context context, List<String> mList, String type) {
         this.context = context;
         this.mList = mList;
+        this.type = type;
     }
 
+    @NonNull
     @Override
-    public SheetHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SheetHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.filter_item_row, parent, false);
-        SheetHolder holder = new SheetHolder(row);
-        return holder;
+        return new SheetHolder(row);
     }
 
     @Override
-    public void onBindViewHolder(SheetHolder holder, int position) {
-        String item = mList.get(position);
-        holder.item.setText(item);
+    public void onBindViewHolder(@NonNull SheetHolder holder, int position) {
+        String itemText = mList.get(position);
+        holder.item.setText(itemText);
         holder.item.setOnClickListener((View) -> {
             boolean on = ((ToggleButton) View).isChecked();
             if (on) {
-                ((ToggleButton) View).setTextOn(item);
-                ((ToggleButton) View).setChecked(true);
-                ((ToggleButton) View).setBackground(context.getResources().getDrawable(R.drawable.btn_row_background));
-                ((ToggleButton) View).setTextColor(context.getResources().getColor(R.color.white));
+                switch (type) {
+                    case "size":
+                        FilterLists.sizeList.put(position, itemText);
+                        break;
+                    case "price":
+                        FilterLists.priceList.put(position, itemText);
+                        break;
+                    default:
+                        FilterLists.numList.put(position, itemText);
+                        break;
+                }
+                activeBtn(itemText, View);
             } else {
-                ((ToggleButton) View).setTextOff(item);
-                ((ToggleButton) View).setChecked(false);
-                ((ToggleButton) View).setBackground(context.getResources().getDrawable(R.drawable.custom_row_btn_background));
-                ((ToggleButton) View).setTextColor(context.getResources().getColor(R.color.black));
+                switch (type) {
+                    case "size":
+                        FilterLists.sizeList.remove(position);
+                        break;
+                    case "price":
+                        FilterLists.priceList.remove(position);
+                        break;
+                    default:
+                        FilterLists.numList.remove(position);
+                        break;
+                }
+                resetBtn(itemText, View);
             }
         });
 
@@ -52,17 +72,29 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.SheetHolder>
 
     @Override
     public int getItemCount() {
-
         return mList.size();
+    }
+
+    private void activeBtn(String textOn, View view) {
+        ((ToggleButton) view).setTextOn(textOn);
+        ((ToggleButton) view).setChecked(true);
+        ((ToggleButton) view).setBackground(context.getResources().getDrawable(R.drawable.btn_row_background));
+        ((ToggleButton) view).setTextColor(context.getResources().getColor(R.color.white));
+    }
+
+    private void resetBtn(String textOff, View view) {
+        ((ToggleButton) view).setTextOff(textOff);
+        ((ToggleButton) view).setChecked(false);
+        ((ToggleButton) view).setBackground(context.getResources().getDrawable(R.drawable.custom_row_btn_background));
+        ((ToggleButton) view).setTextColor(context.getResources().getColor(R.color.black));
     }
 
     class SheetHolder extends RecyclerView.ViewHolder {
         ToggleButton item;
 
-        public SheetHolder(View itemView) {
+        SheetHolder(View itemView) {
             super(itemView);
             item = itemView.findViewById(R.id.custom_btn);
-
         }
     }
 
