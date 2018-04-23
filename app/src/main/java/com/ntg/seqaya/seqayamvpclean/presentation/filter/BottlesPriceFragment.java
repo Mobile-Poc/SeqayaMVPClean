@@ -3,49 +3,65 @@ package com.ntg.seqaya.seqayamvpclean.presentation.filter;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ntg.seqaya.seqayamvpclean.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BottlesPriceFragment extends Fragment {
-    SheetAdapter sheetAdapter;
-    @BindView(R.id.rv)
-    RecyclerView rv;
 
-    public BottlesPriceFragment() {}
 
+    @BindView(R.id.priceFrom)
+    TextInputEditText priceFrom;
+    @BindView(R.id.priceTo)
+    TextInputEditText priceTo;
+    TextWatcher watch = new TextWatcher() {
+
+        @Override
+        public void afterTextChanged(Editable arg0) {}
+
+        @Override
+        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {}
+
+        @Override
+        public void onTextChanged(CharSequence s, int a, int b, int c) {
+            if (!priceTo.getText().toString().equals("")) {
+                if (Integer.parseInt(priceTo.getText().toString()) > Integer.parseInt(priceFrom.getText().toString())) {
+                    FilterLists.priceList.put(0, priceFrom.getText().toString());
+                    FilterLists.priceList.put(1, priceTo.getText().toString());
+                } else
+                    priceTo.setError("Should be larger than from");
+            }
+
+        }
+    };
+
+    public BottlesPriceFragment() {
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        List<String> list=new ArrayList<>();
-        list.add("30");
-        list.add("3");
-        list.add("56");
-        list.add("65");
-        list.add("42");
-        list.add("35");
+
         View view = inflater.inflate(R.layout.fragment_bottles_price, container, false);
         ButterKnife.bind(this, view);
-        sheetAdapter=new SheetAdapter(getActivity(),list,"price");
-        rv.setAdapter(sheetAdapter);
-        rv.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        priceTo.addTextChangedListener(watch);
+
         return view;
     }
 

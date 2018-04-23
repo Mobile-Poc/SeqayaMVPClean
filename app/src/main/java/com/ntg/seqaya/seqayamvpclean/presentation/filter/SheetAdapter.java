@@ -44,11 +44,10 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.SheetHolder>
                     case "size":
                         FilterLists.sizeList.put(position, itemText);
                         break;
-                    case "price":
-                        FilterLists.priceList.put(position, itemText);
+                    case "num":
+                        FilterLists.numList.put(position, itemText);
                         break;
                     default:
-                        FilterLists.numList.put(position, itemText);
                         break;
                 }
                 activeBtn(itemText, View);
@@ -57,12 +56,12 @@ public class SheetAdapter extends RecyclerView.Adapter<SheetAdapter.SheetHolder>
                     case "size":
                         FilterLists.sizeList.remove(position);
                         break;
-                    case "price":
-                        FilterLists.priceList.remove(position);
-                        break;
-                    default:
+                    case "num":
                         FilterLists.numList.remove(position);
                         break;
+                    default:
+                        break;
+
                 }
                 resetBtn(itemText, View);
             }

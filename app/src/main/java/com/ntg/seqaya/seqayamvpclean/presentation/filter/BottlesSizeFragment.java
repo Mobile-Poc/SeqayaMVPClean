@@ -40,6 +40,7 @@ public class BottlesSizeFragment extends Fragment {
         list.add("0.75");
         list.add("4");
         list.add("5");
+
         View view = inflater.inflate(R.layout.fragment_bottles_size, container, false);
         ButterKnife.bind(this, view);
         sheetAdapter=new SheetAdapter(getActivity(),list,"Size");

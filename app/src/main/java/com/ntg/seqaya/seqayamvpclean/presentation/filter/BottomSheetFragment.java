@@ -67,7 +67,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
-        fragmentContainer.getLayoutParams().height = height / 3;
+        fragmentContainer.getLayoutParams().height = height / 4;
         fragmentContainer.requestLayout();
         Pager mAdapter = new Pager(getChildFragmentManager(), 3);
         fragmentContainer.setOffscreenPageLimit(3);
