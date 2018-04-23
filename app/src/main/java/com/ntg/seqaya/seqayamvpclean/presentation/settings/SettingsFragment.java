@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import com.ntg.seqaya.seqayamvpclean.R;
 import com.ntg.seqaya.seqayamvpclean.base.BaseFragment;
 import com.ntg.seqaya.seqayamvpclean.presentation.login.LoginActivity;
+import com.ntg.seqaya.seqayamvpclean.presentation.tickets.TicketFragment;
 import com.ntg.seqaya.seqayamvpclean.utils.ViewUtil;
 
 import butterknife.BindView;
@@ -29,6 +30,8 @@ public class SettingsFragment extends BaseFragment {
 
     @BindView(R.id.sign_out_layout)
     LinearLayout signOutLayout;
+    @BindView(R.id.Tickets)
+    LinearLayout TicketLayout;
     Unbinder unbinder;
 
     public SettingsFragment() {
@@ -66,5 +69,11 @@ public class SettingsFragment extends BaseFragment {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+    @OnClick(R.id.Tickets)
+    public void onTicketsClicked(){
+        getFragmentManager()
+                .beginTransaction().addToBackStack(null)
+                .replace(R.id.container, TicketFragment.newInstance()).commit();
     }
 }
