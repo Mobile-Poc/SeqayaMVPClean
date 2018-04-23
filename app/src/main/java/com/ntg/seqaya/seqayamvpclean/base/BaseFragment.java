@@ -1,6 +1,6 @@
 package com.ntg.seqaya.seqayamvpclean.base;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.view.View;

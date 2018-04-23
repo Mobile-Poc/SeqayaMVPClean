@@ -42,7 +42,7 @@ public class PaymentFragment extends BaseFragment implements View.OnClickListene
         bankTransfer = view.findViewById(R.id.bankTransfer);
         sadad = view.findViewById(R.id.sadad);
         creditCard = view.findViewById(R.id.creditCard);
-        cashOnDelivery=view.findViewById(R.id.cashOnDelivery);
+        cashOnDelivery = view.findViewById(R.id.cashOnDelivery);
         ViewUtil.addShadowToView(getActivity(), bankTransfer);
         ViewUtil.addShadowToView(getActivity(), sadad);
         ViewUtil.addShadowToView(getActivity(), creditCard);
@@ -84,8 +84,9 @@ public class PaymentFragment extends BaseFragment implements View.OnClickListene
                 Bundle args = new Bundle();
                 args.putSerializable(MainActivity.ORDER, order);
                 cashOnDeliveryFragment.setArguments(args);
-                getActivity().getFragmentManager().beginTransaction()
-                        .addToBackStack(null).replace(R.id.container, cashOnDeliveryFragment).commit();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .addToBackStack(null).replace(R.id.container, cashOnDeliveryFragment)
+                        .commit();
 
         }
     }
@@ -100,8 +101,9 @@ public class PaymentFragment extends BaseFragment implements View.OnClickListene
                 args.putSerializable(MainActivity.ORDER, order);
                 SummaryOrderFragment summaryOrderFragment = new SummaryOrderFragment();
                 summaryOrderFragment.setArguments(args);
-                getActivity().getFragmentManager().beginTransaction()
-                        .addToBackStack(null).replace(R.id.container, summaryOrderFragment).commit();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .addToBackStack(null).replace(R.id.container, summaryOrderFragment)
+                        .commit();
             }
 
             @Override

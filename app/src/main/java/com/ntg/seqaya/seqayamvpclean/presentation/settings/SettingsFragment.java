@@ -4,8 +4,6 @@ package com.ntg.seqaya.seqayamvpclean.presentation.settings;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +12,7 @@ import android.widget.LinearLayout;
 import com.ntg.seqaya.seqayamvpclean.R;
 import com.ntg.seqaya.seqayamvpclean.base.BaseFragment;
 import com.ntg.seqaya.seqayamvpclean.presentation.login.LoginActivity;
+import com.ntg.seqaya.seqayamvpclean.presentation.login.LoginFragment;
 import com.ntg.seqaya.seqayamvpclean.utils.ViewUtil;
 
 import butterknife.BindView;

@@ -2,6 +2,7 @@ package com.ntg.seqaya.seqayamvpclean.presentation.cart;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -118,13 +119,13 @@ public class CartFragment extends BaseFragment implements CartAdapter.TotalListe
             Bundle args = new Bundle();
             args.putSerializable(MainActivity.ORDER, data.getSerializableExtra(MainActivity.ORDER));
             deliveryTimeFragment.setArguments(args);
-            getActivity().getFragmentManager().beginTransaction().addToBackStack(null)
+            getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null)
                     .replace(R.id.container, deliveryTimeFragment).commitAllowingStateLoss();
         }
     }
 
     @Override
-    public void onAttach(Activity context) {
+    public void onAttach(Context context) {
         super.onAttach(context);
         try {
             countListener = (CartItemsCountListener) context;

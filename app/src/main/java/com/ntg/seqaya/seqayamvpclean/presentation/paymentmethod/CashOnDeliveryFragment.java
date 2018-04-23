@@ -79,7 +79,7 @@ public class CashOnDeliveryFragment extends BaseFragment implements View.OnClick
                 args.putSerializable(MainActivity.ORDER, order);
                 SummaryOrderFragment summaryOrderFragment = new SummaryOrderFragment();
                 summaryOrderFragment.setArguments(args);
-                getActivity().getFragmentManager().beginTransaction()
+                getActivity().getSupportFragmentManager().beginTransaction()
                         .addToBackStack(null).replace(R.id.container, summaryOrderFragment).commit();
             }
 

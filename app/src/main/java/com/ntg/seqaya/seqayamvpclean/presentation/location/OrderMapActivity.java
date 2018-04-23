@@ -2,7 +2,6 @@ package com.ntg.seqaya.seqayamvpclean.presentation.location;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,6 +14,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -101,7 +101,7 @@ public class OrderMapActivity extends BaseActivity implements
             bundle.putSerializable(MainActivity.ORDER, order);
             SavedLocationsFragment fragment = new SavedLocationsFragment();
             fragment.setArguments(bundle);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.add(R.id.container_id, fragment);// f1_container is your FrameLayout container
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             ft.addToBackStack(null);

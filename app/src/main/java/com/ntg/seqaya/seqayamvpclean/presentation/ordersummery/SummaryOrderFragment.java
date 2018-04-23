@@ -2,6 +2,7 @@ package com.ntg.seqaya.seqayamvpclean.presentation.ordersummery;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -98,8 +99,9 @@ public class SummaryOrderFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Activity context) {
+    public void onAttach(Context context) {
         super.onAttach(context);
+
         try {
             countListener = (CartItemsCountListener) context;
         }catch (ClassCastException e){

@@ -111,7 +111,7 @@ public class DeliveryTimeFragment extends BaseFragment implements View.OnClickLi
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(MainActivity.ORDER, order);
                     paymentFragment.setArguments(bundle);
-                    getActivity().getFragmentManager().
+                    getActivity().getSupportFragmentManager().
                             beginTransaction().addToBackStack(null).replace(R.id.container, paymentFragment).commit();
 
                 }

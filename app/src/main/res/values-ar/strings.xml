@@ -73,4 +73,6 @@
     <string name="no_favs">لا يوجد منتجات مفضلة</string>
     <string name="manufacurers">المصنعين</string>
     <string name="map_loading_message">من فضلك انتظر تحميل خرائط جوجل…</string>
+    <string name="forget_your_password">نسيت كلمة المرور؟</string>
+    <string name="change_your_password">تغيير كلمة المرور</string>
 </resources>

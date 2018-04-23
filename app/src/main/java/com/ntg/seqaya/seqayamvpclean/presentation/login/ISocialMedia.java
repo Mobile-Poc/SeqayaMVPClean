@@ -1,7 +1,7 @@
 package com.ntg.seqaya.seqayamvpclean.presentation.login;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 
 import com.ntg.seqaya.seqayamvpclean.domain.repository.ErrorCallback;
 import com.ntg.seqaya.seqayamvpclean.domain.repository.SuccessCallback;
@@ -16,7 +16,7 @@ public interface ISocialMedia {
 
     void loginWithGoogle();
 
-    void onCreate(AppCompatActivity activity);
+    void onCreate(FragmentActivity activity);
 
     void onActivityResult(int requestCode, int resultCode, Intent data);
 

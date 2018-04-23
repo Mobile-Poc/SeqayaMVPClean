@@ -2,6 +2,7 @@ package com.ntg.seqaya.seqayamvpclean.presentation.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -33,24 +34,18 @@ import java.util.Collections;
 
 public class SocialMedia implements ISocialMedia {
 
-    private AppCompatActivity activity;
+    private FragmentActivity activity;
     private SuccessCallback<String> successCallback;
     private ErrorCallback errorCallback;
     private GoogleApiClient googleApiClient;
     private static final int RC_SIGN_IN = 007;
-    private static SocialMedia INSTANCE;
     private static CallbackManager callbackManager;
     private LoginManager loginManager;
     private TwitterAuthClient authClient;
     private GoogleSignInAccount account;
     private static final String TAG = SocialMedia.class.getSimpleName();
 
-    private SocialMedia() {
-    }
-
-    public static SocialMedia getInstance() {
-        if (INSTANCE == null) INSTANCE = new SocialMedia();
-        return INSTANCE;
+    public SocialMedia() {
     }
 
     @Override
@@ -66,7 +61,7 @@ public class SocialMedia implements ISocialMedia {
     }
 
     @Override
-    public void onCreate(AppCompatActivity activity) {
+    public void onCreate(FragmentActivity activity) {
         this.activity = activity;
         Twitter.initialize(activity);
     }
@@ -172,7 +167,7 @@ public class SocialMedia implements ISocialMedia {
         activity.startActivityForResult(intent, RC_SIGN_IN);
     }
 
-    private void initializeGoogleClient(AppCompatActivity activity) {
+    private void initializeGoogleClient(FragmentActivity activity) {
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

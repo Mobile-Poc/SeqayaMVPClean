@@ -32,7 +32,7 @@
     <string name="box">Package</string>
     <string name="rs">R.S</string>
     <string name="checkout">Checkout</string>
-    <string name="add_to_cart">Add to cart</string>
+    <string name="add_to_cart">Add to Cart</string>
     <string name="password">Password</string>
     <string name="username">User name</string>
     <string name="register">Register</string>
@@ -77,4 +77,6 @@
     <string name="com.twitter.sdk.android.CONSUMER_SECRET">NWdaHxDZXrFn1BDcgkfQ4HvE0QNlkfNXYPjE1mUhxEaqKFixPg</string>
     <string name="manufacurers">Manufacturers</string>
     <string name="map_loading_message">please wait map loading…</string>
+    <string name="forget_your_password">Forget your password?</string>
+    <string name="change_your_password">Change password</string>
 </resources>

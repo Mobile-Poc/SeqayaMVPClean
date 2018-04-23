@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity implements CartItemsCountListener
         bottomNavigationView.setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
         toolbar.setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
 
-        getFragmentManager()
+        getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, ManufactureFragment.newInstance())
                 .commit();
@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity implements CartItemsCountListener
                 (position, wasSelected) -> {
                     switch (position) {
                         case 0:
-                            getFragmentManager()
+                            getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.container,
                                             ManufactureFragment.newInstance())
@@ -86,25 +86,25 @@ public class MainActivity extends BaseActivity implements CartItemsCountListener
                             return true;
 
                         case 1:
-                            getFragmentManager()
+                            getSupportFragmentManager()
                                     .beginTransaction().addToBackStack(null)
                                     .replace(R.id.container, CartFragment.newInstance(),
                                             "CartFragment").commit();
                             return true;
 
                         case 2:
-                            getFragmentManager().beginTransaction().addToBackStack(null)
+                            getSupportFragmentManager().beginTransaction().addToBackStack(null)
                                     .replace(R.id.container, new OrderHistoryFragment()).commit();
                             return true;
 
                         case 3:
-                            getFragmentManager()
+                            getSupportFragmentManager()
                                     .beginTransaction().addToBackStack(null)
                                     .replace(R.id.container, new FavouritesFragment()).commit();
                             return true;
 
                         case 4:
-                            getFragmentManager()
+                            getSupportFragmentManager()
                                     .beginTransaction().addToBackStack(null)
                                     .replace(R.id.container, SettingsFragment.newInstance())
                                     .commit();
@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity implements CartItemsCountListener
     public void clickListener(boolean b) {
         if (b) {
             bottomNavigationView.setVisibility(View.VISIBLE);
-            getFragmentManager()
+            getSupportFragmentManager()
                     .beginTransaction()
                     .addToBackStack(null)
                     .replace(R.id.container, ProductsFragment.newInstance())
