@@ -18,11 +18,13 @@
                 android:id="@+id/saved_location_button_id"
                 style="@style/buttonStyle"
                 android:layout_marginTop="7dp"
+                android:textAllCaps="false"
                 android:text="@string/saved_location" />
 
             <Button
                 android:id="@+id/next_button_id"
                 style="@style/buttonStyle"
+                android:textAllCaps="false"
                 android:layout_alignParentBottom="true"
                 android:text="@string/next" />
 

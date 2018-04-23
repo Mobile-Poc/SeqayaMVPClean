@@ -6,7 +6,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#e9e7e7">
 
         <TextView
@@ -17,7 +17,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
             android:text="تمت العميلة بنجاح"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#12244"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/title"
             app:layout_constraintStart_toStartOf="@+id/title"
@@ -41,7 +41,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:text="@string/delivery_location"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/order_no" />
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/payment_details"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/delivery_time"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/cardView2" />
@@ -138,7 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/order_items"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/cardView3" />

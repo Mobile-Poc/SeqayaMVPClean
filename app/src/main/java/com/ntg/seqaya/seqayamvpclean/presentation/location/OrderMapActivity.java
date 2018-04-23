@@ -149,7 +149,6 @@ public class OrderMapActivity extends BaseActivity implements
         }
 
         mGoogleMap = googleMap;
-        //   mGoogleMap.setMyLocationEnabled(true);
         if (isLocationPermissionGranted()) {
             getCurrentLocation();
         } else {

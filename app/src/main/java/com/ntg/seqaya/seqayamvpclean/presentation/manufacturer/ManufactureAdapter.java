@@ -37,7 +37,7 @@ public class ManufactureAdapter extends RecyclerView.Adapter<ManufactureAdapter.
     @NonNull
     @Override
     public ManufactureViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.manufacture_row , parent , false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.manufacturer_row, parent , false);
         ViewUtil.addShadowToView(context, view);
 
         return new ManufactureViewHolder(view);

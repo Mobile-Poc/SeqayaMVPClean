@@ -10,22 +10,21 @@
         android:id="@+id/product_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintRight_toLeftOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/product_image"
+        app:layout_constraintTop_toTopOf="@+id/product_image"
         tools:text="مياه نقية" />
 
     <TextView
         android:id="@+id/product_manufacturer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        app:layout_constraintRight_toLeftOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/product_name"
         app:layout_constraintTop_toBottomOf="@+id/product_name"
         tools:text="نستلة" />
 
@@ -33,10 +32,10 @@
         android:id="@+id/bottle_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        app:layout_constraintRight_toLeftOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/product_manufacturer"
         app:layout_constraintTop_toBottomOf="@+id/product_manufacturer"
         tools:text="1" />
 
@@ -44,23 +43,22 @@
         android:id="@+id/m4lazem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/litre"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/bottle_size"
-        app:layout_constraintRight_toLeftOf="@+id/bottle_size"
+        app:layout_constraintStart_toEndOf="@+id/bottle_size"
         app:layout_constraintTop_toTopOf="@+id/bottle_size" />
 
     <TextView
         android:id="@+id/no_in_package"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        app:layout_constraintRight_toLeftOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/bottle_size"
         app:layout_constraintTop_toBottomOf="@+id/bottle_size"
         tools:text="25" />
 
@@ -68,24 +66,23 @@
         android:id="@+id/number_in_package"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/bottle_per_package"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        app:layout_constraintRight_toLeftOf="@+id/no_in_package"
+        app:layout_constraintStart_toEndOf="@+id/no_in_package"
         app:layout_constraintTop_toBottomOf="@+id/bottle_size" />
 
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="100dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="16dp"
         android:textColor="@android:color/holo_blue_dark"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/product_image"
         app:layout_constraintTop_toBottomOf="@+id/errorBtn"
         tools:text="150" />
 
@@ -94,12 +91,12 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/rs"
         android:textColor="@android:color/holo_blue_dark"
-        app:layout_constraintRight_toRightOf="@+id/price"
-        app:layout_constraintLeft_toLeftOf="@+id/price"
+        app:layout_constraintStart_toStartOf="@+id/price"
+        app:layout_constraintEnd_toEndOf="@+id/price"
         app:layout_constraintTop_toBottomOf="@+id/price" />
 
     <TextView
@@ -107,50 +104,47 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="22dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/quantity"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="16sp"
-        app:layout_constraintRight_toLeftOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/no_in_package"
         app:layout_constraintTop_toBottomOf="@+id/no_in_package" />
 
     <EditText
         android:id="@+id/quntity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/plusBtn"
-        app:layout_constraintRight_toLeftOf="@+id/plusBtn"
+        app:layout_constraintStart_toEndOf="@+id/plusBtn"
         app:layout_constraintTop_toTopOf="@+id/plusBtn"
         tools:text="5" />
 
 
     <ImageView
         android:id="@+id/product_image"
-        android:layout_width="101dp"
+        android:layout_width="104dp"
         android:layout_height="125dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/water_6"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/minusBtn"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:background="@android:color/white"
-        app:srcCompat="@drawable/ic_remove_circle"
         app:layout_constraintBottom_toBottomOf="@+id/plusBtn"
-        app:layout_constraintRight_toLeftOf="@+id/quntity"
+        app:layout_constraintStart_toEndOf="@+id/quntity"
         app:layout_constraintTop_toTopOf="@+id/plusBtn"
-        tools:ignore="MissingConstraints" />
+        app:srcCompat="@drawable/ic_remove_circle"
+        />
 
     <ImageButton
         android:id="@+id/errorBtn"
@@ -158,7 +152,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:src="@drawable/error"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -166,23 +160,13 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/white"
-        app:srcCompat="@drawable/ic_add_circle"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintRight_toLeftOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.64689267" />
-
-
-
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:srcCompat="@drawable/ic_add_circle" />
 
 </android.support.constraint.ConstraintLayout>
 

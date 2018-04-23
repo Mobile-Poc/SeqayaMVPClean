@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,14 +27,11 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class SavedLocationsFragment extends BaseFragment implements SavedLocationsContract.View{
 
-    @BindView(R.id.adress_list)
+    @BindView(R.id.address_rv)
     RecyclerView savedLocationsRv;
     @BindView(R.id.cancel_button)
     Button cancelButton;

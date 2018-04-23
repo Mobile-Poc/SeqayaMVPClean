@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.ntg.seqaya.seqayamvpclean.R;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Location;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.subjects.PublishSubject;
@@ -32,7 +31,7 @@ public class SavedLocationsAdapter extends RecyclerView.Adapter<SavedLocationsAd
     @Override
     public LocationsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adress_row, parent, false);
+                .inflate(R.layout.address_row, parent, false);
         return new LocationsViewHolder(view);
     }
 
@@ -59,7 +58,7 @@ public class SavedLocationsAdapter extends RecyclerView.Adapter<SavedLocationsAd
 
         public LocationsViewHolder(View itemView) {
             super(itemView);
-            addressTextView = itemView.findViewById(R.id.adress_txt);
+            addressTextView = itemView.findViewById(R.id.address_txt);
 
         }
     }

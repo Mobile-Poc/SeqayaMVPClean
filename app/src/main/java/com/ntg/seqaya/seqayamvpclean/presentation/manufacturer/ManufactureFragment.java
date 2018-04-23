@@ -4,8 +4,6 @@ package com.ntg.seqaya.seqayamvpclean.presentation.manufacturer;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +21,7 @@ import butterknife.ButterKnife;
 
 public class ManufactureFragment extends BaseFragment {
 
-    @BindView(R.id.manfacture)
+    @BindView(R.id.manufacturer)
     RecyclerView manufacture;
     private ManufactureAdapter manufactureAdapter;
     private List<Integer> manufacture_images;
@@ -45,7 +43,7 @@ public class ManufactureFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_manfucture, container, false);
+        View view = inflater.inflate(R.layout.fragment_manfucturer, container, false);
         ButterKnife.bind(this , view);
         manufacture_images = new ArrayList<>();
 
@@ -60,7 +58,7 @@ public class ManufactureFragment extends BaseFragment {
 
         manufactureAdapter = new ManufactureAdapter(manufacture_images, manufacturerClick,
                 getActivity());
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity() , 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity() , 3);
         manufacture.setLayoutManager(gridLayoutManager);
         manufacture.setAdapter(manufactureAdapter);
 

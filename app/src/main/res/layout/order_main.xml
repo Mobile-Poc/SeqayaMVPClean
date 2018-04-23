@@ -23,26 +23,26 @@
         android:id="@+id/rs"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/rs"
         android:textColor="@android:color/black"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/total"
-        app:layout_constraintRight_toLeftOf="@+id/total"
+        app:layout_constraintStart_toEndOf="@+id/total"
         app:layout_constraintTop_toTopOf="@+id/total" />
 
     <TextView
         android:id="@+id/total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:text="5"
         android:textColor="@android:color/black"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/total_view"
-        app:layout_constraintRight_toLeftOf="@+id/total_view"
+        app:layout_constraintStart_toEndOf="@+id/total_view"
         app:layout_constraintTop_toTopOf="@+id/total_view" />
 
     <TextView
@@ -50,13 +50,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/total"
         android:textColor="@android:color/black"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/done"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <Button
