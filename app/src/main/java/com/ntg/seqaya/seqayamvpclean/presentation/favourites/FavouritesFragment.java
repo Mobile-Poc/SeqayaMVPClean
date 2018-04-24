@@ -16,6 +16,7 @@ import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
 import com.ntg.seqaya.seqayamvpclean.utils.Injection;
 import com.ntg.seqaya.seqayamvpclean.utils.ViewUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,6 +42,7 @@ public class FavouritesFragment extends BaseFragment implements FavouritesContra
     private FavouritesContract.Presenter favouritesPresenter;
     private PublishSubject<Product> unLikedProduct = PublishSubject.create();
     private Disposable disposable;
+    private List<Product> favourites;
 
 
     public static FavouritesFragment newInstance() {
@@ -58,6 +60,7 @@ public class FavouritesFragment extends BaseFragment implements FavouritesContra
                 this,
                 Injection.provideGetFavourites(),
                 Injection.provideDeleteFavourite());
+        favourites = new ArrayList<>();
 
         ViewUtil.setupActionBarWithoutBackButton(getActivity(), getString(R.string.favourite));
 
@@ -69,7 +72,7 @@ public class FavouritesFragment extends BaseFragment implements FavouritesContra
         super.onResume();
         favouritesPresenter.getFavourites();
         disposable = unLikedProduct.subscribe(
-                product -> favouritesPresenter.removeFavourite(String.valueOf(product.getId())));
+                product -> favouritesPresenter.removeFavourite(favourites , product));
     }
 
     @Override
@@ -89,6 +92,7 @@ public class FavouritesFragment extends BaseFragment implements FavouritesContra
     }
 
     private void setupRecyclerView(List<Product> favourites) {
+        this.favourites = favourites;
         linearLayoutManager = new LinearLayoutManager(getActivity());
         favs_rv.setLayoutManager(linearLayoutManager);
         favouritesAdapter = new FavouritesAdapter(favourites, getActivity(), unLikedProduct);
@@ -103,8 +107,8 @@ public class FavouritesFragment extends BaseFragment implements FavouritesContra
     }
 
     @Override
-    public void removeFavourite(int productId) {
-        favouritesAdapter.removeFavourite(productId);
+    public void removeFavourite(Product fav) {
+        favouritesAdapter.removeFavourite(fav.getId());
     }
 
     @Override

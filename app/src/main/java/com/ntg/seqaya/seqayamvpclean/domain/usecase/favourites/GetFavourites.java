@@ -2,16 +2,18 @@ package com.ntg.seqaya.seqayamvpclean.domain.usecase.favourites;
 
 import com.ntg.seqaya.seqayamvpclean.base.UseCase;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
+import com.ntg.seqaya.seqayamvpclean.domain.repository.IFavouritesLocalRepository;
 import com.ntg.seqaya.seqayamvpclean.domain.repository.IFavouritesRepository;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GetFavourites extends
         UseCase<GetFavourites.RequestValues, GetFavourites.ResponseValues> {
 
-    private IFavouritesRepository favouritesRepository;
+    private IFavouritesLocalRepository favouritesRepository;
 
-    public GetFavourites(IFavouritesRepository favouritesRepository) {
+    public GetFavourites(IFavouritesLocalRepository favouritesRepository) {
         this.favouritesRepository = favouritesRepository;
     }
 

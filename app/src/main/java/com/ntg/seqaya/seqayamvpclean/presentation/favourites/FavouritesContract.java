@@ -13,12 +13,12 @@ public interface FavouritesContract {
 
         void showNoFavourites();
 
-        void removeFavourite(int productId);
+        void removeFavourite(Product product);
     }
 
     interface Presenter extends BasePresenter {
         void getFavourites();
 
-        void removeFavourite(String productId);
+        void removeFavourite(List<Product> favouriteList , Product fav);
     }
 }
