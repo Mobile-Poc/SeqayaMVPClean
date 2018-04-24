@@ -2,47 +2,54 @@ package com.ntg.seqaya.seqayamvpclean.domain.usecase.favourites;
 
 import com.ntg.seqaya.seqayamvpclean.base.UseCase;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Fav;
+import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
+import com.ntg.seqaya.seqayamvpclean.domain.repository.IFavouritesLocalRepository;
 import com.ntg.seqaya.seqayamvpclean.domain.repository.IFavouritesRepository;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DeleteFavourite extends UseCase<DeleteFavourite.RequestValues, DeleteFavourite.ResponseValues> {
 
-    private IFavouritesRepository favouritesRepository;
+    private IFavouritesLocalRepository favouritesRepository;
 
-    public DeleteFavourite(IFavouritesRepository favouritesRepository) {
+    public DeleteFavourite(IFavouritesLocalRepository favouritesRepository) {
         this.favouritesRepository = favouritesRepository;
     }
 
     @Override
-    protected void executeUseCase(RequestValues requestValues) {
-        favouritesRepository.deleteFav(requestValues.getProductId()
-                , fav -> {
-                    ResponseValues responseValues = new ResponseValues(fav);
-                    getUseCaseCallback().onSuccess(responseValues);
-                },
-                getUseCaseCallback()::onError);
+    protected void executeUseCase(RequestValues requestValues ) {
+        favouritesRepository.deleteFav(requestValues.favouriteList , requestValues.getFav());
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
-        String productId;
+        private Product fav;
+        private List<Product> favouriteList = new CopyOnWriteArrayList<>();
 
-        public RequestValues(String productId) {
-            this.productId = productId;
+
+        public RequestValues(Product fav, List<Product> favouriteList) {
+            this.fav = fav;
+            this.favouriteList = favouriteList;
         }
 
-        public String getProductId() {
-            return productId;
+        public Product getFav() {
+            return fav;
+        }
+
+        public List<Product> getFavouriteList() {
+            return favouriteList;
         }
     }
 
     public static final class ResponseValues implements UseCase.ResponseValues {
-        private Fav fav;
+        private List<Product> favouriteList;
 
-        public ResponseValues(Fav fav) {
-            this.fav = fav;
+        public ResponseValues(List<Product> favouriteList) {
+            this.favouriteList = favouriteList;
         }
 
-        public Fav getFav() {
-            return fav;
+        public List<Product> getFavouriteList() {
+            return favouriteList;
         }
     }
 }

@@ -158,9 +158,6 @@ public class MainActivity extends BaseActivity implements CartItemsCountListener
         }
     }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LocalManager.onAttach(base, "ar"));
-    }
+
 }
 

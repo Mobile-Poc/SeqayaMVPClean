@@ -1,13 +1,20 @@
 package com.ntg.seqaya.seqayamvpclean.presentation.products;
 
+import android.util.Log;
+
+import com.bumptech.glide.request.RequestOptions;
 import com.ntg.seqaya.seqayamvpclean.base.UseCaseHandler;
 import com.ntg.seqaya.seqayamvpclean.base.UseCase;
-import com.ntg.seqaya.seqayamvpclean.domain.entity.Fav;
+import com.ntg.seqaya.seqayamvpclean.domain.entity.CartItem;
+import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
+import com.ntg.seqaya.seqayamvpclean.domain.usecase.cart.AddToCart;
 import com.ntg.seqaya.seqayamvpclean.domain.usecase.favourites.AddFavourite;
 import com.ntg.seqaya.seqayamvpclean.domain.usecase.favourites.DeleteFavourite;
 import com.ntg.seqaya.seqayamvpclean.domain.usecase.favourites.GetFavourites;
 import com.ntg.seqaya.seqayamvpclean.domain.usecase.products.GetProducts;
 import com.ntg.seqaya.seqayamvpclean.domain.usecase.products.Search;
+
+import java.util.List;
 
 public class ProductsPresenter implements ProductsContract.Presenter {
 
@@ -17,6 +24,7 @@ public class ProductsPresenter implements ProductsContract.Presenter {
     private AddFavourite addFavourite;
     private GetFavourites getFavourites;
     private DeleteFavourite deleteFavourite;
+    private AddToCart addToCart;
     private ProductsContract.View view;
 
     public ProductsPresenter(UseCaseHandler useCaseHandler,
@@ -25,19 +33,37 @@ public class ProductsPresenter implements ProductsContract.Presenter {
                              AddFavourite addFavourite,
                              GetFavourites getFavourites,
                              DeleteFavourite deleteFavourite,
-                             ProductsContract.View view) {
+                             AddToCart addToCart, ProductsContract.View view) {
         this.useCaseHandler = useCaseHandler;
         this.getProducts = getProducts;
         this.search = search;
         this.addFavourite = addFavourite;
         this.getFavourites = getFavourites;
         this.deleteFavourite = deleteFavourite;
+        this.addToCart = addToCart;
         this.view = view;
     }
 
     @Override
-    public void deleteFavourite(String productId) {
-        DeleteFavourite.RequestValues requestValues = new DeleteFavourite.RequestValues(productId);
+    public void addToCart(List<CartItem> cartItems , CartItem cartItem) {
+        AddToCart.RequestValues requestValues = new AddToCart.RequestValues(cartItems , cartItem);
+        useCaseHandler.execute(addToCart, requestValues, new UseCase.UseCaseCallback<AddToCart.ResponseValues>() {
+            @Override
+            public void onSuccess(AddToCart.ResponseValues response) {
+                AddToCart.ResponseValues responseValues = new AddToCart.ResponseValues(response.getCartItems());
+                Log.e("cart" , responseValues.getCartItems().size()+"");
+            }
+
+            @Override
+            public void onError(String errMsg) {
+
+            }
+        });
+    }
+
+    @Override
+    public void deleteFavourite(List<Product> favouriteList , Product fav) {
+        DeleteFavourite.RequestValues requestValues = new DeleteFavourite.RequestValues(fav , favouriteList);
         useCaseHandler.execute(deleteFavourite, requestValues,
                 new UseCase.UseCaseCallback<DeleteFavourite.ResponseValues>() {
             @Override
@@ -110,8 +136,8 @@ public class ProductsPresenter implements ProductsContract.Presenter {
     }
 
     @Override
-    public void addToFavourite(Fav fav) {
-        AddFavourite.RequestValues requestValues = new AddFavourite.RequestValues(fav);
+    public void addToFavourite(List<Product> favouriteList, Product fav) {
+        AddFavourite.RequestValues requestValues = new AddFavourite.RequestValues(favouriteList , fav);
         useCaseHandler.execute(addFavourite, requestValues,
                 new UseCase.UseCaseCallback<AddFavourite.ResponseValues>() {
                     @Override

@@ -2,32 +2,39 @@ package com.ntg.seqaya.seqayamvpclean.domain.usecase.favourites;
 
 import com.ntg.seqaya.seqayamvpclean.base.UseCase;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Fav;
+import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
+import com.ntg.seqaya.seqayamvpclean.domain.repository.IFavouritesLocalRepository;
 import com.ntg.seqaya.seqayamvpclean.domain.repository.IFavouritesRepository;
+
+import java.util.List;
 
 public class AddFavourite extends UseCase<AddFavourite.RequestValues, AddFavourite.ResponseValues> {
 
-    private IFavouritesRepository favouritesRepository;
+    private IFavouritesLocalRepository favouritesRepository;
 
-    public AddFavourite(IFavouritesRepository favouritesRepository) {
+    public AddFavourite(IFavouritesLocalRepository favouritesRepository) {
         this.favouritesRepository = favouritesRepository;
     }
 
     @Override
     protected void executeUseCase(RequestValues requestValues) {
-        favouritesRepository.addFav(requestValues.getFav(),
-                result -> getUseCaseCallback().onSuccess(null),
-                getUseCaseCallback()::onError);
+        favouritesRepository.addFav(requestValues.getFavouriteList() , requestValues.getFav());
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
-        Fav fav;
-
-        public RequestValues(Fav fav) {
+        Product fav;
+        List<Product> favouriteList;
+        public RequestValues(List<Product> favouriteList , Product fav) {
+            this.favouriteList = favouriteList;
             this.fav = fav;
         }
 
-        public Fav getFav() {
+        public Product getFav() {
             return fav;
+        }
+
+        public List<Product> getFavouriteList() {
+            return favouriteList;
         }
     }
 

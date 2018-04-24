@@ -2,8 +2,11 @@ package com.ntg.seqaya.seqayamvpclean.presentation.favourites;
 
 import com.ntg.seqaya.seqayamvpclean.base.UseCaseHandler;
 import com.ntg.seqaya.seqayamvpclean.base.UseCase;
+import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
 import com.ntg.seqaya.seqayamvpclean.domain.usecase.favourites.DeleteFavourite;
 import com.ntg.seqaya.seqayamvpclean.domain.usecase.favourites.GetFavourites;
+
+import java.util.List;
 
 public class FavouritesPresenter implements FavouritesContract.Presenter {
 
@@ -43,14 +46,13 @@ public class FavouritesPresenter implements FavouritesContract.Presenter {
     }
 
     @Override
-    public void removeFavourite(String productId) {
-        DeleteFavourite.RequestValues requestValues = new DeleteFavourite.RequestValues(productId);
+    public void removeFavourite(List<Product> favouriteList , Product fav) {
+        DeleteFavourite.RequestValues requestValues = new DeleteFavourite.RequestValues(fav , favouriteList);
         useCaseHandler.execute(deleteFavourite, requestValues,
                 new UseCase.UseCaseCallback<DeleteFavourite.ResponseValues>() {
                     @Override
                     public void onSuccess(DeleteFavourite.ResponseValues response) {
-                        favouritesView.removeFavourite(
-                                Integer.parseInt(response.getFav().getProductId()));
+                        favouritesView.removeFavourite(fav);
                     }
 
                     @Override

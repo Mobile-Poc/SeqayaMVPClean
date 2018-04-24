@@ -19,15 +19,16 @@ import android.widget.TextView;
 
 import com.ntg.seqaya.seqayamvpclean.R;
 import com.ntg.seqaya.seqayamvpclean.base.BaseFragment;
-import com.ntg.seqaya.seqayamvpclean.domain.entity.Fav;
+import com.ntg.seqaya.seqayamvpclean.domain.entity.CartItem;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
-import com.ntg.seqaya.seqayamvpclean.domain.entity.User;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.CartItemsCountListener;
 import com.ntg.seqaya.seqayamvpclean.utils.Injection;
 import com.ntg.seqaya.seqayamvpclean.utils.ViewUtil;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,9 +47,13 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     private ProductsPresenter productsPresenter;
     private List<Product> products;
     private PublishSubject<Product> productPublishSubject = PublishSubject.create();
-    private CartItemsCountListener cartItemsCountListener;
+    private CartItemsCountListener cartItemsCountListener ;
+    private PublishSubject<CartItem> cartItemPublishSubject = PublishSubject.create();
+    private List<CartItem> cartItems;
     private Disposable disposable;
     private Unbinder unbinder;
+    private List<Product> favouritList;
+
 
     public static ProductsFragment newInstance() {
 
@@ -71,28 +76,30 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
         unbinder = ButterKnife.bind(this, view);
         super.layout = productsLayout;
         setHasOptionsMenu(true);
-
+        cartItems = new ArrayList<>();
+        favouritList = new CopyOnWriteArrayList<>();
         ViewUtil.setupActionBarWithBackButton(getActivity() , getString(R.string.catalog));
+
+        cartItemPublishSubject.subscribe(cartItem -> productsPresenter.addToCart(cartItems , cartItem));
         disposable = productPublishSubject.subscribe(product -> {
             if (product.isLiked()) {
-                productsPresenter.deleteFavourite(String.valueOf(product.getId()));
+                productsPresenter.deleteFavourite(favouritList , product);
             } else {
-                Fav fav = new Fav(User.getEmail(), String.valueOf(product.getId()));
-                productsPresenter.addToFavourite(fav);
+                productsPresenter.addToFavourite(favouritList , product);
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         products_rv.setLayoutManager(linearLayoutManager);
         productAdapter = new ProductAdapter(products, getActivity(),
-                productPublishSubject, cartItemsCountListener);
+                productPublishSubject, cartItemPublishSubject, cartItemsCountListener);
         productsPresenter = new ProductsPresenter(Injection.provideUseCaseHandler()
                 , Injection.getProducts()
                 , Injection.search()
-                , Injection.addFavourite()
+                , Injection.addLocalFavourite()
                 , Injection.provideGetFavourites()
-                , Injection.deleteFavourite(), this);
-        productsPresenter.getProduct();
+                , Injection.deleteFavourite(),Injection.addToCart() , this);
         productsPresenter.getFavourites();
+        productsPresenter.getProduct();
         return view;
     }
 
@@ -115,7 +122,7 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
     public void showSearchResult(List<Product> productList) {
 
         if (productList != null) {
-            productAdapter = new ProductAdapter(productList, getActivity(), productPublishSubject, cartItemsCountListener);
+            productAdapter = new ProductAdapter(productList, getActivity(), productPublishSubject, cartItemPublishSubject, cartItemsCountListener);
             products_rv.setAdapter(productAdapter);
             productAdapter.notifyDataSetChanged();
         }
@@ -173,8 +180,10 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
 
     @Override
     public void sentFavouriteList(List<Product> favList) {
-        if (favList != null)
+        if (favList != null){
+            favouritList = favList;
             productAdapter.setFavouriteProducts(favList);
+        }
     }
 
     @Override
@@ -211,14 +220,7 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
                 showSortResult();
                 break;
             }
-//            case R.id.back:{
-//                getFragmentManager()
-//                        .beginTransaction()
-//                        .addToBackStack(null)
-//                        .replace(R.id.container, ManufactureFragment.newInstance())
-//                        .commit();
-//                break;
-//            }
+
         }
         return super.onOptionsItemSelected(item);
     }
