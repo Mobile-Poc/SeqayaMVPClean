@@ -50,7 +50,7 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Li
         holder.price.setText(String.valueOf(cartItem.getProduct().getPrice()));
         holder.bottleSize.setText(String.valueOf(cartItem.getProduct().getBottleSize()));
         holder.noInPackage.setText(String.valueOf(cartItem.getProduct().getNo_bpp()));
-        holder.productManufacturer.setText(cartItem.getProduct().getManufacturer());
+        holder.productManufacturer.setText(cartItem.getProduct().getManufacturerName());
         holder.numberOfItem.setText(String.valueOf(cartItem.getQuantity()));
     }
 

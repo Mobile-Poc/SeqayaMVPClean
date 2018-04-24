@@ -33,11 +33,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ntg.seqaya.seqayamvpclean.R;
 import com.ntg.seqaya.seqayamvpclean.base.BaseActivity;
-import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.network.ApiClient;
-import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.network.ProductService;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Location;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Order;
-import com.ntg.seqaya.seqayamvpclean.domain.entity.User;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.MainActivity;
 import com.ntg.seqaya.seqayamvpclean.presentation.savedlocatioon.SavedLocationsFragment;
 
@@ -47,9 +44,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
@@ -189,7 +183,7 @@ public class OrderMapActivity extends BaseActivity implements
                     Toast.makeText(OrderMapActivity.this, address, Toast.LENGTH_SHORT).show();
                     finaladdress = address;
                 }
-                location = new Location(User.getEmail(), finaladdress, latLng.latitude, latLng.longitude);
+                location = new Location(finaladdress, latLng.latitude, latLng.longitude);
                 order.setLocation(location);
             }
         });
@@ -216,7 +210,7 @@ public class OrderMapActivity extends BaseActivity implements
                     String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
 
                     finaladdress = address;
-                    location = new Location(User.getEmail(), finaladdress, lattiude, longtude);
+                    location = new Location(finaladdress, lattiude, longtude);
                     order.setLocation(location);
 
                     MarkerInfo markerInfo = new MarkerInfo();
@@ -328,19 +322,19 @@ public class OrderMapActivity extends BaseActivity implements
             finaladdress = markerInfo.getAddress();
         }
 
-        ApiClient.getClient().create(ProductService.class).addNewLocation(location)
-                .enqueue(new Callback<Location>() {
-                    @Override
-                    public void onResponse(Call<Location> call, Response<Location> response) {
-                        Location loc = response.body();
-                        order.setLocation(loc);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Location> call, Throwable t) {
-                        showErrorMessage("تأكد من اتصال الانترنت");
-                    }
-                });
+//        ApiClient.getClient().create(ProductService.class).addNewLocation(location)
+//                .enqueue(new Callback<Location>() {
+//                    @Override
+//                    public void onResponse(Call<Location> call, Response<Location> response) {
+//                        Location loc = response.body();
+//                        order.setLocation(loc);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Location> call, Throwable t) {
+//                        showErrorMessage("تأكد من اتصال الانترنت");
+//                    }
+//                });
 
     }
 

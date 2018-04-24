@@ -1,10 +1,10 @@
 package com.ntg.seqaya.seqayamvpclean.domain.repository;
 
-import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserAPI;
+import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserApi;
 
 public interface IUsersRepository {
 
-    void addNewUser(UserAPI user,
+    void addNewUser(UserApi user,
                     SuccessCallback<Void> successCallback,
                     ErrorCallback errorCallback);
 

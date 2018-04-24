@@ -80,7 +80,7 @@ public class ProductsFragment extends BaseFragment implements ProductsContract.V
         favouritList = new CopyOnWriteArrayList<>();
         ViewUtil.setupActionBarWithBackButton(getActivity() , getString(R.string.catalog));
 
-        cartItemPublishSubject.subscribe(cartItem -> productsPresenter.addToCart(cartItems , cartItem));
+        cartItemPublishSubject.subscribe(cartItem -> productsPresenter.addToCart(cartItems, cartItem));
         disposable = productPublishSubject.subscribe(product -> {
             if (product.isLiked()) {
                 productsPresenter.deleteFavourite(favouritList , product);

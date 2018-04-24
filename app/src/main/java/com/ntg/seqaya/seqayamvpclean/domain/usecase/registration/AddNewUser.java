@@ -1,7 +1,7 @@
 package com.ntg.seqaya.seqayamvpclean.domain.usecase.registration;
 
 import com.ntg.seqaya.seqayamvpclean.base.UseCase;
-import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserAPI;
+import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserApi;
 import com.ntg.seqaya.seqayamvpclean.domain.repository.IUsersRepository;
 
 public class AddNewUser extends UseCase<AddNewUser.RequestValues, AddNewUser.ResponseValues> {
@@ -20,13 +20,13 @@ public class AddNewUser extends UseCase<AddNewUser.RequestValues, AddNewUser.Res
     }
 
     public static final class RequestValues implements UseCase.RequestValues {
-        private UserAPI user;
+        private UserApi user;
 
-        public RequestValues(UserAPI user) {
+        public RequestValues(UserApi user) {
             this.user = user;
         }
 
-        public UserAPI getUser() {
+        public UserApi getUser() {
             return user;
         }
     }

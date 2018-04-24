@@ -1,5 +1,7 @@
 package com.ntg.seqaya.seqayamvpclean.domain.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -11,21 +13,19 @@ import java.util.UUID;
 public class Order implements Serializable {
 
     private String id;
-    private String userId;
-    private List<CartItem> cartItems;
+    private List<OrderItem> orderItems;
     private String deliveryDate;
     private String deliveryTime;
     private Location location;
+    @SerializedName("location_id")
+    private String locationId;
     private @PaymentMethod
     String paymentMethod;
     private @OrderStatus
     String status;
     private int total;
 
-    public Order(String userId) {
-        this.id = UUID.randomUUID().toString();
-        this.userId = userId;
-        this.status = OrderStatus.IN_PROCESSING;
+    public Order() {
     }
 
     public String getId() {
@@ -38,14 +38,6 @@ public class Order implements Serializable {
 
     public void setStatus(@OrderStatus String status) {
         this.status = status;
-    }
-
-    public List<CartItem> getCartItems() {
-        return cartItems;
-    }
-
-    public void setCartItems(List<CartItem> cartItems) {
-        this.cartItems = cartItems;
     }
 
     public String getDeliveryDate() {
@@ -72,20 +64,28 @@ public class Order implements Serializable {
         this.paymentMethod = paymentMethod;
     }
 
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
+    }
+
     public String getDeliveryTime() {
         return deliveryTime;
     }
 
     public void setDeliveryTime(String deliveryTime) {
         this.deliveryTime = deliveryTime;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public int getTotal() {

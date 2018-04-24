@@ -57,7 +57,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Pr
                                 context.getPackageName()))
                 .into(holder.productImage);
         holder.name.setText(product.getName());
-        holder.manufacturer.setText(product.getManufacturer());
+        holder.manufacturer.setText(product.getManufacturerName());
         holder.bottleSize.setText(String.valueOf(product.getBottleSize()) + "لتر");
         holder.numberInPackage.setText(String.valueOf(product.getNo_bpp()) + "زجاجة");
         holder.price.setText(String.valueOf(product.getPrice()) + " ريال");

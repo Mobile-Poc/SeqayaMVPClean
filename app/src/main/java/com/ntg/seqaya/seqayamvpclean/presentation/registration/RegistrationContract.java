@@ -2,7 +2,7 @@ package com.ntg.seqaya.seqayamvpclean.presentation.registration;
 
 import com.ntg.seqaya.seqayamvpclean.base.BasePresenter;
 import com.ntg.seqaya.seqayamvpclean.base.BaseView;
-import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserAPI;
+import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserApi;
 
 public interface RegistrationContract {
 
@@ -11,6 +11,6 @@ public interface RegistrationContract {
     }
 
     interface Presenter extends BasePresenter {
-        void addNewUser(UserAPI user);
+        void addNewUser(UserApi user);
     }
 }

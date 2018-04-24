@@ -1,7 +1,6 @@
 package com.ntg.seqaya.seqayamvpclean.presentation.ordersummery;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -92,7 +91,8 @@ public class SummaryOrderFragment extends BaseFragment {
     }
 
     private void setupOrderItemsList() {
-        orderItemsAdapter = new OrderItemsAdapter(order.getCartItems(), getActivity());
+        orderItemsAdapter = new OrderItemsAdapter(User.getShoppingCart().getCartItemList(),
+                getActivity());
         recyclerList.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerList.setAdapter(orderItemsAdapter);
         orderItemsAdapter.notifyDataSetChanged();

@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 import com.ntg.seqaya.seqayamvpclean.R;
 import com.ntg.seqaya.seqayamvpclean.base.BaseFragment;
 import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.network.ApiClient;
-import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.network.ProductService;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Order;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.PaymentMethod;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.MainActivity;
@@ -92,24 +91,24 @@ public class PaymentFragment extends BaseFragment implements View.OnClickListene
     }
 
     public void navigateToOrderSummery(final Order order) {
-        ProductService productService = ApiClient.getClient().create(ProductService.class);
-        Call<Order> call = productService.addNewOrder(order);
-        call.enqueue(new Callback<Order>() {
-            @Override
-            public void onResponse(Call<Order> call, Response<Order> response) {
-                Bundle args = new Bundle();
-                args.putSerializable(MainActivity.ORDER, order);
-                SummaryOrderFragment summaryOrderFragment = new SummaryOrderFragment();
-                summaryOrderFragment.setArguments(args);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .addToBackStack(null).replace(R.id.container, summaryOrderFragment)
-                        .commit();
-            }
-
-            @Override
-            public void onFailure(Call<Order> call, Throwable t) {
-
-            }
-        });
+//        ProductService productService = ApiClient.getClient().create(ProductService.class);
+//        Call<Order> call = productService.addNewOrder(order);
+//        call.enqueue(new Callback<Order>() {
+//            @Override
+//            public void onResponse(Call<Order> call, Response<Order> response) {
+//                Bundle args = new Bundle();
+//                args.putSerializable(MainActivity.ORDER, order);
+//                SummaryOrderFragment summaryOrderFragment = new SummaryOrderFragment();
+//                summaryOrderFragment.setArguments(args);
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .addToBackStack(null).replace(R.id.container, summaryOrderFragment)
+//                        .commit();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Order> call, Throwable t) {
+//
+//            }
+//        });
     }
 }

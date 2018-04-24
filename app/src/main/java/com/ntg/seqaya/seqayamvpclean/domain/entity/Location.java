@@ -10,26 +10,25 @@ import java.io.Serializable;
 
 public class Location implements Serializable {
 
-    private String userId;
+    private String id;
     private String address;
     @SerializedName("lat")
     private double latitude;
     @SerializedName("long")
     private double longitude;
 
-    public Location(String userId, String address, double latitude, double longitude) {
-        this.userId = userId;
+    public Location(String address, double latitude, double longitude) {
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAddress() {

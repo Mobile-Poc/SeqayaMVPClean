@@ -1,7 +1,7 @@
 package com.ntg.seqaya.seqayamvpclean.data.repository;
 
 import com.ntg.seqaya.seqayamvpclean.data.datasource.UsersDataSource;
-import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserAPI;
+import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserApi;
 import com.ntg.seqaya.seqayamvpclean.domain.repository.ErrorCallback;
 import com.ntg.seqaya.seqayamvpclean.domain.repository.IUsersRepository;
 import com.ntg.seqaya.seqayamvpclean.domain.repository.SuccessCallback;
@@ -21,7 +21,7 @@ public class UsersRepository implements IUsersRepository {
     }
 
     @Override
-    public void addNewUser(UserAPI user,
+    public void addNewUser(UserApi user,
                            SuccessCallback<Void> successCallback,
                            ErrorCallback errorCallback) {
         usersDataSource.addNewUser(user, successCallback, errorCallback);

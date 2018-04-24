@@ -2,7 +2,7 @@ package com.ntg.seqaya.seqayamvpclean.presentation.registration;
 
 import com.ntg.seqaya.seqayamvpclean.base.UseCaseHandler;
 import com.ntg.seqaya.seqayamvpclean.base.UseCase;
-import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserAPI;
+import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserApi;
 import com.ntg.seqaya.seqayamvpclean.domain.usecase.registration.AddNewUser;
 import com.ntg.seqaya.seqayamvpclean.domain.usecase.registration.AddNewUser.RequestValues;
 
@@ -21,7 +21,7 @@ public class RegistrationPresenter implements RegistrationContract.Presenter {
     }
 
     @Override
-    public void addNewUser(UserAPI user) {
+    public void addNewUser(UserApi user) {
         RequestValues requestValues = new RequestValues(user);
         useCaseHandler.execute(addNewUser, requestValues,
                 new UseCase.UseCaseCallback<AddNewUser.ResponseValues>() {

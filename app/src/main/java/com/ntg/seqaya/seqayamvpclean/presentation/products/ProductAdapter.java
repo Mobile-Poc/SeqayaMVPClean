@@ -17,8 +17,6 @@ import com.like.OnLikeListener;
 import com.ntg.seqaya.seqayamvpclean.R;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.CartItem;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Product;
-import com.ntg.seqaya.seqayamvpclean.domain.entity.ShoppingCart;
-import com.ntg.seqaya.seqayamvpclean.domain.entity.User;
 import com.ntg.seqaya.seqayamvpclean.presentation.main.CartItemsCountListener;
 import com.ntg.seqaya.seqayamvpclean.utils.ViewUtil;
 
@@ -72,7 +70,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                         .getIdentifier(product.getPhotoUrl(), "drawable", context.getPackageName()))
                 .into(holder.productImage);
         holder.name.setText(product.getName());
-        holder.manufacturer.setText(product.getManufacturer());
+        holder.manufacturer.setText(product.getManufacturerName());
         holder.bottleSize.setText(String.valueOf(product.getBottleSize()) + "لتر");
         holder.numberInPackage.setText(String.valueOf(product.getNo_bpp()) + "زجاجة");
         holder.price.setText(String.valueOf(product.getPrice()));

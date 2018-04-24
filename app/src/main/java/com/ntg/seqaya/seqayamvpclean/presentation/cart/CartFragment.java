@@ -87,9 +87,9 @@ public class CartFragment extends BaseFragment implements CartAdapter.TotalListe
     }
 
     private Order newOrder() {
-        Order order = new Order(User.getEmail());
+        Order order = new Order();
         order.setTotal(total);
-        order.setCartItems(cartItemList);
+//        order.setOrderItems(cartItemList);
         return order;
     }
 

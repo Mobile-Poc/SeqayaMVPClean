@@ -12,6 +12,7 @@ import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.ntg.seqaya.seqayamvpclean.R;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.CartItem;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.Order;
+import com.ntg.seqaya.seqayamvpclean.domain.entity.OrderItem;
 import com.ntg.seqaya.seqayamvpclean.domain.entity.OrderStatus;
 import com.ntg.seqaya.seqayamvpclean.utils.ViewUtil;
 
@@ -47,16 +48,16 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     public void onBindViewHolder(OrderHistoryViewHolder holder, int position) {
         Order order = orders.get(position);
 
-        List<CartItem> cartItems = order.getCartItems();
+        List<OrderItem> orderItems = order.getOrderItems();
         holder.orderId.setText(order.getId());
         holder.expectedDelivery.setText(order.getDeliveryDate());
         holder.orderDate.setText(order.getDeliveryDate());
-        if (!cartItems.isEmpty()) {
+        if (!orderItems.isEmpty()) {
 
-            holder.prodName.setText(cartItems.get(0).getProduct().getName());
-            holder.prodPrice.setText(String.valueOf(cartItems.get(0).getProduct().getPrice()));
-            holder.buttleSize.setText(String.valueOf(cartItems.get(0).getProduct().getBottleSize()));
-            holder.bpp.setText(String.valueOf(cartItems.get(0).getProduct().getNo_bpp()));
+            holder.prodName.setText(orderItems.get(0).getProduct().getName());
+            holder.prodPrice.setText(String.valueOf(orderItems.get(0).getProduct().getPrice()));
+            holder.buttleSize.setText(String.valueOf(orderItems.get(0).getProduct().getBottleSize()));
+            holder.bpp.setText(String.valueOf(orderItems.get(0).getProduct().getNo_bpp()));
         }
         holder.orderDetailsText.setOnClickListener(v -> {
         });

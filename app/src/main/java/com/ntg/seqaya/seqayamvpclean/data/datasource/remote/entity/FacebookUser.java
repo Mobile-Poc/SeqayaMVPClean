@@ -2,17 +2,17 @@ package com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity;
 
 import java.io.Serializable;
 
-public class UserApi implements Serializable {
+public class FacebookUser implements Serializable {
 
     private String userToken;
     private String email;
     private String firstName;
     private String middleName;
     private String lastName;
-    private String phoneNumber;
-    private boolean isCorporate;
+    private String contactNumber;
+    private String fbId;
 
-    public UserApi() {
+    public FacebookUser() {
     }
 
     public String getUserToken() {
@@ -21,14 +21,6 @@ public class UserApi implements Serializable {
 
     public void setUserToken(String userToken) {
         this.userToken = userToken;
-    }
-
-    public boolean isCorporate() {
-        return isCorporate;
-    }
-
-    public void setCorporate(boolean corporate) {
-        isCorporate = corporate;
     }
 
     public String getEmail() {
@@ -63,11 +55,19 @@ public class UserApi implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getFbId() {
+        return fbId;
+    }
+
+    public void setFbId(String fbId) {
+        this.fbId = fbId;
     }
 }

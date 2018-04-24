@@ -55,7 +55,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
                                 context.getPackageName()))
                 .into(holder.productImage);
         holder.name.setText(cartItem.getProduct().getName());
-        holder.manufacturer.setText(cartItem.getProduct().getManufacturer());
+        holder.manufacturer.setText(cartItem.getProduct().getManufacturerName());
         holder.bottleSize.setText(String.valueOf(cartItem.getProduct().getBottleSize()));
         holder.numberInPackage.setText(String.valueOf(cartItem.getProduct().getNo_bpp()));
         holder.price.setText(String.valueOf(cartItem.getProduct().getPrice()));

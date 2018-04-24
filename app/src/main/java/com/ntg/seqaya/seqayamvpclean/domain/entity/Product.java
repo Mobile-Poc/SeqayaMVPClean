@@ -10,7 +10,7 @@ public class Product implements Serializable {
 
     private int id;
     private String name;
-    private String manufacturer;
+    private String manufacturerName;
     private String photoUrl;
     private float bottleSize;
     private int no_bpp;
@@ -26,17 +26,8 @@ public class Product implements Serializable {
     }
 
     public Product() {
-        id = 1;
-        name="مياه نقية";
-        manufacturer="نستله";
-        bottleSize=1;
-        no_bpp=24;
-        price=150;
-
 
     }
-
-
 
     public int getId() {
         return id;
@@ -46,8 +37,8 @@ public class Product implements Serializable {
         return name;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
+    public String getManufacturerName() {
+        return manufacturerName;
     }
 
     public String getPhotoUrl() {

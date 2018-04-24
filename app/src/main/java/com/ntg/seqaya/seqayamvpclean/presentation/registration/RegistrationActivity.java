@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.ntg.seqaya.seqayamvpclean.R;
 import com.ntg.seqaya.seqayamvpclean.base.BaseActivity;
-import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserAPI;
+import com.ntg.seqaya.seqayamvpclean.data.datasource.remote.entity.UserApi;
 import com.ntg.seqaya.seqayamvpclean.presentation.login.LoginActivity;
 import com.ntg.seqaya.seqayamvpclean.utils.Injection;
 
@@ -77,7 +77,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         }
     }
 
-    private UserAPI getUser() {
+    private UserApi getUser() {
         String name = regNameEditText.getText().toString();
         String email = regEmailEditText.getText().toString();
         String password = regPasswordEditText.getText().toString();
@@ -86,11 +86,9 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
 
         if (notNullOrEmpty(name) && isValidEmailAddress(email) && notNullOrEmpty(password) &&
                 password.equals(rePassword) && notNullOrEmpty(phone_number)) {
-            UserAPI userAPI = new UserAPI();
-            userAPI.setEmail(email);
-            userAPI.setPassword(password);
-            userAPI.setName(name);
-            return userAPI;
+            UserApi userApi = new UserApi();
+            userApi.setEmail(email);
+            return userApi;
         }
 
         // return new User(name, email, password, phone_number);
